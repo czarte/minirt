@@ -1,0 +1,4 @@
+cmake-build-debug
+miniRT.dSYM
+miniRT
+.idea/*

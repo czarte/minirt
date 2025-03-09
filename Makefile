@@ -1,5 +1,5 @@
 SRC = main.c
-OBJ = $(SRC:.cpp=.o)
+OBJ = $(SRC:.c=.o)
 CC = clang
 RM = rm -f
 CPPFLAGS = -Wall -Wextra -Werror -g3 -pedantic #-fsanitize=address

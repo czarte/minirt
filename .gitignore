@@ -2,3 +2,5 @@ cmake-build-debug
 miniRT.dSYM
 miniRT
 .idea/*
+*.o
+mlx

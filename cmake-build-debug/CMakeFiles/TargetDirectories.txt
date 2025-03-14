@@ -1,3 +1,0 @@
-/Users/vojtechparkan/CLionProjects/miniRT/cmake-build-debug/CMakeFiles/miniRT.dir
-/Users/vojtechparkan/CLionProjects/miniRT/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/vojtechparkan/CLionProjects/miniRT/cmake-build-debug/CMakeFiles/rebuild_cache.dir

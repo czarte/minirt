@@ -1,41 +1,4 @@
-/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=c++ -DCMAKE_CXX_COMPILER=c++ -G "Unix Makefiles" -S /home/voparkan/Projects/minirt -B /home/voparkan/Projects/minirt/cmake-build-debug
--- The C compiler identification is unknown
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - failed
--- Check for working C compiler: /usr/bin/c++
--- Check for working C compiler: /usr/bin/c++ - broken
-CMake Error at /home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake:67 (message):
-  The C compiler
-
-    "/usr/bin/c++"
-
-  is not able to compile a simple test program.
-
-  It fails with the following output:
-
-    Change Dir: '/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-OZiPma'
-    
-    Run Build Command(s): /home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_1616f/fast
-    /usr/bin/gmake  -f CMakeFiles/cmTC_1616f.dir/build.make CMakeFiles/cmTC_1616f.dir/build
-    gmake[1]: Entering directory '/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-OZiPma'
-    Building C object CMakeFiles/cmTC_1616f.dir/testCCompiler.c.o
-    /usr/bin/c++    -o CMakeFiles/cmTC_1616f.dir/testCCompiler.c.o -c /home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-OZiPma/testCCompiler.c
-    clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
-    /home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-OZiPma/testCCompiler.c:2:3: error: "The CMAKE_C_COMPILER is set to a C++ compiler"
-    # error "The CMAKE_C_COMPILER is set to a C++ compiler"
-      ^
-    1 error generated.
-    gmake[1]: *** [CMakeFiles/cmTC_1616f.dir/build.make:78: CMakeFiles/cmTC_1616f.dir/testCCompiler.c.o] Error 1
-    gmake[1]: Leaving directory '/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-OZiPma'
-    gmake: *** [Makefile:127: cmTC_1616f/fast] Error 2
-    
-    
-
-  
-
-  CMake will not be able to correctly generate this project.
-Call Stack (most recent call first):
-  CMakeLists.txt:2 (project)
-
-
--- Configuring incomplete, errors occurred!
+/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=c++ -G "Unix Makefiles" -S /home/voparkan/Projects/minirt -B /home/voparkan/Projects/minirt/cmake-build-debug
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/voparkan/Projects/minirt/cmake-build-debug

@@ -16,346 +16,20 @@ events:
       - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:2 (project)"
     message: |
-      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
-      Compiler: /usr/bin/c++ 
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: /usr/bin/gcc 
       Build flags: 
       Id flags:  
       
       The output was:
-      1
-      clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
-      CMakeCCompilerId.c:2:3: error: "A C++ compiler has been selected for C."
-      # error "A C++ compiler has been selected for C."
-        ^
-      1 error generated.
+      0
       
       
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:2 (project)"
-    message: |
-      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
-      Compiler: /usr/bin/c++ 
-      Build flags: 
-      Id flags: -c 
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
       
-      The output was:
-      1
-      clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
-      CMakeCCompilerId.c:2:3: error: "A C++ compiler has been selected for C."
-      # error "A C++ compiler has been selected for C."
-        ^
-      1 error generated.
+      The C compiler identification is GNU, found in:
+        /home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/3.30.5/CompilerIdC/a.out
       
-      
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:2 (project)"
-    message: |
-      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
-      Compiler: /usr/bin/c++ 
-      Build flags: 
-      Id flags: -Aa 
-      
-      The output was:
-      1
-      clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
-      clang: warning: argument unused during compilation: '-Aa' [-Wunused-command-line-argument]
-      CMakeCCompilerId.c:2:3: error: "A C++ compiler has been selected for C."
-      # error "A C++ compiler has been selected for C."
-        ^
-      1 error generated.
-      
-      
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:2 (project)"
-    message: |
-      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
-      Compiler: /usr/bin/c++ 
-      Build flags: 
-      Id flags: -D__CLASSIC_C__ 
-      
-      The output was:
-      1
-      clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
-      CMakeCCompilerId.c:2:3: error: "A C++ compiler has been selected for C."
-      # error "A C++ compiler has been selected for C."
-        ^
-      CMakeCCompilerId.c:455:29: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
-      char const* info_compiler = "INFO" ":" "compiler[" COMPILER_ID "]";
-                                  ^
-      CMakeCCompilerId.c:825:29: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
-      char const* info_platform = "INFO" ":" "platform[" PLATFORM_ID "]";
-                                  ^
-      CMakeCCompilerId.c:826:25: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
-      char const* info_arch = "INFO" ":" "arch[" ARCHITECTURE_ID "]";
-                              ^
-      CMakeCCompilerId.c:857:3: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
-        "INFO" ":" "standard_default[" C_VERSION "]";
-        ^
-      CMakeCCompilerId.c:859:48: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
-      const char* info_language_extensions_default = "INFO" ":" "extensions_default["
-                                                     ^
-      CMakeCCompilerId.c:875:10: error: unknown type name 'argc'
-      int main(argc, argv) int argc; char *argv[];
-               ^
-      CMakeCCompilerId.c:875:16: error: unknown type name 'argv'
-      int main(argc, argv) int argc; char *argv[];
-                     ^
-      CMakeCCompilerId.c:875:21: error: expected ';' after top level declarator
-      int main(argc, argv) int argc; char *argv[];
-                          ^
-                          ;
-      CMakeCCompilerId.c:875:38: error: definition of variable with array type needs an explicit size or an initializer
-      int main(argc, argv) int argc; char *argv[];
-                                           ^
-      CMakeCCompilerId.c:879:1: error: expected unqualified-id
-      {
-      ^
-      5 warnings and 6 errors generated.
-      
-      
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:2 (project)"
-    message: |
-      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
-      Compiler: /usr/bin/c++ 
-      Build flags: 
-      Id flags: --target=arm-arm-none-eabi;-mcpu=cortex-m3 
-      
-      The output was:
-      1
-      clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
-      CMakeCCompilerId.c:2:3: error: "A C++ compiler has been selected for C."
-      # error "A C++ compiler has been selected for C."
-        ^
-      1 error generated.
-      
-      
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:2 (project)"
-    message: |
-      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
-      Compiler: /usr/bin/c++ 
-      Build flags: 
-      Id flags: -c;-I__does_not_exist__ 
-      
-      The output was:
-      1
-      clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
-      CMakeCCompilerId.c:2:3: error: "A C++ compiler has been selected for C."
-      # error "A C++ compiler has been selected for C."
-        ^
-      1 error generated.
-      
-      
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:2 (project)"
-    message: |
-      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
-      Compiler: /usr/bin/c++ 
-      Build flags: 
-      Id flags:  
-      
-      The output was:
-      1
-      clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
-      CMakeCCompilerId.c:2:3: error: "A C++ compiler has been selected for C."
-      # error "A C++ compiler has been selected for C."
-        ^
-      1 error generated.
-      
-      
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:2 (project)"
-    message: |
-      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
-      Compiler: /usr/bin/c++ 
-      Build flags: 
-      Id flags: -c 
-      
-      The output was:
-      1
-      clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
-      CMakeCCompilerId.c:2:3: error: "A C++ compiler has been selected for C."
-      # error "A C++ compiler has been selected for C."
-        ^
-      1 error generated.
-      
-      
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:2 (project)"
-    message: |
-      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
-      Compiler: /usr/bin/c++ 
-      Build flags: 
-      Id flags: -Aa 
-      
-      The output was:
-      1
-      clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
-      clang: warning: argument unused during compilation: '-Aa' [-Wunused-command-line-argument]
-      CMakeCCompilerId.c:2:3: error: "A C++ compiler has been selected for C."
-      # error "A C++ compiler has been selected for C."
-        ^
-      1 error generated.
-      
-      
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:2 (project)"
-    message: |
-      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
-      Compiler: /usr/bin/c++ 
-      Build flags: 
-      Id flags: -D__CLASSIC_C__ 
-      
-      The output was:
-      1
-      clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
-      CMakeCCompilerId.c:2:3: error: "A C++ compiler has been selected for C."
-      # error "A C++ compiler has been selected for C."
-        ^
-      CMakeCCompilerId.c:455:29: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
-      char const* info_compiler = "INFO" ":" "compiler[" COMPILER_ID "]";
-                                  ^
-      CMakeCCompilerId.c:825:29: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
-      char const* info_platform = "INFO" ":" "platform[" PLATFORM_ID "]";
-                                  ^
-      CMakeCCompilerId.c:826:25: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
-      char const* info_arch = "INFO" ":" "arch[" ARCHITECTURE_ID "]";
-                              ^
-      CMakeCCompilerId.c:857:3: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
-        "INFO" ":" "standard_default[" C_VERSION "]";
-        ^
-      CMakeCCompilerId.c:859:48: warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
-      const char* info_language_extensions_default = "INFO" ":" "extensions_default["
-                                                     ^
-      CMakeCCompilerId.c:875:10: error: unknown type name 'argc'
-      int main(argc, argv) int argc; char *argv[];
-               ^
-      CMakeCCompilerId.c:875:16: error: unknown type name 'argv'
-      int main(argc, argv) int argc; char *argv[];
-                     ^
-      CMakeCCompilerId.c:875:21: error: expected ';' after top level declarator
-      int main(argc, argv) int argc; char *argv[];
-                          ^
-                          ;
-      CMakeCCompilerId.c:875:38: error: definition of variable with array type needs an explicit size or an initializer
-      int main(argc, argv) int argc; char *argv[];
-                                           ^
-      CMakeCCompilerId.c:879:1: error: expected unqualified-id
-      {
-      ^
-      5 warnings and 6 errors generated.
-      
-      
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:2 (project)"
-    message: |
-      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
-      Compiler: /usr/bin/c++ 
-      Build flags: 
-      Id flags: --target=arm-arm-none-eabi;-mcpu=cortex-m3 
-      
-      The output was:
-      1
-      clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
-      CMakeCCompilerId.c:2:3: error: "A C++ compiler has been selected for C."
-      # error "A C++ compiler has been selected for C."
-        ^
-      1 error generated.
-      
-      
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:2 (project)"
-    message: |
-      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
-      Compiler: /usr/bin/c++ 
-      Build flags: 
-      Id flags: -c;-I__does_not_exist__ 
-      
-      The output was:
-      1
-      clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
-      CMakeCCompilerId.c:2:3: error: "A C++ compiler has been selected for C."
-      # error "A C++ compiler has been selected for C."
-        ^
-      1 error generated.
-      
-      
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:1205 (message)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:86 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:2 (project)"
-    message: |
-      Checking whether the C compiler is IAR using "" did not match "IAR .+ Compiler":
-      clang: error: no input files
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:1205 (message)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:86 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:2 (project)"
-    message: |
-      Checking whether the C compiler is IAR using "" did not match "IAR .+ Compiler":
-      clang: error: no input files
   -
     kind: "try_compile-v1"
     backtrace:
@@ -365,66 +39,244 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-u0fMaP"
-      binary: "/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-u0fMaP"
+      source: "/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-WHvKyN"
+      binary: "/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-WHvKyN"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
-      CMAKE_C_FLAGS_DEBUG: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
       CMAKE_EXE_LINKER_FLAGS: ""
     buildResult:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-u0fMaP'
+        Change Dir: '/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-WHvKyN'
         
-        Run Build Command(s): /home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_746b5/fast
-        /usr/bin/gmake  -f CMakeFiles/cmTC_746b5.dir/build.make CMakeFiles/cmTC_746b5.dir/build
-        gmake[1]: Entering directory '/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-u0fMaP'
-        Building C object CMakeFiles/cmTC_746b5.dir/CMakeCCompilerABI.c.o
-        /usr/bin/c++    -o CMakeFiles/cmTC_746b5.dir/CMakeCCompilerABI.c.o -c /home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeCCompilerABI.c
-        clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
-        /home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeCCompilerABI.c:2:4: error: "A C++ compiler has been selected for C."
-        #  error "A C++ compiler has been selected for C."
-           ^
-        1 error generated.
-        gmake[1]: *** [CMakeFiles/cmTC_746b5.dir/build.make:78: CMakeFiles/cmTC_746b5.dir/CMakeCCompilerABI.c.o] Error 1
-        gmake[1]: Leaving directory '/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-u0fMaP'
-        gmake: *** [Makefile:127: cmTC_746b5/fast] Error 2
+        Run Build Command(s): /home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_37efa/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_37efa.dir/build.make CMakeFiles/cmTC_37efa.dir/build
+        gmake[1]: Entering directory '/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-WHvKyN'
+        Building C object CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o
+        /usr/bin/gcc   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o -c /home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeCCompilerABI.c
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/gcc
+        Target: x86_64-linux-gnu
+        Configured with: ../src/configure -v --with-pkgversion='Ubuntu 10.5.0-1ubuntu1~22.04' --with-bugurl=file:///usr/share/doc/gcc-10/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,m2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-10 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-mutex
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 10.5.0 (Ubuntu 10.5.0-1ubuntu1~22.04) 
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+         /usr/lib/gcc/x86_64-linux-gnu/10/cc1 -quiet -v -imultiarch x86_64-linux-gnu /home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o -version -fdiagnostics-color=always -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccg94gGz.s
+        GNU C17 (Ubuntu 10.5.0-1ubuntu1~22.04) version 10.5.0 (x86_64-linux-gnu)
+        	compiled by GNU C version 10.5.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
         
-      exitCode: 2
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"
+        ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/10/include-fixed"
+        ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/10/../../../../x86_64-linux-gnu/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /usr/lib/gcc/x86_64-linux-gnu/10/include
+         /usr/local/include
+         /usr/include/x86_64-linux-gnu
+         /usr/include
+        End of search list.
+        GNU C17 (Ubuntu 10.5.0-1ubuntu1~22.04) version 10.5.0 (x86_64-linux-gnu)
+        	compiled by GNU C version 10.5.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        Compiler executable checksum: 8e18376ed9531e97684a16007edfeb8b
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+         as -v --64 -o CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o /tmp/ccg94gGz.s
+        GNU assembler version 2.38 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.38
+        COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+        Linking C executable cmTC_37efa
+        /home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_37efa.dir/link.txt --verbose=1
+        /usr/bin/gcc  -v -Wl,-v CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o -o cmTC_37efa
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/gcc
+        COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/10/lto-wrapper
+        Target: x86_64-linux-gnu
+        Configured with: ../src/configure -v --with-pkgversion='Ubuntu 10.5.0-1ubuntu1~22.04' --with-bugurl=file:///usr/share/doc/gcc-10/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,m2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-10 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-mutex
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 10.5.0 (Ubuntu 10.5.0-1ubuntu1~22.04) 
+        COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_37efa' '-mtune=generic' '-march=x86-64'
+         /usr/lib/gcc/x86_64-linux-gnu/10/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/10/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/10/lto-wrapper -plugin-opt=-fresolution=/tmp/ccheKlln.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_37efa /usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/10/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/10 -L/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/10/../../.. -v CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/10/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crtn.o
+        collect2 version 10.5.0
+        /usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/10/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/10/lto-wrapper -plugin-opt=-fresolution=/tmp/ccheKlln.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_37efa /usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/10/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/10 -L/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/10/../../.. -v CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/10/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crtn.o
+        GNU ld (GNU Binutils for Ubuntu) 2.38
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_37efa' '-mtune=generic' '-march=x86-64'
+        gmake[1]: Leaving directory '/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-WHvKyN'
+        
+      exitCode: 0
   -
-    kind: "try_compile-v1"
+    kind: "message-v1"
     backtrace:
-      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake:56 (try_compile)"
+      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:182 (message)"
+      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
       - "CMakeLists.txt:2 (project)"
-    checks:
-      - "Check for working C compiler: /usr/bin/c++"
-    directories:
-      source: "/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-OZiPma"
-      binary: "/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-OZiPma"
-    cmakeVariables:
-      CMAKE_C_FLAGS: ""
-      CMAKE_C_FLAGS_DEBUG: ""
-      CMAKE_EXE_LINKER_FLAGS: ""
-    buildResult:
-      variable: "CMAKE_C_COMPILER_WORKS"
-      cached: true
-      stdout: |
-        Change Dir: '/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-OZiPma'
-        
-        Run Build Command(s): /home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_1616f/fast
-        /usr/bin/gmake  -f CMakeFiles/cmTC_1616f.dir/build.make CMakeFiles/cmTC_1616f.dir/build
-        gmake[1]: Entering directory '/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-OZiPma'
-        Building C object CMakeFiles/cmTC_1616f.dir/testCCompiler.c.o
-        /usr/bin/c++    -o CMakeFiles/cmTC_1616f.dir/testCCompiler.c.o -c /home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-OZiPma/testCCompiler.c
-        clang: warning: treating 'c' input as 'c++' when in C++ mode, this behavior is deprecated [-Wdeprecated]
-        /home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-OZiPma/testCCompiler.c:2:3: error: "The CMAKE_C_COMPILER is set to a C++ compiler"
-        # error "The CMAKE_C_COMPILER is set to a C++ compiler"
-          ^
-        1 error generated.
-        gmake[1]: *** [CMakeFiles/cmTC_1616f.dir/build.make:78: CMakeFiles/cmTC_1616f.dir/testCCompiler.c.o] Error 1
-        gmake[1]: Leaving directory '/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-OZiPma'
-        gmake: *** [Makefile:127: cmTC_1616f/fast] Error 2
-        
-      exitCode: 2
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/usr/lib/gcc/x86_64-linux-gnu/10/include]
+          add: [/usr/local/include]
+          add: [/usr/include/x86_64-linux-gnu]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/usr/lib/gcc/x86_64-linux-gnu/10/include] ==> [/usr/lib/gcc/x86_64-linux-gnu/10/include]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/usr/include/x86_64-linux-gnu] ==> [/usr/include/x86_64-linux-gnu]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/usr/lib/gcc/x86_64-linux-gnu/10/include;/usr/local/include;/usr/include/x86_64-linux-gnu;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:218 (message)"
+      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: '/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-WHvKyN']
+        ignore line: []
+        ignore line: [Run Build Command(s): /home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_37efa/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_37efa.dir/build.make CMakeFiles/cmTC_37efa.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/voparkan/Projects/minirt/cmake-build-debug/CMakeFiles/CMakeScratch/TryCompile-WHvKyN']
+        ignore line: [Building C object CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/usr/bin/gcc   -fdiagnostics-color=always   -v -o CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o -c /home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeCCompilerABI.c]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/gcc]
+        ignore line: [Target: x86_64-linux-gnu]
+        ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 10.5.0-1ubuntu1~22.04' --with-bugurl=file:///usr/share/doc/gcc-10/README.Bugs --enable-languages=c ada c++ go brig d fortran objc obj-c++ m2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-10 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32 m64 mx32 --enable-multilib --with-tune=generic --enable-offload-targets=hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-mutex]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 10.5.0 (Ubuntu 10.5.0-1ubuntu1~22.04) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/10/cc1 -quiet -v -imultiarch x86_64-linux-gnu /home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o -version -fdiagnostics-color=always -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/ccg94gGz.s]
+        ignore line: [GNU C17 (Ubuntu 10.5.0-1ubuntu1~22.04) version 10.5.0 (x86_64-linux-gnu)]
+        ignore line: [	compiled by GNU C version 10.5.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/10/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/10/../../../../x86_64-linux-gnu/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/10/include]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /usr/include/x86_64-linux-gnu]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [GNU C17 (Ubuntu 10.5.0-1ubuntu1~22.04) version 10.5.0 (x86_64-linux-gnu)]
+        ignore line: [	compiled by GNU C version 10.5.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [Compiler executable checksum: 8e18376ed9531e97684a16007edfeb8b]
+        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o /tmp/ccg94gGz.s]
+        ignore line: [GNU assembler version 2.38 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.38]
+        ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-fdiagnostics-color=always' '-v' '-o' 'CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+        ignore line: [Linking C executable cmTC_37efa]
+        ignore line: [/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_37efa.dir/link.txt --verbose=1]
+        ignore line: [/usr/bin/gcc  -v -Wl -v CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o -o cmTC_37efa]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/gcc]
+        ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/10/lto-wrapper]
+        ignore line: [Target: x86_64-linux-gnu]
+        ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 10.5.0-1ubuntu1~22.04' --with-bugurl=file:///usr/share/doc/gcc-10/README.Bugs --enable-languages=c ada c++ go brig d fortran objc obj-c++ m2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-10 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32 m64 mx32 --enable-multilib --with-tune=generic --enable-offload-targets=hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu --with-build-config=bootstrap-lto-lean --enable-link-mutex]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 10.5.0 (Ubuntu 10.5.0-1ubuntu1~22.04) ]
+        ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/10/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/10/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_37efa' '-mtune=generic' '-march=x86-64']
+        link line: [ /usr/lib/gcc/x86_64-linux-gnu/10/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/10/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/10/lto-wrapper -plugin-opt=-fresolution=/tmp/ccheKlln.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_37efa /usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/10/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/10 -L/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/10/../../.. -v CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/10/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crtn.o]
+          arg [/usr/lib/gcc/x86_64-linux-gnu/10/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/usr/lib/gcc/x86_64-linux-gnu/10/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/10/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccheKlln.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [--build-id] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-m] ==> ignore
+          arg [elf_x86_64] ==> ignore
+          arg [--hash-style=gnu] ==> ignore
+          arg [--as-needed] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+          arg [-pie] ==> ignore
+          arg [-znow] ==> ignore
+          arg [-zrelro] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_37efa] ==> ignore
+          arg [/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/Scrt1.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/Scrt1.o]
+          arg [/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crti.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crti.o]
+          arg [/usr/lib/gcc/x86_64-linux-gnu/10/crtbeginS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/10/crtbeginS.o]
+          arg [-L/usr/lib/gcc/x86_64-linux-gnu/10] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/10]
+          arg [-L/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu]
+          arg [-L/usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib]
+          arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+          arg [-L/lib/../lib] ==> dir [/lib/../lib]
+          arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+          arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+          arg [-L/usr/lib/gcc/x86_64-linux-gnu/10/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/10/../../..]
+          arg [-v] ==> ignore
+          arg [CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [-lgcc] ==> lib [gcc]
+          arg [--push-state] ==> ignore
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--pop-state] ==> ignore
+          arg [-lc] ==> lib [c]
+          arg [-lgcc] ==> lib [gcc]
+          arg [--push-state] ==> ignore
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--pop-state] ==> ignore
+          arg [/usr/lib/gcc/x86_64-linux-gnu/10/crtendS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/10/crtendS.o]
+          arg [/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crtn.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crtn.o]
+        ignore line: [collect2 version 10.5.0]
+        ignore line: [/usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/10/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/10/lto-wrapper -plugin-opt=-fresolution=/tmp/ccheKlln.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_37efa /usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/10/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/10 -L/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/10/../../.. -v CMakeFiles/cmTC_37efa.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/10/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crtn.o]
+        linker tool for 'C': /usr/bin/ld
+        collapse obj [/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/Scrt1.o] ==> [/usr/lib/x86_64-linux-gnu/Scrt1.o]
+        collapse obj [/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crti.o] ==> [/usr/lib/x86_64-linux-gnu/crti.o]
+        collapse obj [/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crtn.o] ==> [/usr/lib/x86_64-linux-gnu/crtn.o]
+        collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/10] ==> [/usr/lib/gcc/x86_64-linux-gnu/10]
+        collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+        collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/10/../../../../lib] ==> [/usr/lib]
+        collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+        collapse library dir [/lib/../lib] ==> [/lib]
+        collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+        collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+        collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/10/../../..] ==> [/usr/lib]
+        implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+        implicit objs: [/usr/lib/x86_64-linux-gnu/Scrt1.o;/usr/lib/x86_64-linux-gnu/crti.o;/usr/lib/gcc/x86_64-linux-gnu/10/crtbeginS.o;/usr/lib/gcc/x86_64-linux-gnu/10/crtendS.o;/usr/lib/x86_64-linux-gnu/crtn.o]
+        implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/10;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "/home/voparkan/Programs/clion-2024.3.4/bin/cmake/linux/x64/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the C compiler's linker: "/usr/bin/ld" "-v"
+      GNU ld (GNU Binutils for Ubuntu) 2.38
 ...

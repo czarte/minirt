@@ -1,4 +1,4 @@
-SRC = main.c
+SRC = main.c src/window.c
 OBJ = $(SRC:.c=.o)
 CC = clang
 RM = rm -f

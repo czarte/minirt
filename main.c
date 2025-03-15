@@ -12,27 +12,6 @@
 
 #include "include/minirt.h"
 
-void	init_scene(s_data *data)
-{
-	char	*buffer;
-	ssize_t	n;
-
-	n = 0;
-	buffer = malloc(381);
-	if (buffer == NULL)
-	{
-		printf("Error allocating memory\n");
-		exit(-1);
-	}
-	while ((n = read(data->scenefd, buffer, 380)) > 0)
-	{
-		buffer[n] = '\0';
-		printf("%s\n", buffer);
-	}
-	close(data->scenefd);
-	free(buffer);
-}
-
 int	init_program(s_data *data, int argc, char **argv)
 {
 	if (argc != 2)

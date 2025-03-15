@@ -43,4 +43,7 @@ int	key_exit(int key, void *params);
 int	check_exit_button(int button,int x,int y, void *p);
 int	check_mouse_button(int button,int x,int y, void *p);
 
+/*parser*/
+void	init_scene(s_data *data);
+
 #endif

@@ -40,6 +40,7 @@ int	key_exit(int key, void *params)
 	{
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		mlx_destroy_display(data->mlx_ptr);
+		free(data);
 		exit(0);
 	}
 	return (0);
@@ -56,6 +57,7 @@ int	check_exit_button(int button, int x, int y, void *params)
 	{
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		mlx_destroy_display(data->mlx_ptr);
+		free(data);
 		exit(0);
 	}
 	return (0);
@@ -72,6 +74,7 @@ int	check_mouse_button(int button, int x, int y, void *params)
 	{
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		mlx_destroy_display(data->mlx_ptr);
+		free(data);
 		exit(0);
 	}
 	return (0);

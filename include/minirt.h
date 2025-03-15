@@ -6,7 +6,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "../mlx/mlx.h"
+#include <fcntl.h>
 
 typedef struct g_list {
 	char			**content;
@@ -14,18 +16,19 @@ typedef struct g_list {
 } garbage;
 
 typedef struct d_list {
-	char	*identifier;
-	float	cords[3];
-	float	diameter;
-	int		rgb[3];
-
+	char			*identifier;
+	float			cords[3];
+	float			diameter;
+	int				rgb[3];
+	struct d_list	*next;
 } shapes;
 
 typedef struct mian_data {
 	int 	argc;
 	char 	**argv;
 	garbage *garbage;
-	FILE	*scene;
+	int		scenefd;
+	shapes	*scene;
     int		key;
 	char 	*filename;
     void	*mlx_ptr;

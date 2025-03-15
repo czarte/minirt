@@ -30,6 +30,19 @@ int	init_program(s_data *data, int argc, char **argv)
 	return (0);
 }
 
+void	free_data(s_data *data)
+{
+	char	*tmp;
+
+	tmp = *data->lines;
+	while (tmp != NULL)
+	{
+		free(tmp);
+		data->lines++;
+		tmp = *data->lines;
+	}
+}
+
 int	main(int argc, char *argv[])
 {
 	s_data	*data;
@@ -47,7 +60,7 @@ int	main(int argc, char *argv[])
 	mlx_loop(data->mlx_ptr);
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	mlx_destroy_display(data->mlx_ptr);
-	free(data);
+	free_data(data);
 	exit(0);
 	return (0);
 }

@@ -12,20 +12,52 @@
 
 #include "../include/minirt.h"
 
+void	asign_line(char ***lines, char **line, int *i)
+{
+	(*line)[(*i)] = '\0';
+	**lines = *line;
+	*line = malloc(1024);
+	bzero(*line, 1024);
+	(*lines)++;
+	*i = 0;
+}
+
+void	do_lines(s_data *data, char *buffer, char ***lines)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	line = malloc(1024);
+	bzero(line, 1024);
+	while (read(data->scenefd, buffer, 1) > 0)
+	{
+		if (strncmp(buffer, "\n", 1) == 0)
+			asign_line(lines, &line, &i);
+		else
+			line[i++] = buffer[0];
+	}
+	**lines = line;
+	(*lines)++;
+	**lines = NULL;
+}
+
+void	print_lines(char ***tmp)
+{
+	while (**tmp != NULL)
+	{
+		printf("%s\n", **tmp);
+		(*tmp)++;
+	}
+}
+
 void	init_scene(s_data *data)
 {
 	char	*buffer;
 	char	**lines;
-	char	*line;
 	char	**tmp;
-	int		i;
-	ssize_t	n;
 
-	n = 0;
-	i = 0;
 	buffer = malloc(1);
-	line = malloc(1024);
-	bzero(line, 1024);
 	lines = malloc(100 * sizeof(char *));
 	tmp = lines;
 	if (buffer == NULL)
@@ -33,27 +65,9 @@ void	init_scene(s_data *data)
 		printf("Error allocating memory\n");
 		exit(-1);
 	}
-	while ((n = read(data->scenefd, buffer, 1)) > 0)
-	{
-        if (strncmp(buffer, "\n", 1) == 0) {
-        	line[i] = '\0';
-        	*lines = line;
-        	line = malloc(1024);
-        	bzero(line, 1024);
-        	lines++;
-        	i = 0;
-        } else {
-	        line[i] = buffer[0];
-        	i++;
-        }
-	}
-	*lines = line;
-	data->lines = lines;
+	do_lines(data, buffer, &lines);
 	close(data->scenefd);
+	data->lines = tmp;
+	print_lines(&tmp);
 	free(buffer);
 }
-
-//int	readfile(s_data *data)
-//{
-//
-//}

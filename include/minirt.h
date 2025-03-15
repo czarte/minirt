@@ -5,6 +5,7 @@
 #define WIN_TITLE "MiniRT"
 
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include "../mlx/mlx.h"
@@ -28,6 +29,7 @@ typedef struct mian_data {
 	char 	**argv;
 	garbage *garbage;
 	int		scenefd;
+	char	**lines;
 	shapes	*scene;
     int		key;
 	char 	*filename;

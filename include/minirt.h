@@ -10,11 +10,24 @@
 #include <unistd.h>
 #include "../mlx/mlx.h"
 #include <fcntl.h>
+# include "../libft/libft.h"
 
 typedef struct g_list {
 	char			**content;
 	struct g_list	*next;
 } garbage;
+
+typedef struct t_scene {
+	float			a_ratio;
+	int				a_rgb[3];
+	float			c_xyz[3];
+	float			c_rient[3];
+	int				c_fov;
+	float			l_xyz[3];
+	float			l_bright;
+	int				l_rgb[3];
+
+} s_scene;
 
 typedef struct d_list {
 	char			*identifier;
@@ -22,19 +35,20 @@ typedef struct d_list {
 	float			diameter;
 	int				rgb[3];
 	struct d_list	*next;
-} shapes;
+} s_shapes;
 
 typedef struct mian_data {
-	int 	argc;
-	char 	**argv;
-	garbage *garbage;
-	int		scenefd;
-	char	**lines;
-	shapes	*scene;
-    int		key;
-	char 	*filename;
-    void	*mlx_ptr;
-    void	*win_ptr;
+	int 		argc;
+	char 		**argv;
+	garbage		*garbage;
+	int			scenefd;
+	char		**lines;
+	s_shapes	*shapes;
+	s_scene		*scene;
+    int			key;
+	char 		*filename;
+    void		*mlx_ptr;
+    void		*win_ptr;
 
 } s_data;
 
@@ -47,5 +61,15 @@ int	check_mouse_button(int button,int x,int y, void *p);
 
 /*parser*/
 void	init_scene(s_data *data);
+
+/*init*/
+int	init_program(s_data *data, int argc, char **argv);
+void construct_scene(s_data * data);
+
+/*exit*/
+void	free_data(s_data *data);
+
+/*utils*/
+int	ft_spacious(int c);
 
 #endif

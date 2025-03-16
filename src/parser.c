@@ -70,4 +70,5 @@ void	init_scene(s_data *data)
 	data->lines = tmp;
 	print_lines(&tmp);
 	free(buffer);
+	construct_scene(data);
 }

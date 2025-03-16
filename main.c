@@ -12,37 +12,6 @@
 
 #include "include/minirt.h"
 
-int	init_program(s_data *data, int argc, char **argv)
-{
-	if (argc != 2)
-	{
-		perror("You must provide a file name of scene");
-		return (-1);
-	}
-	data->filename = argv[1];
-	data->scenefd = open(data->filename, O_RDONLY);
-	if (data->scenefd == -1)
-	{
-		perror("Error opening file");
-		return (-1);
-	}
-	init_scene(data);
-	return (0);
-}
-
-void	free_data(s_data *data)
-{
-	char	*tmp;
-
-	tmp = *data->lines;
-	while (tmp != NULL)
-	{
-		free(tmp);
-		data->lines++;
-		tmp = *data->lines;
-	}
-}
-
 int	main(int argc, char *argv[])
 {
 	s_data	*data;

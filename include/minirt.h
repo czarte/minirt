@@ -21,7 +21,7 @@ typedef struct t_scene {
 	float			a_ratio;
 	int				a_rgb[3];
 	float			c_xyz[3];
-	float			c_rient[3];
+	int				c_rient[3];
 	int				c_fov;
 	float			l_xyz[3];
 	float			l_bright;

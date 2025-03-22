@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: voparkan <voparkan@student.42prague.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
+/*   Updated: 2025/03/22 18:47:17 by voparkan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_LIBRARY
 #define MINIRT_LIBRARY
 #define WIN_WIDTH 800
@@ -71,5 +83,14 @@ void	free_data(s_data *data);
 
 /*utils*/
 int	ft_spacious(int c);
+
+/*scene*/
+void	construct_scene(s_data * data);
+void mk_scene_ambient(s_data *data, char *tmp);
+void mk_scene_camera(s_data * data, char *tmp);
+void mk_scene_light(s_data * data, char * tmp);
+
+/*objects*/
+void init_objects(s_data * data);
 
 #endif

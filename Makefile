@@ -1,5 +1,5 @@
 SRC 		= main.c src/window.c src/parser.c src/init.c src/ft_spacious.c \
-				src/exit.c
+				src/exit.c src/scene.c src/objects.c
 OBJ 		= $(SRC:.c=.o)
 CC 			= clang
 RM 			= rm -f

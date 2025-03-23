@@ -29,6 +29,19 @@ typedef struct g_list {
 	struct g_list	*next;
 } garbage;
 
+typedef struct s_vec {
+	float			x;
+	float			y;
+	float			z;
+} t_vec;
+
+typedef struct s_rgb {
+	float			alpha;
+	int				r;
+	int				g;
+	int				b;
+} t_rgb;
+
 typedef struct t_scene {
 	float			a_ratio;
 	int				a_rgb[3];

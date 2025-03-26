@@ -1,9 +1,8 @@
-SRC 		= main.c src/window.c src/parser.c src/init.c src/ft_spacious.c \
-				src/exit.c
+SRC 		= main.c src/window.c src/parser.c src/init.c src/ft_spacious.c src/exit.c
 OBJ 		= $(SRC:.c=.o)
-CC 			= clang
+CC 			= gcc
 RM 			= rm -f
-CPPFLAGS 	= -Wall -Wextra -Werror -g3 -pedantic -fsanitize=address
+CFLAGS 		= -Wall -Wextra -Werror -g3 -pedantic #-fsanitize=address
 LIBFT 		= libft.a
 LIBFTDIR	= libft
 
@@ -14,7 +13,13 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make bonus -C $(LIBFTDIR)
 	@cp $(LIBFTDIR)/$(LIBFT) .
-	$(CC) $(CPPFLAGS) $(OBJ) $(LIBFT) mlx/libmlx_Linux.a -lXext -lX11 -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) ./$(LIBFT) ./mlx/libmlx.a -lXext -lX11 -o $(NAME)
+
+mac: $(OBJ)
+	@make bonus -C $(LIBFTDIR)
+	@cp $(LIBFTDIR)/$(LIBFT) .
+	@ar rc $(LIBFT) $(OBJ)
+	$(CC) -v $(CFLAGS) ./$(LIBFT) ./mlx/libmlx.a -Iinclude -lglfw -o $(NAME)
 
 $(MLX):
 
@@ -25,5 +30,7 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean $(NAME)
+
+remac: fclean mac
 
 .PHONY: all clean fclean re

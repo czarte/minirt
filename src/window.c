@@ -39,7 +39,7 @@ int	key_exit(int key, void *params)
 	if (key == 65307 || key == 17)
 	{
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		mlx_destroy_display(data->mlx_ptr);
+		//mlx_destroy_display(data->mlx_ptr);
 		free_data(data);
 		exit(0);
 	}
@@ -56,7 +56,7 @@ int	check_exit_button(int button, int x, int y, void *params)
 	if (button == 32)
 	{
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		mlx_destroy_display(data->mlx_ptr);
+		//mlx_destroy_display(data->mlx_ptr);
 		free_data(data);
 		exit(0);
 	}
@@ -73,7 +73,7 @@ int	check_mouse_button(int button, int x, int y, void *params)
 	if (button == 17)
 	{
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		mlx_destroy_display(data->mlx_ptr);
+		//mlx_destroy_display(data->mlx_ptr);
 		free_data(data);
 		exit(0);
 	}

@@ -51,15 +51,15 @@ typedef struct t_scene {
 	float			l_xyz[3];
 	float			l_bright;
 	int				l_rgb[3];
-
 } s_scene;
 
-typedef struct d_list {
+typedef struct d_shapes {
 	char			*identifier;
-	float			cords[3];
+	t_vec			cords;
+	t_vec			axis;
 	float			diameter;
-	int				rgb[3];
-	struct d_list	*next;
+	float			height;
+	t_rgb			rgb;
 } s_shapes;
 
 typedef struct mian_data {
@@ -68,13 +68,12 @@ typedef struct mian_data {
 	garbage		*garbage;
 	int			scenefd;
 	char		**lines;
-	s_shapes	*shapes;
+	t_list		**shapes;
 	s_scene		*scene;
     int			key;
 	char 		*filename;
     void		*mlx_ptr;
     void		*win_ptr;
-
 } s_data;
 
 /*window handing functions*/
@@ -99,11 +98,14 @@ int	ft_spacious(int c);
 
 /*scene*/
 void	construct_scene(s_data * data);
-void mk_scene_ambient(s_data *data, char *tmp);
-void mk_scene_camera(s_data * data, char *tmp);
-void mk_scene_light(s_data * data, char * tmp);
+void	mk_scene_ambient(s_data *data, char *tmp);
+void	mk_scene_camera(s_data * data, char *tmp);
+void	mk_scene_light(s_data * data, char * tmp);
+void	mk_obj_pl(s_data * data, char * tmp);
+void	mk_obj_sp(s_data * data, char * tmp);
+void	mk_obj_cy(s_data * data, char * tmp);
 
 /*objects*/
-void init_objects(s_data * data);
+void	init_objects(s_data * data);
 
 #endif

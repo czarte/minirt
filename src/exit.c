@@ -14,13 +14,14 @@
 
 void	free_data(s_data *data)
 {
-	char	*tmp;
+	char		*ltmp;
 
-	tmp = *data->lines;
-	while (tmp != NULL)
+	ltmp = *data->lines;
+	while (ltmp != NULL)
 	{
-		free(tmp);
+		free(ltmp);
 		data->lines++;
-		tmp = *data->lines;
+		ltmp = *data->lines;
 	}
+	ft_lstclear(data->shapes, &free);
 }

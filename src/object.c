@@ -13,9 +13,67 @@
 #include "../include/minirt.h"
 
 void mk_obj_pl(s_data * data, char * tmp) {
-	(void) data;
-	(void) tmp;
-	printf("pl\n");
+	int			i;
+	int			j;
+	int			k;
+	s_shapes	*pl_shape;
+	t_list		*new;
+	char		buf[1024];
+	char		**spl_buf;
+
+	k = 0;
+	i = 1;
+	spl_buf = NULL;
+	pl_shape = malloc(sizeof(s_shapes));
+	pl_shape->identifier = "pl";
+	while (tmp[i] != '\0')
+	{
+		j = 0;
+		bzero(buf, 1024);
+		while (ft_spacious(tmp[i]))
+			i++;
+		while (tmp[i] && !ft_spacious(tmp[i]))
+			buf[j++] = tmp[i++];
+		buf[i] = '\0';
+		if (k < 3)
+			spl_buf = ft_split(buf, ',');
+		j = 0;
+		if (k == 0) {
+			pl_shape->cords.x = atof(spl_buf[0]);
+			pl_shape->cords.y = atof(spl_buf[1]);
+			pl_shape->cords.z = atof(spl_buf[2]);
+			while (j < 3) {
+				free(spl_buf[j]);
+				j++;
+			}
+		}
+		if (k == 1) {
+			pl_shape->axis.x = atof(spl_buf[0]);
+			pl_shape->axis.y = atof(spl_buf[1]);
+			pl_shape->axis.z = atof(spl_buf[2]);
+			while (j < 3) {
+				free(spl_buf[j]);
+				j++;
+			}
+		}
+		if (k == 2) {
+			pl_shape->rgb.alpha = 1;
+			pl_shape->rgb.r = atof(spl_buf[0]);
+			pl_shape->rgb.g = atof(spl_buf[1]);
+			pl_shape->rgb.b = atof(spl_buf[2]);
+			while (j < 3) {
+				free(spl_buf[j]);
+				j++;
+			}
+		}
+		if (k < 3)
+			free(spl_buf);
+		k++;
+	}
+	pl_shape->diameter = 0;
+	pl_shape->height = 0;
+	new = ft_lstnew((void *) pl_shape);
+	ft_lstadd_front(data->shapes, new);
 }
 
 void mk_obj_sp(s_data * data, char * tmp) {
@@ -35,7 +93,6 @@ void mk_obj_sp(s_data * data, char * tmp) {
 	while (tmp[i] != '\0')
 	{
 		j = 0;
-		printf("sp: %s\n", tmp);
 		bzero(buf, 1024);
 		while (ft_spacious(tmp[i]))
 			i++;
@@ -46,10 +103,6 @@ void mk_obj_sp(s_data * data, char * tmp) {
 			spl_buf = ft_split(buf, ',');
 		j = 0;
 		if (k == 0) {
-			// printf("spl_buf %s\n", spl_buf[0]);
-			// printf("spl_buf %s\n", spl_buf[1]);
-			// printf("spl_buf %s\n", spl_buf[2]);
-			// sp_shape->cords = malloc(sizeof(t_vec));
 			sp_shape->cords.x = atof(spl_buf[0]);
 			sp_shape->cords.y = atof(spl_buf[1]);
 			sp_shape->cords.z = atof(spl_buf[2]);
@@ -61,7 +114,10 @@ void mk_obj_sp(s_data * data, char * tmp) {
 		if (k == 1)
 			sp_shape->diameter = atof(buf);
 		if (k == 2) {
-			sp_shape->rgb = (t_rgb) { 1, ft_atoi(spl_buf[0]), ft_atoi(spl_buf[1]), ft_atoi(spl_buf[2]) };
+			sp_shape->rgb.alpha = 1;
+			sp_shape->rgb.r = atof(spl_buf[0]);
+			sp_shape->rgb.g = atof(spl_buf[1]);
+			sp_shape->rgb.b = atof(spl_buf[2]);
 			while (j < 3) {
 				free(spl_buf[j]);
 				j++;
@@ -114,7 +170,10 @@ void mk_obj_cy(s_data *data, char *tmp) {
 			}
 		}
 		if (k == 1) {
-			cy_shape->axis = (t_vec) { atof(spl_buf[0]), atof(spl_buf[1]), atof(spl_buf[2]) };
+			cy_shape->axis.x = atof(spl_buf[0]);
+			cy_shape->axis.y = atof(spl_buf[1]);
+			cy_shape->axis.z = atof(spl_buf[2]);
+			//cy_shape->axis = (t_vec) { atof(spl_buf[0]), atof(spl_buf[1]), atof(spl_buf[2]) };
 			while (j < 3) {
 				free(spl_buf[j]);
 				j++;
@@ -125,7 +184,10 @@ void mk_obj_cy(s_data *data, char *tmp) {
 		if (k == 3)
 			cy_shape->height = atof(buf);
 		if (k == 4) {
-			cy_shape->rgb = (t_rgb) { 1, ft_atoi(spl_buf[0]), ft_atoi(spl_buf[1]), ft_atoi(spl_buf[2]) };
+			cy_shape->rgb.alpha = 1;
+			cy_shape->rgb.r = atof(spl_buf[0]);
+			cy_shape->rgb.g = atof(spl_buf[1]);
+			cy_shape->rgb.b = atof(spl_buf[2]);
 			while (j < 3) {
 				free(spl_buf[j]);
 				j++;
@@ -162,7 +224,7 @@ void init_objects(s_data *data) {
 	t_list **temp = data->shapes;
 	while (*temp != NULL) {
 		s_shapes *shp = (s_shapes *) (*temp)->content;
-		printf("--------\n%s \ncoords:\t%.1f %.1f %.1f; \naxis:\t%.1f %.1f %.1f;\nd:\t\t%.1f;\th: %.1f;\nrgb:\t[%d, %d, %d] \n",
+		printf("--------\n%s \ncoords:\t%.1f %.1f %.1f; \naxis:\t%.1f %.1f %.1f;\nd:\t\t%.2f;\th: %.2f;\nrgb:\t[%d, %d, %d] \n",
 			shp->identifier, shp->cords.x, shp->cords.y, shp->cords.z,
 			shp->axis.x, shp->axis.y, shp->axis.z, shp->diameter, shp->height,
 			shp->rgb.r, shp->rgb.g, shp->rgb.b);

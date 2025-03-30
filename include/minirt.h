@@ -60,6 +60,7 @@ typedef struct d_shapes {
 	float			diameter;
 	float			height;
 	t_rgb			rgb;
+    void			*img;
 } s_shapes;
 
 typedef struct mian_data {

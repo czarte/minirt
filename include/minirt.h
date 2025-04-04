@@ -6,7 +6,7 @@
 /*   By: voparkan <voparkan@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
-/*   Updated: 2025/03/22 18:47:17 by voparkan         ###   ########.fr       */
+/*   Updated: 2025/04/04 15:20:54 by voparkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <unistd.h>
 #include "../mlx/mlx.h"
 #include <fcntl.h>
+#include <stdbool.h>
 # include "../libft/libft.h"
 
 typedef struct g_list {
@@ -108,5 +109,8 @@ void	mk_obj_cy(s_data * data, char * tmp);
 
 /*objects*/
 void	init_objects(s_data * data);
+
+/*colors*/
+int	make_color(t_rgb rgb);
 
 #endif

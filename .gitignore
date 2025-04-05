@@ -1,4 +1,5 @@
 cmake-build-debug
+googletest/
 miniRT.dSYM
 miniRT
 .idea/*

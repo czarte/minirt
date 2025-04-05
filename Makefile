@@ -26,4 +26,9 @@ fclean: clean
 
 re: fclean $(NAME)
 
+test: $(OBJ)
+	@c++ ./tests/vec_tests_test.cpp -Iinclude -Igoogletest/googletest/include/ -std=c++14 -o vec_tests.o
+	@c++ ./tests/main.cpp -Iinclude -Igoogletest/googletest/include/ -std=c++14
+	@c++ ./main.o ./vec_tests.o $(NAMEA) $(TOBJS) -I./include ./googletest/build/lib/libgtest.a -o unit_test
+
 .PHONY: all clean fclean re

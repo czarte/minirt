@@ -16,25 +16,14 @@
 #define WIN_HEIGHT 600
 #define WIN_TITLE "MiniRT"
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include "../mlx/mlx.h"
-#include <fcntl.h>
-#include <stdbool.h>
-# include "../libft/libft.h"
+#include "external.h"
+#include "vec.h"
+
 
 typedef struct g_list {
 	char			**content;
 	struct g_list	*next;
 } garbage;
-
-typedef struct s_vec {
-	float			x;
-	float			y;
-	float			z;
-} t_vec;
 
 typedef struct s_rgb {
 	float			alpha;

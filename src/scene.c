@@ -137,7 +137,7 @@ void	construct_scene(s_data * data)
 	char	**tmp;
 
 	tmp = data->lines;
-	data->scene = malloc(sizeof(s_scene));
+	data->scene = malloc(sizeof(t_scene));
 	if (data->scene == NULL) {
 		perror("Error allocating memory for scene");
 		exit(-1);

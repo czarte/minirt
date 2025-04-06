@@ -32,7 +32,12 @@ typedef struct s_rgb {
 	int				b;
 } t_rgb;
 
-typedef struct t_scene {
+// typedef	s_cam
+
+typedef struct s_scene {
+	// t_cam			cam;
+	// t_lght			lght;
+	// t_ambi			ambi;
 	float			a_ratio;
 	int				a_rgb[3];
 	float			c_xyz[3];
@@ -41,7 +46,7 @@ typedef struct t_scene {
 	float			l_xyz[3];
 	float			l_bright;
 	int				l_rgb[3];
-} s_scene;
+} t_scene;
 
 typedef struct d_shapes {
 	char			*identifier;
@@ -60,7 +65,7 @@ typedef struct mian_data {
 	int			scenefd;
 	char		**lines;
 	t_list		**shapes;
-	s_scene		*scene;
+	t_scene		*scene;
     int			key;
 	char 		*filename;
     void		*mlx_ptr;
@@ -79,7 +84,6 @@ void	init_scene(s_data *data);
 
 /*init*/
 int	init_program(s_data *data, int argc, char **argv);
-void construct_scene(s_data * data);
 
 /*exit*/
 void	free_data(s_data *data);

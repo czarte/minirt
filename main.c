@@ -6,7 +6,7 @@
 /*   By: voparkan <voparkan@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:42:51 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/04 17:25:35 by voparkan         ###   ########.fr       */
+/*   Updated: 2025/04/06 12:47:38 by voparkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,19 @@ void place_images(s_data *data)
 			printf("height %f\n", shp->height);
 			printf("color %d [%d %d %d]\n", color, shp->rgb.r, shp->rgb.g, shp->rgb.b);
 			//make_border(data, shp);
+			//shp->img = mlx_new_image(data->mlx_ptr, (int) shp->diameter + 1, (int) shp->height + 1);
 			for (int i = 0; i < (int) shp->diameter; i++) {
 				for (int j = 0; j < (int) shp->diameter; j++) {
 					if (in_sphere(i, j, shp))
 						mlx_pixel_put(data->mlx_ptr, data->win_ptr, (int) shp->cords.x + i, (int) shp->cords.y + j, color);
 				}
 			}
+			///mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, shp->img, (int) shp->cords.x, (int) shp->cords.y);
 		}
-		// shp->img = mlx_new_image(data->mlx_ptr, (int) shp->diameter + 1, (int) shp->height + 1);
+		if (ft_strncmp(shp->identifier, "sp", 2) == 0) {
+			color = make_color(shp->rgb);
 
-		// mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, shp->img, (int) shp->cords.x, (int) shp->cords.y);
+		}
 		// printf("--------\n%s \ncoords:\t%.1f %.1f %.1f; \naxis:\t%.1f %.1f %.1f;\nd:\t\t%.2f;\th: %.2f;\nrgb:\t[%d, %d, %d] \n",
 		// 	shp->identifier, shp->cords.x, shp->cords.y, shp->cords.z,
 		// 	shp->axis.x, shp->axis.y, shp->axis.z, shp->diameter, shp->height,

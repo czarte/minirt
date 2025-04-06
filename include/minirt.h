@@ -48,6 +48,14 @@ typedef struct s_scene {
 	int				l_rgb[3];
 } t_scene;
 
+typedef struct s_img {
+	void		*ptr;
+	char		*pixels;
+	int			bits_per_pixel;
+	int			endian;
+	int			line_length;
+} t_img;
+
 typedef struct d_shapes {
 	char			*identifier;
 	t_vec			cords;
@@ -55,7 +63,7 @@ typedef struct d_shapes {
 	float			diameter;
 	float			height;
 	t_rgb			rgb;
-    void			*img;
+    t_img			img;
 } s_shapes;
 
 typedef struct mian_data {

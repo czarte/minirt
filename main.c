@@ -6,11 +6,18 @@
 /*   By: voparkan <voparkan@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:42:51 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/06 12:47:38 by voparkan         ###   ########.fr       */
+/*   Updated: 2025/04/06 15:49:12 by voparkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minirt.h"
+
+void	mrt_put_pixel(t_img *img, int x, int y, int color) {
+	int	offset;
+
+	offset = (img->line_length * y) + (x * (img->bits_per_pixel / 8));
+	*((unsigned int *)(offset + img->pixels)) = color;
+}
 
 bool in_sphere(int i, int j, s_shapes *shp) {
 	float radius = shp->diameter / 2;
@@ -43,14 +50,17 @@ void place_images(s_data *data)
 			printf("height %f\n", shp->height);
 			printf("color %d [%d %d %d]\n", color, shp->rgb.r, shp->rgb.g, shp->rgb.b);
 			//make_border(data, shp);
-			//shp->img = mlx_new_image(data->mlx_ptr, (int) shp->diameter + 1, (int) shp->height + 1);
+			shp->img.ptr = mlx_new_image(data->mlx_ptr, (int) shp->diameter + 1, (int) shp->height + 1);
+			shp->img.pixels = mlx_get_data_addr(shp->img.ptr, &shp->img.bits_per_pixel, &shp->img.line_length, &color);
 			for (int i = 0; i < (int) shp->diameter; i++) {
 				for (int j = 0; j < (int) shp->diameter; j++) {
 					if (in_sphere(i, j, shp))
-						mlx_pixel_put(data->mlx_ptr, data->win_ptr, (int) shp->cords.x + i, (int) shp->cords.y + j, color);
+						mrt_put_pixel(&shp->img, i, j, color);
+					//mlx_pixel_put(data->mlx_ptr, data->win_ptr, (int) shp->cords.x + i, (int) shp->cords.y + j, color);
 				}
 			}
-			///mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, shp->img, (int) shp->cords.x, (int) shp->cords.y);
+			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, shp->img.ptr, (int) shp->cords.x, (int) shp->cords.y);
+			///
 		}
 		if (ft_strncmp(shp->identifier, "sp", 2) == 0) {
 			color = make_color(shp->rgb);
@@ -83,6 +93,6 @@ int	main(int argc, char *argv[])
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	mlx_destroy_display(data->mlx_ptr);
 	free_data(data);
-	exit(0);
+	//exit(0);
 	return (0);
 }

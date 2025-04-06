@@ -3,15 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   t_vec_products.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: voparkan <voparkan@student.42prague.com>   +#+  +:+       +#+        */
+/*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:28:24 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/05 18:28:24 by voparkan         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:34:32 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
 #include "../../include/vec.h"
+
+/*
+Create a 3D vector struct that support following operations:
+
+Vector Addition
+Vector Subtraction
+Vector Magnitude
+Dot Product
+Vector Normalization
+Vector Multiplication (Multiplying a Vector by a scalar)
+*/
 
 t_vec	*add(t_vec *a, t_vec *b) {
     return (new_vec(a->x + b->x, a->y + b->y, a->z + b->z));

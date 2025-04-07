@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: voparkan <voparkan@student.42prague.com>   +#+  +:+       +#+        */
+/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:23:38 by voparkan          #+#    #+#             */
-/*   Updated: 2025/03/30 17:34:40 by voparkan         ###   ########.fr       */
+/*   Updated: 2025/04/07 22:09:24 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,18 @@ void mk_obj_pl(s_data * data, char * tmp) {
 			spl_buf = ft_split(buf, ',');
 		j = 0;
 		if (k == 0) {
-			pl_shape->cords.x = atof(spl_buf[0]);
-			pl_shape->cords.y = atof(spl_buf[1]);
-			pl_shape->cords.z = atof(spl_buf[2]);
+			pl_shape->cords.x = ft_atof(spl_buf[0]);
+			pl_shape->cords.y = ft_atof(spl_buf[1]);
+			pl_shape->cords.z = ft_atof(spl_buf[2]);
 			while (j < 3) {
 				free(spl_buf[j]);
 				j++;
 			}
 		}
 		if (k == 1) {
-			pl_shape->axis.x = atof(spl_buf[0]);
-			pl_shape->axis.y = atof(spl_buf[1]);
-			pl_shape->axis.z = atof(spl_buf[2]);
+			pl_shape->axis.x = ft_atof(spl_buf[0]);
+			pl_shape->axis.y = ft_atof(spl_buf[1]);
+			pl_shape->axis.z = ft_atof(spl_buf[2]);
 			while (j < 3) {
 				free(spl_buf[j]);
 				j++;
@@ -58,9 +58,9 @@ void mk_obj_pl(s_data * data, char * tmp) {
 		}
 		if (k == 2) {
 			pl_shape->rgb.alpha = 1;
-			pl_shape->rgb.r = atof(spl_buf[0]);
-			pl_shape->rgb.g = atof(spl_buf[1]);
-			pl_shape->rgb.b = atof(spl_buf[2]);
+			pl_shape->rgb.r = ft_atof(spl_buf[0]);
+			pl_shape->rgb.g = ft_atof(spl_buf[1]);
+			pl_shape->rgb.b = ft_atof(spl_buf[2]);
 			while (j < 3) {
 				free(spl_buf[j]);
 				j++;
@@ -103,21 +103,21 @@ void mk_obj_sp(s_data * data, char * tmp) {
 			spl_buf = ft_split(buf, ',');
 		j = 0;
 		if (k == 0) {
-			sp_shape->cords.x = atof(spl_buf[0]);
-			sp_shape->cords.y = atof(spl_buf[1]);
-			sp_shape->cords.z = atof(spl_buf[2]);
+			sp_shape->cords.x = ft_atof(spl_buf[0]);
+			sp_shape->cords.y = ft_atof(spl_buf[1]);
+			sp_shape->cords.z = ft_atof(spl_buf[2]);
 			while (j < 3) {
 				free(spl_buf[j]);
 				j++;
 			}
 		}
 		if (k == 1)
-			sp_shape->diameter = atof(buf);
+			sp_shape->diameter = ft_atof(buf);
 		if (k == 2) {
 			sp_shape->rgb.alpha = 1;
-			sp_shape->rgb.r = atof(spl_buf[0]);
-			sp_shape->rgb.g = atof(spl_buf[1]);
-			sp_shape->rgb.b = atof(spl_buf[2]);
+			sp_shape->rgb.r = ft_atof(spl_buf[0]);
+			sp_shape->rgb.g = ft_atof(spl_buf[1]);
+			sp_shape->rgb.b = ft_atof(spl_buf[2]);
 			while (j < 3) {
 				free(spl_buf[j]);
 				j++;
@@ -160,34 +160,34 @@ void mk_obj_cy(s_data *data, char *tmp) {
 			spl_buf = ft_split(buf, ',');
 		j = 0;
 		if (k == 0) {
-			cy_shape->cords.x = atof(spl_buf[0]);
-			cy_shape->cords.y = atof(spl_buf[1]);
-			cy_shape->cords.z = atof(spl_buf[2]);
-			//cy_shape->cords = &(t_vec) { atof(spl_buf[0]), atof(spl_buf[1]), atof(spl_buf[2]) };
+			cy_shape->cords.x = ft_atof(spl_buf[0]);
+			cy_shape->cords.y = ft_atof(spl_buf[1]);
+			cy_shape->cords.z = ft_atof(spl_buf[2]);
+			//cy_shape->cords = &(t_vec) { ft_atof(spl_buf[0]), ft_atof(spl_buf[1]), ft_atof(spl_buf[2]) };
 			while (j < 3) {
 				free(spl_buf[j]);
 				j++;
 			}
 		}
 		if (k == 1) {
-			cy_shape->axis.x = atof(spl_buf[0]);
-			cy_shape->axis.y = atof(spl_buf[1]);
-			cy_shape->axis.z = atof(spl_buf[2]);
-			//cy_shape->axis = (t_vec) { atof(spl_buf[0]), atof(spl_buf[1]), atof(spl_buf[2]) };
+			cy_shape->axis.x = ft_atof(spl_buf[0]);
+			cy_shape->axis.y = ft_atof(spl_buf[1]);
+			cy_shape->axis.z = ft_atof(spl_buf[2]);
+			//cy_shape->axis = (t_vec) { ft_atof(spl_buf[0]), ft_atof(spl_buf[1]), ft_atof(spl_buf[2]) };
 			while (j < 3) {
 				free(spl_buf[j]);
 				j++;
 			}
 		}
 		if (k == 2)
-			cy_shape->diameter = atof(buf);
+			cy_shape->diameter = ft_atof(buf);
 		if (k == 3)
-			cy_shape->height = atof(buf);
+			cy_shape->height = ft_atof(buf);
 		if (k == 4) {
 			cy_shape->rgb.alpha = 1;
-			cy_shape->rgb.r = atof(spl_buf[0]);
-			cy_shape->rgb.g = atof(spl_buf[1]);
-			cy_shape->rgb.b = atof(spl_buf[2]);
+			cy_shape->rgb.r = ft_atof(spl_buf[0]);
+			cy_shape->rgb.g = ft_atof(spl_buf[1]);
+			cy_shape->rgb.b = ft_atof(spl_buf[2]);
 			while (j < 3) {
 				free(spl_buf[j]);
 				j++;

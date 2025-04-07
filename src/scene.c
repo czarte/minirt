@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: voparkan <voparkan@student.42prague.com>   +#+  +:+       +#+        */
+/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:44:17 by voparkan          #+#    #+#             */
-/*   Updated: 2025/03/22 18:44:17 by voparkan         ###   ########.fr       */
+/*   Updated: 2025/04/07 22:09:23 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void mk_scene_ambient(s_data *data, char *tmp)
 	while (!ft_spacious(tmp[i]))
 		buf[j++] = tmp[i++];
 	buf[i] = '\0';
-	data->scene->a_ratio = atof(buf);
+	data->scene->a_ratio = ft_atof(buf);
 	bzero(buf, 1024);
 	j = 0;
 	while (ft_spacious(tmp[i]))
@@ -69,7 +69,7 @@ void mk_scene_camera(s_data * data, char *tmp)
 		j = 0;
 		if (k == 0) {
 			while (j < 3) {
-				data->scene->c_xyz[j] = atof(spl_buf[j]);
+				data->scene->c_xyz[j] = ft_atof(spl_buf[j]);
 				free(spl_buf[j]);
 				j++;
 			}
@@ -112,13 +112,13 @@ void mk_scene_light(s_data * data, char * tmp) {
 		j = 0;
 		if (k == 0) {
 			while (j < 3) {
-				data->scene->l_xyz[j] = atof(spl_buf[j]);
+				data->scene->l_xyz[j] = ft_atof(spl_buf[j]);
 				free(spl_buf[j]);
 				j++;
 			}
 		}
 		if (k == 1)
-			data->scene->l_bright = atof(buf);
+			data->scene->l_bright = ft_atof(buf);
 		if (k == 2) {
 			while (j < 3) {
 				data->scene->l_rgb[j]	 = ft_atoi(spl_buf[j]);

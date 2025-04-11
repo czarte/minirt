@@ -12,7 +12,7 @@
 
 #include "../include/minirt.h"
 
-int	init_program(s_data *data, int argc, char **argv)
+int	init_program(t_data *data, int argc, char **argv)
 {
 	if (argc != 2)
 	{

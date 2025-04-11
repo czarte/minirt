@@ -12,5 +12,5 @@
 
 int	ft_spacious(int c)
 {
-	return((c > 6 && c < 14) || c == 32);
+	return ((c > 6 && c < 14) || c == 32);
 }

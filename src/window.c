@@ -12,7 +12,7 @@
 
 #include "../include/minirt.h"
 
-int	init_mlx_window(s_data *data)
+int	init_mlx_window(t_data *data)
 {
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
@@ -32,9 +32,9 @@ int	init_mlx_window(s_data *data)
 
 int	key_exit(int key, void *params)
 {
-	s_data	*data;
+	t_data	*data;
 
-	data = (s_data *) params;
+	data = (t_data *) params;
 	printf("Keys in miniRT : %d\n", key);
 	if (key == 65307 || key == 17)
 	{
@@ -48,9 +48,9 @@ int	key_exit(int key, void *params)
 
 int	check_exit_button(int button, int x, int y, void *params)
 {
-	s_data	*data;
+	t_data	*data;
 
-	data = (s_data *) params;
+	data = (t_data *) params;
 	(void) x;
 	(void) y;
 	if (button == 32)
@@ -65,9 +65,9 @@ int	check_exit_button(int button, int x, int y, void *params)
 
 int	check_mouse_button(int button, int x, int y, void *params)
 {
-	s_data	*data;
+	t_data	*data;
 
-	data = (s_data *) params;
+	data = (t_data *) params;
 	(void) x;
 	(void) y;
 	if (button == 17)

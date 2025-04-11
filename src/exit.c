@@ -12,7 +12,16 @@
 
 #include "../include/minirt.h"
 
-void	free_data(s_data *data)
+void	free_imgs(void *shp)
+{
+	t_shapes	*shape;
+
+	shape = (t_shapes *)shp;
+	if (shape->img.mlx_ptr != NULL)
+		free(shape->img.ptr);
+}
+
+void	free_data(t_data *data)
 {
 	char		*ltmp;
 
@@ -23,5 +32,7 @@ void	free_data(s_data *data)
 		data->lines++;
 		ltmp = *data->lines;
 	}
-	ft_lstclear(data->shapes, &free);
+	ft_lstiter(data->shapes, &free_imgs);
+	ft_lstclear(&data->shapes, &free);
+	free(data->shapes);
 }

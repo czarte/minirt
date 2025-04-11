@@ -1,9 +1,10 @@
 SRC 		= main.c src/window.c src/parser.c src/init.c src/ft_spacious.c \
-				src/exit.c src/scene.c src/object.c src/colors.c
+				src/exit.c src/scene.c src/object.c src/colors.c src/object_fill.c \
+				src/helpers/o_bags.c
 OBJ 		= $(SRC:.c=.o)
 CC 			= clang
 RM 			= rm -f
-CPPFLAGS 	= -Wall -Wextra -Werror -g3 -pedantic -fsanitize=address
+CPPFLAGS 	= -Wall -Wextra -Werror -g3 -pedantic #-fsanitize=address
 LIBFT 		= libft.a
 LIBFTDIR	= libft
 

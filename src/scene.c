@@ -12,7 +12,7 @@
 
 #include "../include/minirt.h"
 
-void mk_scene_ambient(s_data *data, char *tmp)
+void	mk_scene_ambient(t_data *data, char *tmp)
 {
 	int		i;
 	int		j;
@@ -45,7 +45,7 @@ void mk_scene_ambient(s_data *data, char *tmp)
 	free(spl_buf);
 }
 
-void mk_scene_camera(s_data * data, char *tmp)
+void mk_scene_camera(t_data * data, char *tmp)
 {
 	int		i;
 	int		j;
@@ -89,7 +89,7 @@ void mk_scene_camera(s_data * data, char *tmp)
 	}
 }
 
-void mk_scene_light(s_data * data, char * tmp) {
+void mk_scene_light(t_data * data, char * tmp) {
 	int		i;
 	int		j;
 	int		k;
@@ -132,7 +132,7 @@ void mk_scene_light(s_data * data, char * tmp) {
 	}
 }
 
-void	construct_scene(s_data * data)
+void	construct_scene(t_data * data)
 {
 	char	**tmp;
 

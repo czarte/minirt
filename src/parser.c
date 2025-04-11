@@ -22,7 +22,7 @@ void	asign_line(char ***lines, char **line, int *i)
 	*i = 0;
 }
 
-void	do_lines(s_data *data, char *buffer, char ***lines)
+void	do_lines(t_data *data, char *buffer, char ***lines)
 {
 	char	*line;
 	int		i;
@@ -51,7 +51,7 @@ void	print_lines(char ***tmp)
 	}
 }
 
-void	init_scene(s_data *data)
+void	init_scene(t_data *data)
 {
 	char	*buffer;
 	char	**lines;

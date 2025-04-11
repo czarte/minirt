@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 13:14:09 by aevstign          #+#    #+#             */
-/*   Updated: 2025/04/11 14:02:12 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:06:27 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	handle_dot(char *str, double *res, int *i)
 
 void	handle_exponenta(char *str, double *res, int *i, int sign)
 {
-	double	devision;
 	int		exponenta;
 
 	exponenta = 0;

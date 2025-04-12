@@ -15,7 +15,9 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make bonus -C $(LIBFTDIR)
 	@cp $(LIBFTDIR)/$(LIBFT) .
-	$(CC) $(CPPFLAGS) $(OBJ) $(LIBFT) mlx/libmlx_Linux.a -lXext -lX11 -o $(NAME)
+	#$(CC) $(CPPFLAGS) $(OBJ) $(LIBFT) mlx/libmlx.a -lXext -lX11 -o $(NAME)
+	$(CC) $(CPPFLAGS) $(OBJ) $(LIBFT) -Lmlx -lmlx -framework OpenGL -framework AppKit -L/usr/X11/lib -lXext -lX11 -o $(NAME)
+
 
 $(MLX):
 

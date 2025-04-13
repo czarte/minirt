@@ -5,3 +5,4 @@ miniRT
 .idea/*
 *.o
 libft.a
+mlx/libmlx.a

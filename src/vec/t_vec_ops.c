@@ -12,23 +12,27 @@
 
 #include "../../include/vec.h"
 
-double	vec_length(t_vec *a) {
-	return(sqrt(pow(a->x, 2) + pow(a->y, 2) + pow(a->z, 2)));
+double	vec_length(t_vec *a)
+{
+	return (sqrt(pow(a->x, 2) + pow(a->y, 2) + pow(a->z, 2)));
 }
 
-double	vec_dot(t_vec *a, t_vec *b) {
-	return(a->x * b->x + a->y * b->y + a->z * b->z);
+double	vec_dot(t_vec *a, t_vec *b)
+{
+	return (a->x * b->x + a->y * b->y + a->z * b->z);
 }
 
-double vec_cos(t_vec *a, t_vec *b) {
+double	vec_cos(t_vec *a, t_vec *b)
+{
 	double	dot;
-    double	len;
+	double	len;
 
-    dot = vec_dot(a, b);
-    len = vec_length(a) + vec_length(b);
-    return(dot / len);
+	dot = vec_dot(a, b);
+	len = vec_length(a) + vec_length(b);
+	return (dot / len);
 }
 
-bool compare_vecs(t_vec *a, t_vec *b) {
-  return(vec_cos(a, b) > 0);
+bool	compare_vecs(t_vec *a, t_vec *b)
+{
+	return (vec_cos(a, b) > 0);
 }

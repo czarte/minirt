@@ -13,12 +13,13 @@
 #include "../../include/vec.h"
 #include "../../include/minirt.h"
 
-t_vec	*new_vec(float x, float y, float z) {
-    t_vec	*r;
+t_vec	*new_vec(float x, float y, float z)
+{
+	t_vec	*r;
 
-    r = malloc(sizeof(t_vec));
-    r->x = x;
-    r->y = y;
-    r->z = z;
-    return (r);
+	r = malloc(sizeof(t_vec));
+	r->x = x;
+	r->y = y;
+	r->z = z;
+	return (r);
 }

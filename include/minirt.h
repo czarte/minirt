@@ -19,7 +19,6 @@
 #include "external.h"
 #include "vec.h"
 
-
 typedef struct g_list {
 	char			**content;
 	struct g_list	*next;
@@ -32,20 +31,27 @@ typedef struct s_rgb {
 	int				b;
 } t_rgb;
 
-// typedef	s_cam
+typedef struct s_cam {
+	t_vec			cords;
+	t_vec			orient;
+	int 			fov;
+} t_cam;
+
+typedef struct s_light {
+	t_vec			cords;
+	float			bright;
+	t_rgb			rgb;
+} t_lght;
+
+typedef struct s_ambient {
+	float			ratio;
+	t_rgb			rgb;
+} t_ambi;
 
 typedef struct s_scene {
-	// t_cam			cam;
-	// t_lght			lght;
-	// t_ambi			ambi;
-	float			a_ratio;
-	int				a_rgb[3];
-	float			c_xyz[3];
-	int				c_rient[3];
-	int				c_fov;
-	float			l_xyz[3];
-	float			l_bright;
-	int				l_rgb[3];
+	t_cam			cam;
+	t_lght			lght;
+	t_ambi			ambi;
 } t_scene;
 
 typedef struct s_img {

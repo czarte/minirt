@@ -11,24 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
-
-void	print_shapes(t_list *shapes)
-{
-	t_list		*temp;
-	t_shapes	*shp;
-
-	temp = shapes;
-	while (temp != NULL)
-	{
-		shp = (t_shapes *) temp->content;
-		printf("--------\n%s \ncoords:\t%.1f %.1f %.1f; \naxis:\t%.1f %.1f "
-			"%.1f;\nd:\t\t%.2f;\th: %.2f;\nrgb:\t[%d, %d, %d] \n",
-			shp->identifier, shp->cords.x, shp->cords.y, shp->cords.z,
-			shp->axis.x, shp->axis.y, shp->axis.z, shp->diameter, shp->height,
-			shp->rgb.r, shp->rgb.g, shp->rgb.b);
-		temp = temp->next;
-	}
-}
+#include "../include/debug.h"
 
 void	mk_obj_pl(t_data *data, char *tmp)
 {

@@ -65,6 +65,28 @@ void place_images(s_data *data)
 	}
 }
 
+// For now it causes memory leak
+void	create_viewport(int image_width,
+	double aspect_ratio, t_camera *camera)
+{
+	int		image_height;
+	t_vec	temp;
+
+	camera->focal_length = 1.0;
+	image_height = (int)(image_width / aspect_ratio);
+	if (image_height < 1)
+		image_height = 1;
+	camera->viewport_height = 2.0;
+	camera->viewport_width = (camera->viewport_height
+			* (double (image_width / image_height)));
+	camera->viewport_u = new_vec(camera->viewport_width, 0, 0);
+	camera->viewport_v = new_vec(0, -camera->viewport_height, 0);
+	temp = substract(divide_by_scalar(camera->viewport_u, 2),
+			divide_by_scalar(camera->viewport_v, 2));
+	camera->left_upper_corner = substract(substract(camera->position,
+				vec3(0, 0, camera->focal_length)), temp);
+}
+
 int	main(int argc, char *argv[])
 {
 	s_data	*data;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: voparkan <voparkan@student.42prague.com>   +#+  +:+       +#+        */
+/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/04 15:20:54 by voparkan         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:50:51 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,18 @@ typedef struct d_shapes {
 	t_rgb			rgb;
     void			*img;
 } s_shapes;
+
+typedef struct s_camera
+{
+	t_vec	position;
+	t_vec	view_direction;
+	double	viewport_height;
+	double	viewport_width;
+	double	focal_length;
+	t_vec	viewport_u;
+	t_vec	viewport_v;
+	t_vec	left_upper_corner;
+}				t_camera;
 
 typedef struct mian_data {
 	int 		argc;

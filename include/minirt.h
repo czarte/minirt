@@ -17,7 +17,17 @@
 #define WIN_TITLE "MiniRT"
 
 #include "external.h"
-#include "vec.h"
+
+typedef struct s_vec {
+    float			x;
+    float			y;
+    float			z;
+} t_vec;
+
+typedef struct s_ray {
+    t_vec			origin;
+    t_vec			dir;
+} t_ray;
 
 typedef struct g_list {
 	char			**content;
@@ -138,6 +148,10 @@ void	iter_pl(char *tmp, t_shapes *pl_shape);
 void	iter_sp(char *tmp, t_shapes *sp_shape);
 void	iter_cy(char *tmp, t_shapes *cy_shape);
 void	move_cp_buf(char *tmp, t_obag *ob);
+
+/*rays*/
+t_ray   shoot_ray(int x, int y, t_data *data);
+bool    ray_inter_sp(t_ray ray, t_shapes *shp, float *t);
 
 /*colors*/
 int	make_color(t_rgb rgb);

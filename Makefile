@@ -1,6 +1,6 @@
 SRC 		= main.c src/window.c src/parser.c src/init.c src/ft_spacious.c \
 				src/exit.c src/scene.c src/object.c src/colors.c src/object_fill.c \
-				src/helpers/o_bags.c src/helpers/print_objects.c
+				src/helpers/o_bags.c src/helpers/print_objects.c src/vec/ray.c src/vec/t_vec_new.c src/vec/t_vec_ops.c src/vec/t_vec_products.c
 OBJ 		= $(SRC:.c=.o)
 CC 			= clang
 RM 			= rm -f

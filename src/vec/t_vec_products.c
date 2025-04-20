@@ -18,6 +18,11 @@ t_vec	*add(t_vec *a, t_vec *b)
 	return (new_vec(a->x + b->x, a->y + b->y, a->z + b->z));
 }
 
+t_vec   *vec_sub(t_vec *a, t_vec *b)
+{
+    return (new_vec(a->x - b->x, a->y - b->y, a->z - b->z));
+}
+
 t_vec	*cross(t_vec *a, t_vec *b)
 {
 	return (new_vec(a->y * b->z - a->z * b->y, a->z * b->x - a->x * b->z, \

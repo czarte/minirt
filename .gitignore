@@ -4,6 +4,5 @@ miniRT.dSYM
 miniRT
 .idea/*
 *.o
-mlx
 libft.a
 libft/libft.a

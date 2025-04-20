@@ -6,3 +6,4 @@ miniRT
 *.o
 mlx
 libft.a
+libft/libft.a

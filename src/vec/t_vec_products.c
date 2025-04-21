@@ -41,8 +41,12 @@ t_vec	*normalize(t_vec *a) {
 	return(scale(a, vec_length(a)));
 }
 
-t_vec	*divide_by_scalar(t_vec *a, float s)
-	return (vec3(a->x / s, a->y / s, a->z / s));
+t_vec	divide_by_scalar(t_vec a, float s)
+{
+	return (vec3(a.x / s, a.y / s, a.z / s));
+}
 
-t_vec	*substract(t_vec *a, t_vec *b)
-	return (vec3(a.x - b->x, a->y - b->y, a.z - b->z));
+t_vec	substract(t_vec a, t_vec b)
+{
+	return (vec3(a.x - b.x, a.y - b.y, a.z - b.z));
+}

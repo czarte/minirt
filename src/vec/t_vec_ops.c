@@ -32,3 +32,4 @@ double vec_cos(t_vec *a, t_vec *b) {
 bool compare_vecs(t_vec *a, t_vec *b) {
   return(vec_cos(a, b) > 0);
 }
+

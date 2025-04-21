@@ -25,12 +25,12 @@ t_vec	*new_vec(float x, float y, float z) {
     return (r);
 }
 
-t_vec   vec3(float, x, y, z)
+t_vec   vec3(float x, float y, float z)
 {
     t_vec   r;
 
-    r->x = x;
-    r->y = y;
-    r->z = z;
+    r.x = x;
+    r.y = y;
+    r.z = z;
     return (r); 
 }

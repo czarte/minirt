@@ -27,6 +27,8 @@ typedef struct s_vec {
 typedef struct s_ray {
     t_vec			origin;
     t_vec			dir;
+//	double			t;
+//	double			closest_t;
 } t_ray;
 
 typedef struct g_list {
@@ -130,7 +132,7 @@ void	free_imgs(void *shp);
 int	ft_spacious(int c);
 
 /*scene*/
-void	construct_scene(t_data * data);
+void	construct_scene(t_data *data);
 void	mk_scene_ambient(t_data *data, char *tmp);
 void	mk_scene_camera(t_data * data, char *tmp);
 void	mk_scene_light(t_data * data, char * tmp);

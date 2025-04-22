@@ -16,20 +16,26 @@ t_ray   shoot_ray(int x, int y, t_data *data) {
 }
 
 bool    ray_inter_sp(t_ray ray, t_shapes *shp, float *t) {
+	//printf("ray_inter_sp ray.origin: %.f %.f %.f\n", ray.origin.x, ray.origin.y, ray.origin.z);
     float t1;
     float t2;
     float shp_radius = shp->diameter / 2;
     t_vec *oc = vec_sub(&ray.origin, &shp->cords);
-    float a = 1;
-    float b = 2 * (ray.dir.x * oc->x + ray.dir.y * oc->y + ray.dir.z * oc->z);
+    float a = 1.0f;
+    float b = 2.0f * (ray.dir.x * oc->x + ray.dir.y * oc->y + ray.dir.z * oc->z);
     float c = oc->x * oc->x + oc->y * oc->y + oc->z * oc->z - shp_radius * shp_radius;
     float discriminant = b * b - 4 * a * c;
+//	float a = vec_dot(&ray.dir, &ray.dir);
+//	float b = 2.0f * vec_dot(oc, &ray.dir);
+//	float c = vec_dot(oc, oc) - shp_radius * shp_radius;
+//	float discriminant = b * b - 4.0f * a * c;
 
     if (discriminant < 0)
         return false;
 
-    t1 = (-b - sqrt(discriminant)) / (2.0 * a);
-    t2 = (-b + sqrt(discriminant)) / (2.0 * a);
+	float sqrt_disc = sqrtf(discriminant);
+    t1 = (-b - sqrt_disc) / (2.0f * a);
+    t2 = (-b + sqrt_disc) / (2.0f * a);
     if (t1 > 0.001f) {
         *t = t1;
         return true;

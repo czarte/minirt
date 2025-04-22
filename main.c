@@ -39,38 +39,67 @@ void make_border(t_shapes *shp) {
 	}
 }
 
-void do_sphere_img(t_data *data, int color, t_shapes *shp, t_ray *ray) {
-	int pix_color = color;
+void do_sphere_img(int color, t_shapes *shp, t_ray *ray, int w, int h) {
     float t;
     float closest_t = FLT_MAX;
-    (void) ray;
 //	printf("diameter %f\n", shp->diameter);
 //	printf("height %f\n", shp->height);
 //	printf("color %d [%d %d %d]\n", color, shp->rgb.r, shp->rgb.g, shp->rgb.b);
 	//make_border(shp);
-	shp->img.mlx_ptr = data->mlx_ptr;
-	shp->img.ptr = mlx_new_image(data->mlx_ptr, (int) shp->diameter + 1, (int) shp->diameter + 1);//(int) shp->diameter + 1, (int) shp->diameter + 1);
-	shp->img.pixels = mlx_get_data_addr(shp->img.ptr, &shp->img.bits_per_pixel,
-		&shp->img.line_length, &pix_color);
-	int i = 0;
-	while (i < (int) shp->diameter + 1) { //
-		int j = 0;
-		while (j < (int) shp->diameter + 1) { //
-			if (ray_inter_sp(*ray, shp, &t)) {
-                if (t < closest_t) {
-                    closest_t = t;
-                    mrt_put_pixel(&shp->img, i, j, color);
-                }
-            } //ray_inter_sp(*ray, shp) && in_sphere(i, j, shp)
-            else
-                mrt_put_pixel(&shp->img, i, j, 0xFFFFFFFF);
-			j++;
+	(void) w, (void) h;
+	if (ray_inter_sp(*ray, shp, &t)) { // && in_sphere(w, h, shp)
+		if (t < closest_t) {
+			closest_t = t;
+			printf("closest t: %.9f\n", closest_t);
+			printf("t: %.9f\n", t);
+			printf("put pixel\n");
+			mrt_put_pixel(&shp->img, ray->dir.x, ray->dir.y, color);
 		}
-		i++;
+
+	} //ray_inter_sp(*ray, shp) && in_sphere(i, j, shp)
+//	else
+//		mrt_put_pixel(&shp->img, ray->dir.x, ray->dir.y, 0xFFFFFFFF);
+//	int i = 0;
+//	while (i < (int) shp->diameter + 1) { //
+//		int j = 0;
+//		while (j < (int) shp->diameter + 1) { //
+//			if (ray_inter_sp(*ray, shp, &t) && in_sphere(i, j, shp)) { //&& in_sphere(i, j, shp)
+//                if (t < closest_t) {
+//                    closest_t = t;
+//					printf("closest t: %.0f\n", closest_t);
+//					printf("t: %.0f\n", t);
+//                }
+//				if (closest_t > 0) {
+//					color = color + (int) closest_t ;
+//					mrt_put_pixel(&shp->img, i, j, color);
+//				}
+//
+//            } //ray_inter_sp(*ray, shp) && in_sphere(i, j, shp)
+//            else
+//                mrt_put_pixel(&shp->img, i, j, 0xFFFFFFFF);
+//			j++;
+//		}
+//		i++;
+//	}
+}
+
+void place_images(t_data *data)
+{
+	t_list *temp = data->shapes;
+	while (temp != NULL) {
+		t_shapes *shp = (t_shapes *) temp->content;
+		shp->img.mlx_ptr = NULL;
+		if (ft_strncmp(shp->identifier, "sp", 2) == 0) {
+			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, shp->img.ptr,
+				(int) shp->cords.x, (int) shp->cords.y);
+		}
+		if (ft_strncmp(shp->identifier, "pl", 2) == 0) {
+		}
+		temp = temp->next;
 	}
 }
 
-void place_images(t_data *data, t_ray *ray)
+void create_images(t_data *data, t_ray *ray, int w, int h)
 {
 	int color;
 
@@ -80,12 +109,25 @@ void place_images(t_data *data, t_ray *ray)
 		shp->img.mlx_ptr = NULL;
 		color = make_color(shp->rgb);
 		if (ft_strncmp(shp->identifier, "sp", 2) == 0) {
-			do_sphere_img(data, color, shp, ray);
-			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, shp->img.ptr,
-				(int) shp->cords.x, (int) shp->cords.y);
+			do_sphere_img(color, shp, ray, w, h);
 		}
 		if (ft_strncmp(shp->identifier, "pl", 2) == 0) {
 		}
+		temp = temp->next;
+	}
+}
+
+void create_mlx_imgs(t_data *data)
+{
+	int pix_color = 0xFFFFFFFF;
+	t_list *temp = data->shapes;
+	while (temp != NULL) {
+		t_shapes *shp = (t_shapes *) temp->content;
+		shp->img.mlx_ptr = data->mlx_ptr;
+		shp->img.ptr = mlx_new_image(data->mlx_ptr, shp->diameter + 1,
+									 (int) shp->diameter + 1);//(int) shp->diameter + 1, (int) shp->diameter + 1);
+		shp->img.pixels = mlx_get_data_addr(shp->img.ptr, &shp->img.bits_per_pixel,
+											&shp->img.line_length, &pix_color);
 		temp = temp->next;
 	}
 }
@@ -97,16 +139,18 @@ void cast_rays(t_data *data)
     t_ray   ray;
 
     w = h = 0;
+	create_mlx_imgs(data);
     while (w < WIN_WIDTH)
     {
         while (h < WIN_HEIGHT)
         {
             ray = shoot_ray(w, h, data);
-            place_images(data, &ray);
+			create_images(data, &ray, w, h);
             h++;
         }
         w++;
     }
+	place_images(data);
 }
 
 int	main(int argc, char *argv[])

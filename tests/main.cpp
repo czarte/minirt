@@ -4,8 +4,8 @@
 
 #include "../googletest/googletest/include/gtest/gtest.h"
 extern "C" {
-#include "../include/minirt.h"
-#include "../include/vec.h"
+	#include "../include/minirt.h"
+	#include "../include/vec.h"
 }
 
 int main(int argc, char **argv) {

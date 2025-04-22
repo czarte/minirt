@@ -9,7 +9,6 @@ add_executable(
 target_link_libraries(
         ${PROJECT_TEST_NAME}
         vec_tests
-        gtest
         GTest::gtest_main
 )
 

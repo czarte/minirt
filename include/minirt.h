@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/22 11:45:43 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:21:18 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 #include "external.h"
 #include "vec.h"
-
 
 typedef struct g_list {
 	char			**content;
@@ -32,29 +31,47 @@ typedef struct s_rgb {
 	int				b;
 } t_rgb;
 
-typedef struct t_scene {
-	float			a_ratio;
-	int				a_rgb[3];
-	float			c_xyz[3];
-	int				c_rient[3];
-	int				c_fov;
-	float			l_xyz[3];
-	float			l_bright;
-	int				l_rgb[3];
-} s_scene;
+typedef struct s_cam {
+	t_vec			cords;
+	t_vec			orient;
+	int 			fov;
+} t_cam;
 
-typedef struct s_ray {
-	t_vec	origin;
-	t_vec	direction;
-}				t_ray;
+typedef struct s_light {
+	t_vec			cords;
+	float			bright;
+	t_rgb			rgb;
+} t_lght;
 
-typedef struct d_shapes {
+typedef struct s_ambient {
+	float			ratio;
+	t_rgb			rgb;
+} t_ambi;
+
+typedef struct s_scene {
+	t_cam			cam;
+	t_lght			lght;
+	t_ambi			ambi;
+} t_scene;
+
+typedef struct s_img {
+	void		*ptr;
+	char		*pixels;
+	int			bits_per_pixel;
+	int			endian;
+	int			line_length;
+	void		*mlx_ptr;
+} t_img;
+
+typedef struct s_shapes {
 	char			*identifier;
 	t_vec			cords;
 	t_vec			axis;
 	float			diameter;
 	float			height;
 	t_rgb			rgb;
+    t_img			img;
+} t_shapes;
     void			*img;
 } s_shapes;
 
@@ -70,51 +87,71 @@ typedef struct s_camera
 	t_vec	left_upper_corner;
 }				t_camera;
 
-typedef struct mian_data {
+typedef struct s_data {
 	int 		argc;
 	char 		**argv;
 	garbage		*garbage;
 	int			scenefd;
 	char		**lines;
-	t_list		**shapes;
-	s_scene		*scene;
+	t_list		*shapes;
+	t_scene		*scene;
     int			key;
 	char 		*filename;
     void		*mlx_ptr;
     void		*win_ptr;
-} s_data;
+} t_data;
+
+/* bags */
+typedef struct s_obag {
+	int			i;
+	int			j;
+	int			k;
+	char		**spl_buf;
+	char		buf[1024];
+} t_obag;
+
+void	do_j_bzero(t_obag *ob);
+void	init_tobag(t_obag *obag);
+
 
 /*window handing functions*/
-
-int init_mlx_window(s_data *data);
+int init_mlx_window(t_data *data);
 int	key_exit(int key, void *params);
 int	check_exit_button(int button,int x,int y, void *p);
 int	check_mouse_button(int button,int x,int y, void *p);
 
 /*parser*/
-void	init_scene(s_data *data);
+void	init_scene(t_data *data);
 
 /*init*/
-int	init_program(s_data *data, int argc, char **argv);
-void construct_scene(s_data * data);
+int	init_program(t_data *data, int argc, char **argv);
 
 /*exit*/
-void	free_data(s_data *data);
+void	free_data(t_data *data);
+void	free_imgs(void *shp);
 
 /*utils*/
 int	ft_spacious(int c);
 
 /*scene*/
-void	construct_scene(s_data * data);
-void	mk_scene_ambient(s_data *data, char *tmp);
-void	mk_scene_camera(s_data * data, char *tmp);
-void	mk_scene_light(s_data * data, char * tmp);
-void	mk_obj_pl(s_data * data, char * tmp);
-void	mk_obj_sp(s_data * data, char * tmp);
-void	mk_obj_cy(s_data * data, char * tmp);
+void	construct_scene(t_data * data);
+void	mk_scene_ambient(t_data *data, char *tmp);
+void	mk_scene_camera(t_data * data, char *tmp);
+void	mk_scene_light(t_data * data, char * tmp);
+void	mk_obj_pl(t_data * data, char * tmp);
+void	mk_obj_sp(t_data * data, char * tmp);
+void	mk_obj_cy(t_data * data, char * tmp);
 
-/*objects*/
-void	init_objects(s_data * data);
+/*objects & shapes*/
+
+void	init_objects(t_data *data);
+void	print_shapes(t_list *shapes);
+void	tvec_from_split(t_vec *v, char **split);
+void	trgb_from_split(t_rgb *rgb, char **split);
+void	iter_pl(char *tmp, t_shapes *pl_shape);
+void	iter_sp(char *tmp, t_shapes *sp_shape);
+void	iter_cy(char *tmp, t_shapes *cy_shape);
+void	move_cp_buf(char *tmp, t_obag *ob);
 
 /*colors*/
 int		make_color(t_rgb rgb);

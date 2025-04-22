@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:53:16 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/22 11:41:47 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:24:20 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ double vec_cos(t_vec a, t_vec b) {
 	double	dot;
   double	len;
 
-    dot = vec_dot(a, b);
-    len = vec_length(a) + vec_length(b);
-    return(dot / len);
+	dot = vec_dot(a, b);
+	len = vec_length(a) + vec_length(b);
+	return (dot / len);
 }
 
 bool compare_vecs(t_vec a, t_vec b) {

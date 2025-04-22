@@ -6,7 +6,7 @@ SRC 		= main.c src/window.c src/parser.c src/init.c src/ft_spacious.c \
 OBJ 		= $(SRC:.c=.o)
 CC 			= clang
 RM 			= rm -f
-CPPFLAGS 	= -Wall -Wextra -Werror -g3 -pedantic -fsanitize=address
+CPPFLAGS 	=  -fsanitize=address
 LIBFT 		= libft.a
 LIBFTDIR	= libft
 

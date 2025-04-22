@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/14 22:50:51 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:45:43 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ typedef struct t_scene {
 	float			l_bright;
 	int				l_rgb[3];
 } s_scene;
+
+typedef struct s_ray {
+	t_vec	origin;
+	t_vec	direction;
+}				t_ray;
 
 typedef struct d_shapes {
 	char			*identifier;
@@ -112,6 +117,9 @@ void	mk_obj_cy(s_data * data, char * tmp);
 void	init_objects(s_data * data);
 
 /*colors*/
-int	make_color(t_rgb rgb);
+int		make_color(t_rgb rgb);
+
+/*ray*/
+t_vec   at(t_ray ray, double t);
 
 #endif

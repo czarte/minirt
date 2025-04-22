@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/22 12:21:18 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:21:30 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ typedef struct s_shapes {
 	t_rgb			rgb;
     t_img			img;
 } t_shapes;
-    void			*img;
-} s_shapes;
+
 
 typedef struct s_camera
 {

@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/22 12:21:30 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:27:58 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,12 @@ typedef struct s_camera
 	t_vec	viewport_v;
 	t_vec	left_upper_corner;
 }				t_camera;
+
+typedef struct s_ray
+{
+	t_vec	origin;
+	t_vec	direction;
+}				t_ray;
 
 typedef struct s_data {
 	int 		argc;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_vec_products.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: voparkan <voparkan@student.42prague.com>   +#+  +:+       +#+        */
+/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:28:24 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/05 18:28:24 by voparkan         ###   ########.fr       */
+/*   Updated: 2025/04/24 00:59:19 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,8 @@ t_vec	*scale(t_vec *a, double s)
 
 t_vec	*normalize(t_vec *a)
 {
-	return (scale(a, vec_length(a)));
+	float length = vec_length(a);
+    if (length == 0)
+        return (new_vec(0, 0, 0));
+    return (scale(a, 1.0 / length));
 }

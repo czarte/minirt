@@ -10,6 +10,7 @@ t_vec	*add(t_vec *a, t_vec *b);
 t_vec	*cross(t_vec *a, t_vec *b);
 t_vec	*scale(t_vec *a, double s);
 t_vec	*normalize(t_vec *a);
+double	vec_dot(t_vec *a, t_vec *b);
 
 double	vec_length(t_vec *a);
 

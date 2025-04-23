@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: voparkan <voparkan@student.42prague.com>   +#+  +:+       +#+        */
+/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/11 15:00:04 by voparkan         ###   ########.fr       */
+/*   Updated: 2025/04/23 23:44:48 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_data {
 	t_scene		*scene;
     int			key;
 	char 		*filename;
+	t_img		scene_img;
     void		*mlx_ptr;
     void		*win_ptr;
 } t_data;
@@ -105,6 +106,14 @@ typedef struct s_obag {
 	char		**spl_buf;
 	char		buf[1024];
 } t_obag;
+
+typedef struct s_hit_record {
+	float		t;
+	t_vec		point;
+	t_vec		normal;
+	t_shapes	*object;
+	bool		hit;
+}			t_hit_record;
 
 void	do_j_bzero(t_obag *ob);
 void	init_tobag(t_obag *obag);

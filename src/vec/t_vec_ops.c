@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_vec_ops.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: voparkan <voparkan@student.42prague.com>   +#+  +:+       +#+        */
+/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:53:16 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/05 18:53:16 by voparkan         ###   ########.fr       */
+/*   Updated: 2025/04/24 00:59:11 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@ double	vec_dot(t_vec *a, t_vec *b)
 
 double	vec_cos(t_vec *a, t_vec *b)
 {
-	double	dot;
-	double	len;
-
-	dot = vec_dot(a, b);
-	len = vec_length(a) + vec_length(b);
-	return (dot / len);
+    double dot = vec_dot(a, b);
+    double len = vec_length(a) * vec_length(b);
+    if (len == 0)
+        return (0);
+    return (dot / len);
 }
 
 bool	compare_vecs(t_vec *a, t_vec *b)

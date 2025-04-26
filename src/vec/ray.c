@@ -15,7 +15,7 @@ t_ray   shoot_ray(int x, int y, t_data *data) {
     return ((t_ray){data->scene->cam.cords, *direction});
 }
 
-bool    ray_inter_sp(t_ray ray, t_shapes *shp, float *t) {
+bool    ray_inter_sp(t_ray ray, t_shapes *shp, float *t, t_hit_record *rec) {
     float t1;
     float t2;
     float shp_radius = shp->diameter / 2;
@@ -30,6 +30,8 @@ bool    ray_inter_sp(t_ray ray, t_shapes *shp, float *t) {
 
     t1 = (-b - sqrt(discriminant)) / (2.0 * a);
     t2 = (-b + sqrt(discriminant)) / (2.0 * a);
+    rec->point = oc;
+    rec->normal = normalize(rec->point);
     if (t1 > 0.001f) {
         *t = t1;
         return true;

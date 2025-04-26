@@ -17,12 +17,7 @@
 #define WIN_TITLE "MiniRT"
 
 #include "external.h"
-
-typedef struct s_vec {
-    float			x;
-    float			y;
-    float			z;
-} t_vec;
+#include "vec.h"
 
 typedef struct s_ray {
     t_vec			origin;
@@ -109,8 +104,8 @@ typedef struct s_obag {
 
 typedef struct s_hit_record {
 	float		t;
-	t_vec		point;
-	t_vec		normal;
+	t_vec		*point;
+	t_vec		*normal;
 	t_shapes	*object;
 	bool		hit;
 }			t_hit_record;
@@ -160,7 +155,7 @@ void	move_cp_buf(char *tmp, t_obag *ob);
 
 /*rays*/
 t_ray   shoot_ray(int x, int y, t_data *data);
-bool    ray_inter_sp(t_ray ray, t_shapes *shp, float *t);
+bool    ray_inter_sp(t_ray ray, t_shapes *shp, float *t, t_hit_record *rec);
 void    cast_rays(t_data *data);
 
 /*colors*/

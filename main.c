@@ -27,69 +27,6 @@ bool in_sphere(int i, int j, t_shapes *shp) {
 	return (px * px + py * py) <= radius * radius;
 }
 
-// void make_border(t_shapes *shp) {
-// 	int color = 0xFFFFFF;
-// 	for (int i = 0; i < (int) shp->diameter; i++) {
-// 		for (int j = 0; j < (int) shp->diameter; j++) {
-// 			if (i == 0 || j == 0)
-// 				mrt_put_pixel(&shp->img, (int) shp->cords.x + i, (int) shp->cords.y + j, color);
-// 			if (i == (int) shp->diameter - 1 || j == (int) shp->diameter - 1)
-// 				mrt_put_pixel(&shp->img, (int) shp->cords.x + i, (int) shp->cords.y + j, color);
-// 		}
-// 	}
-// }
-
-// void do_sphere_img(t_data *data, int color, t_shapes *shp, t_ray *ray) {
-// 	int pix_color = color;
-//     float t;
-//     float closest_t = FLT_MAX;
-//     (void) ray;
-// //	printf("diameter %f\n", shp->diameter);
-// //	printf("height %f\n", shp->height);
-// //	printf("color %d [%d %d %d]\n", color, shp->rgb.r, shp->rgb.g, shp->rgb.b);
-// 	//make_border(shp);
-// 	shp->img.mlx_ptr = data->mlx_ptr;
-// 	shp->img.ptr = mlx_new_image(data->mlx_ptr, (int) shp->diameter + 1, (int) shp->diameter + 1);//(int) shp->diameter + 1, (int) shp->diameter + 1);
-// 	shp->img.pixels = mlx_get_data_addr(shp->img.ptr, &shp->img.bits_per_pixel,
-// 		&shp->img.line_length, &pix_color);
-// 	int i = 0;
-// 	while (i < (int) shp->diameter + 1) { //
-// 		int j = 0;
-// 		while (j < (int) shp->diameter + 1) { //
-// 			if (ray_inter_sp(*ray, shp, &t)) {
-//                 if (t < closest_t) {
-//                     closest_t = t;
-//                     mrt_put_pixel(&shp->img, i, j, color);
-//                 }
-//             } //ray_inter_sp(*ray, shp) && in_sphere(i, j, shp)
-//             else
-//                 mrt_put_pixel(&shp->img, i, j, 0xFFFFFFFF);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
-
-// void place_images(t_data *data, t_ray *ray)
-// {
-// 	int color;
-
-// 	t_list *temp = data->shapes;
-// 	while (temp != NULL) {
-// 		t_shapes *shp = (t_shapes *) temp->content;
-// 		shp->img.mlx_ptr = NULL;
-// 		color = make_color(shp->rgb);
-// 		if (ft_strncmp(shp->identifier, "sp", 2) == 0) {
-// 			do_sphere_img(data, color, shp, ray);
-// 			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, shp->img.ptr,
-// 				(int) shp->cords.x, (int) shp->cords.y);
-// 		}
-// 		if (ft_strncmp(shp->identifier, "pl", 2) == 0) {
-// 		}
-// 		temp = temp->next;
-// 	}
-// }
-
 void	init_scene_img(t_data *data)
 {
 	data->scene_img.mlx_ptr = data->mlx_ptr;
@@ -116,7 +53,7 @@ bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec)
 		shp = (t_shapes *)lst->content;
 		if (ft_strncmp(shp->identifier, "sp", 2) == 0)
 		{
-			if (ray_inter_sp(ray, shp, &t) && t < closest_t)
+			if (ray_inter_sp(ray, shp, &t, rec) && t < closest_t)
 			{
 				closest_t = t;
 				rec->t = t;
@@ -129,13 +66,49 @@ bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec)
 	return (rec->hit);
 }
 
+int min(int a, int b)
+{
+    return (a < b) ? a : b;
+}
+
+int max(int a, int b)
+{
+    return (a > b) ? a : b;
+}
+
+t_rgb calculate_diffuse(t_data *data, t_vec *dir, t_rgb color, t_hit_record *rec) {
+    t_rgb diffuse;
+    double factor;
+
+    factor = vec_dot(rec->normal, dir);
+    diffuse.r = (int)(data->scene->lght.bright * data->scene->lght.rgb.r * color.r * factor / 255.0);
+    diffuse.g = (int)(data->scene->lght.bright * data->scene->lght.rgb.g * color.r * factor / 255.0);
+    diffuse.b = (int)(data->scene->lght.bright * data->scene->lght.rgb.b * color.r * factor / 255.0);
+    return (diffuse);
+}
+
+t_rgb shader(t_rgb color, t_data *data, t_hit_record *rec)
+{
+    t_vec *l_dir;
+    t_rgb mix_color;
+    t_rgb diffuse;
+
+    l_dir = vec_sub(&data->scene->lght.cords, rec->point);
+    normalize(l_dir);
+    diffuse = calculate_diffuse(data, l_dir, color, rec);
+    mix_color.r = min(data->scene->ambi.rgb.r + diffuse.r, 255);
+    mix_color.g = min(data->scene->ambi.rgb.g + diffuse.g, 255);
+    mix_color.b = min(data->scene->ambi.rgb.b + diffuse.b, 255);
+    return (mix_color);
+}
+
 int	ray_color(t_ray ray, t_data *data)
 {
 	t_hit_record	rec;
 
 	if (hit_objects(data, ray, &rec))
 	{
-		return (make_color(rec.object->rgb));
+		return (make_color(shader(rec.object->rgb, data, &rec)));
 	}
 	else
 	{

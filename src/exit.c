@@ -32,7 +32,7 @@ void	free_data(t_data *data)
 		data->lines++;
 		ltmp = *data->lines;
 	}
-	ft_lstiter(data->shapes, &free_imgs);
+	//ft_lstiter(data->shapes, &free_imgs);
 	ft_lstclear(&data->shapes, &free);
 	free(data->shapes);
 }

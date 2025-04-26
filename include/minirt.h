@@ -161,6 +161,7 @@ void	move_cp_buf(char *tmp, t_obag *ob);
 /*rays*/
 t_ray   shoot_ray(int x, int y, t_data *data);
 bool    ray_inter_sp(t_ray ray, t_shapes *shp, float *t);
+void    cast_rays(t_data *data);
 
 /*colors*/
 int	make_color(t_rgb rgb);

@@ -30,6 +30,48 @@ int	init_mlx_window(t_data *data)
 	return (0);
 }
 
+void    to_left(void *shp) {
+    t_shapes	*shape;
+
+    shape = (t_shapes *)shp;
+    shape->cords.x += 1;
+}
+
+void    to_right(void *shp) {
+    t_shapes	*shape;
+
+    shape = (t_shapes *)shp;
+    shape->cords.x -= 1;
+}
+
+void    to_top(void *shp) {
+    t_shapes	*shape;
+
+    shape = (t_shapes *)shp;
+    shape->cords.y -= 1;
+}
+
+void    to_bottom(void *shp) {
+    t_shapes	*shape;
+
+    shape = (t_shapes *)shp;
+    shape->cords.y += 1;
+}
+
+void    to_forw(void *shp) {
+    t_shapes	*shape;
+
+    shape = (t_shapes *)shp;
+    shape->cords.z += 1;
+}
+
+void    to_back(void *shp) {
+    t_shapes	*shape;
+
+    shape = (t_shapes *)shp;
+    shape->cords.z -= 1;
+}
+
 int	key_exit(int key, void *params)
 {
 	t_data	*data;
@@ -43,6 +85,40 @@ int	key_exit(int key, void *params)
 		free_data(data);
 		exit(0);
 	}
+    if (key == 123) { //left
+        //ft_lstiter(data->shapes, &to_left);
+        data->scene->cam.cords.x -= 1;
+        mlx_clear_window(data->mlx_ptr, data->win_ptr);
+        cast_rays(data);
+    }
+    if (key == 124) { //right
+        //ft_lstiter(data->shapes, &to_right);
+        data->scene->cam.cords.x += 1;
+        mlx_clear_window(data->mlx_ptr, data->win_ptr);
+        cast_rays(data);
+    }
+    if (key == 125) { //bottom
+        //ft_lstiter(data->shapes, &to_bottom);
+        data->scene->cam.cords.y -= 1;
+        mlx_clear_window(data->mlx_ptr, data->win_ptr);
+        cast_rays(data);
+    }
+    if (key == 126) {  //top
+        //ft_lstiter(data->shapes, &to_top);
+        data->scene->cam.cords.x += 1;
+        mlx_clear_window(data->mlx_ptr, data->win_ptr);
+        cast_rays(data);
+    }
+    if (key == 40) {  //forward
+        ft_lstiter(data->shapes, &to_forw);
+        mlx_clear_window(data->mlx_ptr, data->win_ptr);
+        cast_rays(data);
+    }
+    if (key == 37) {  //backward
+        ft_lstiter(data->shapes, &to_back);
+        mlx_clear_window(data->mlx_ptr, data->win_ptr);
+        cast_rays(data);
+    }
 	return (0);
 }
 

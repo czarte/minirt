@@ -139,8 +139,8 @@ int	ray_color(t_ray ray, t_data *data)
 	}
 	else
 	{
-		printf("nope\n");
-		return(0xFFFFFFFF);
+//		printf("nope\n");
+		return(make_color(data->scene->ambi.rgb)*data->scene->ambi.ratio);
 	}
 }
 

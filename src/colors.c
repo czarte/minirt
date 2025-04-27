@@ -16,3 +16,55 @@ int	make_color(t_rgb rgb)
 {
 	return ((rgb.r << 16) | (rgb.g << 8) | rgb.b);
 }
+
+t_rgb calculate_ambient(t_data *data, t_shapes *shp)
+{
+    t_rgb ambient_color;
+
+    ambient_color.r = (int)(data->scene->ambi.ratio * data->scene->ambi.rgb.r * shp->rgb.r / 255.0);
+    ambient_color.g = (int)(data->scene->ambi.ratio * data->scene->ambi.rgb.g * shp->rgb.g / 255.0);
+    ambient_color.b = (int)(data->scene->ambi.ratio * data->scene->ambi.rgb.b * shp->rgb.b / 255.0);
+    return (ambient_color);
+}
+
+t_rgb calculate_diffuse(t_data *data, t_vec *dir, t_rgb color, t_hit_record *rec)
+{
+    t_rgb diffuse;
+    double factor;
+
+    factor = vec_dot(rec->normal, dir);
+    diffuse.r = (int)(data->scene->lght.bright * data->scene->lght.rgb.r * color.r * factor / 255.0);
+    diffuse.g = (int)(data->scene->lght.bright * data->scene->lght.rgb.g * color.g * factor / 255.0);
+    diffuse.b = (int)(data->scene->lght.bright * data->scene->lght.rgb.b * color.b * factor / 255.0);
+    return (diffuse);
+}
+
+t_rgb shader(t_rgb color, t_data *data, t_hit_record *rec)
+{
+    t_vec *l_dir;
+    t_rgb mix_color;
+    t_rgb diffuse;
+
+    l_dir = vec_sub(&data->scene->lght.cords, rec->point);
+    normalize(l_dir);
+    mix_color = calculate_ambient(data, rec->object);
+    diffuse = calculate_diffuse(data, l_dir, color, rec);
+    mix_color.r = min(mix_color.r + diffuse.r, 255);
+    mix_color.g = min(mix_color.g + diffuse.g, 255);
+    mix_color.b = min(mix_color.b + diffuse.b, 255);
+    return (mix_color);
+}
+
+int	ray_color(t_ray ray, t_data *data)
+{
+    t_hit_record	rec;
+
+    if (hit_objects(data, ray, &rec))
+    {
+        return (make_color(shader(rec.object->rgb, data, &rec)));
+    }
+    else
+    {
+        return(make_color(data->scene->ambi.rgb)*data->scene->ambi.ratio);
+    }
+}

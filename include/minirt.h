@@ -131,7 +131,9 @@ void	free_data(t_data *data);
 void	free_imgs(void *shp);
 
 /*utils*/
-int	ft_spacious(int c);
+int     ft_spacious(int c);
+int     min(int a, int b);
+int     max(int a, int b);
 
 /*scene*/
 void	construct_scene(t_data * data);
@@ -158,7 +160,13 @@ t_ray   shoot_ray(int x, int y, t_data *data);
 bool    ray_inter_sp(t_ray ray, t_shapes *shp, float *t, t_hit_record *rec);
 void    cast_rays(t_data *data);
 
+/*hit*/
+bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec);
+
 /*colors*/
-int	make_color(t_rgb rgb);
+int     make_color(t_rgb rgb);
+int     ray_color(t_ray ray, t_data *data);
+t_rgb   shader(t_rgb color, t_data *data, t_hit_record *rec);
+t_rgb   calculate_diffuse(t_data *data, t_vec *dir, t_rgb color, t_hit_record *rec);
 
 #endif

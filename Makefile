@@ -4,7 +4,7 @@ SRC 		= main.c src/window.c src/parser.c src/init.c src/ft_spacious.c \
 OBJ 		= $(SRC:.c=.o)
 CC 			= clang
 RM 			= rm -f
-CPPFLAGS 	= -fsanitize=address
+CPPFLAGS 	= -g -fsanitize=address
 LIBFT 		= libft.a
 LIBFTDIR	= libft
 
@@ -15,7 +15,8 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make bonus -C $(LIBFTDIR)
 	@cp $(LIBFTDIR)/$(LIBFT) .
-	$(CC) $(CPPFLAGS) $(OBJ) $(LIBFT) mlx/libmlx.a -lXext -lX11 -o $(NAME)
+	#$(CC) $(CPPFLAGS) $(OBJ) $(LIBFT) mlx/libmlx.a -lXext -lX11 -o $(NAME)
+	$(CC) $(CPPFLAGS) $(OBJ) $(LIBFT) -Lmlx -lmlx -framework OpenGL -framework AppKit -L/usr/X11/lib -lXext -lX11 -o $(NAME)
 
 
 $(MLX):

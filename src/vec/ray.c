@@ -30,8 +30,7 @@ bool    ray_inter_sp(t_ray ray, t_shapes *shp, float *t, t_hit_record *rec) {
 
     t1 = (-b - sqrt(discriminant)) / (2.0 * a);
     t2 = (-b + sqrt(discriminant)) / (2.0 * a);
-    rec->point = oc;
-    rec->normal = normalize(rec->point);
+
     if (t1 > 0.001f) {
         *t = t1;
         return true;

@@ -55,6 +55,8 @@ bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec)
 		{
 			if (ray_inter_sp(ray, shp, &t, rec) && t < closest_t)
 			{
+                rec->point = add(&ray.origin, scale(&ray.dir, t));
+                rec->normal = vec_sub(rec->point, &shp->cords);
 				closest_t = t;
 				rec->t = t;
 				rec->object = shp;
@@ -68,53 +70,18 @@ bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec)
 
 int min(int a, int b)
 {
-    return (a < b) ? a : b;
+    if (a < b)
+        return (a);
+    else
+        return (b);
 }
 
 int max(int a, int b)
 {
-    return (a > b) ? a : b;
-}
-
-t_rgb calculate_diffuse(t_data *data, t_vec *dir, t_rgb color, t_hit_record *rec) {
-    t_rgb diffuse;
-    double factor;
-
-    factor = vec_dot(rec->normal, dir);
-    diffuse.r = (int)(data->scene->lght.bright * data->scene->lght.rgb.r * color.r * factor / 255.0);
-    diffuse.g = (int)(data->scene->lght.bright * data->scene->lght.rgb.g * color.r * factor / 255.0);
-    diffuse.b = (int)(data->scene->lght.bright * data->scene->lght.rgb.b * color.r * factor / 255.0);
-    return (diffuse);
-}
-
-t_rgb shader(t_rgb color, t_data *data, t_hit_record *rec)
-{
-    t_vec *l_dir;
-    t_rgb mix_color;
-    t_rgb diffuse;
-
-    l_dir = vec_sub(&data->scene->lght.cords, rec->point);
-    normalize(l_dir);
-    diffuse = calculate_diffuse(data, l_dir, color, rec);
-    mix_color.r = min(data->scene->ambi.rgb.r + diffuse.r, 255);
-    mix_color.g = min(data->scene->ambi.rgb.g + diffuse.g, 255);
-    mix_color.b = min(data->scene->ambi.rgb.b + diffuse.b, 255);
-    return (mix_color);
-}
-
-int	ray_color(t_ray ray, t_data *data)
-{
-	t_hit_record	rec;
-
-	if (hit_objects(data, ray, &rec))
-	{
-		return (make_color(shader(rec.object->rgb, data, &rec)));
-	}
-	else
-	{
-//		printf("nope\n");
-		return(make_color(data->scene->ambi.rgb)*data->scene->ambi.ratio);
-	}
+    if (a > b)
+        return (a);
+    else
+        return (b);
 }
 
 void cast_rays(t_data *data)

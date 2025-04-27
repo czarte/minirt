@@ -105,7 +105,7 @@ int	key_exit(int key, void *params)
     }
     if (key == 126) {  //top
         //ft_lstiter(data->shapes, &to_top);
-        data->scene->cam.cords.x += 1;
+        data->scene->cam.cords.y += 1;
         mlx_clear_window(data->mlx_ptr, data->win_ptr);
         cast_rays(data);
     }

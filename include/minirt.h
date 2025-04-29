@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/23 23:44:48 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:41:11 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #define WIN_TITLE "MiniRT"
 
 #include "external.h"
+#include "mlx_utils.h"
 #include "vec.h"
 
 typedef struct s_ray {

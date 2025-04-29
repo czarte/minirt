@@ -1,7 +1,6 @@
 #ifndef VEC_LIBRARY
 #define VEC_LIBRARY
 
-#include "minirt.h"
 #include "external.h"
 
 typedef struct s_vec {

@@ -21,9 +21,9 @@ t_rgb calculate_ambient(t_data *data, t_shapes *shp)
 {
     t_rgb ambient_color;
 
-    ambient_color.r = (int)(data->scene->ambi.ratio * data->scene->ambi.rgb.r * shp->rgb.r / 255.0);
-    ambient_color.g = (int)(data->scene->ambi.ratio * data->scene->ambi.rgb.g * shp->rgb.g / 255.0);
-    ambient_color.b = (int)(data->scene->ambi.ratio * data->scene->ambi.rgb.b * shp->rgb.b / 255.0);
+    ambient_color.r = (int)(data->scene->ambi.ratio * (float) data->scene->ambi.rgb.r * (float) shp->rgb.r / 255.0f);
+    ambient_color.g = (int)(data->scene->ambi.ratio * (float) data->scene->ambi.rgb.g * (float) shp->rgb.g / 255.0f);
+    ambient_color.b = (int)(data->scene->ambi.ratio * (float) data->scene->ambi.rgb.b * (float) shp->rgb.b / 255.0f);
     return (ambient_color);
 }
 
@@ -33,9 +33,9 @@ t_rgb calculate_diffuse(t_data *data, t_vec *dir, t_rgb color, t_hit_record *rec
     double factor;
 
     factor = vec_dot(rec->normal, dir);
-    diffuse.r = (int)(data->scene->lght.bright * data->scene->lght.rgb.r * color.r * factor / 255.0);
-    diffuse.g = (int)(data->scene->lght.bright * data->scene->lght.rgb.g * color.g * factor / 255.0);
-    diffuse.b = (int)(data->scene->lght.bright * data->scene->lght.rgb.b * color.b * factor / 255.0);
+    diffuse.r = (int)(data->scene->lght.bright * (float) data->scene->lght.rgb.r * (float) color.r * (float) factor / 255.0f);
+    diffuse.g = (int)(data->scene->lght.bright * (float) data->scene->lght.rgb.g * (float) color.g * (float) factor / 255.0f);
+    diffuse.b = (int)(data->scene->lght.bright * (float) data->scene->lght.rgb.b * (float) color.b * (float) factor / 255.0f);
     return (diffuse);
 }
 

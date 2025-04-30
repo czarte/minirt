@@ -110,12 +110,14 @@ int	key_exit(int key, void *params)
         cast_rays(data);
     }
     if (key == 40) {  //forward
-        ft_lstiter(data->shapes, &to_forw);
+		data->scene->cam.cords.z += 1;
+		// ft_lstiter(data->shapes, &to_forw);
         mlx_clear_window(data->mlx_ptr, data->win_ptr);
         cast_rays(data);
     }
     if (key == 37) {  //backward
-        ft_lstiter(data->shapes, &to_back);
+		data->scene->cam.cords.z -= 1;
+        //ft_lstiter(data->shapes, &to_back);
         mlx_clear_window(data->mlx_ptr, data->win_ptr);
         cast_rays(data);
     }

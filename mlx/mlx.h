@@ -14,7 +14,6 @@
 
 
 /*
-** FR msg - FR msg - FR msg
 **
 ** La MinilibX utilise 2 librairies supplementaires qu'il
 **      est necessaire de rajouter a la compilation :
@@ -52,7 +51,8 @@ int	mlx_pixel_put(void *mlx_ptr, void *win_ptr, int x, int y, int color);
 /*
 **  origin for x & y is top left corner of the window
 **  y down is positive
-**  color is 0x00RRGGBB
+**  color is 0xAARRGGBB format
+**  x and y must fit into the size of the window, no control is done on the values
 */
 
 
@@ -102,6 +102,7 @@ int mlx_loop_end (void *mlx_ptr);
 
 /*
 **  Usually asked...
+**   mlx_string_put display may vary in size between OS and between mlx implementations
 */
 
 int	mlx_string_put(void *mlx_ptr, void *win_ptr, int x, int y, int color,

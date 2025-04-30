@@ -27,12 +27,12 @@ t_rgb calculate_ambient(t_data *data, t_shapes *shp)
     return (ambient_color);
 }
 
-t_rgb calculate_diffuse(t_data *data, t_vec *dir, t_rgb color, t_hit_record *rec)
+t_rgb calculate_diffuse(t_data *data, t_vec dir, t_rgb color, t_hit_record *rec)
 {
     t_rgb diffuse;
     double factor;
 
-    factor = vec_dot(rec->normal, dir);
+    factor = vec_dot(&rec->normal, &dir);
     diffuse.r = (int)(data->scene->lght.bright * (float) data->scene->lght.rgb.r * (float) color.r * (float) factor / 255.0f);
     diffuse.g = (int)(data->scene->lght.bright * (float) data->scene->lght.rgb.g * (float) color.g * (float) factor / 255.0f);
     diffuse.b = (int)(data->scene->lght.bright * (float) data->scene->lght.rgb.b * (float) color.b * (float) factor / 255.0f);
@@ -41,11 +41,11 @@ t_rgb calculate_diffuse(t_data *data, t_vec *dir, t_rgb color, t_hit_record *rec
 
 t_rgb shader(t_rgb color, t_data *data, t_hit_record *rec)
 {
-    t_vec *l_dir;
+    t_vec l_dir;
     t_rgb mix_color;
     t_rgb diffuse;
 
-    l_dir = vec_sub(&data->scene->lght.cords, rec->point);
+    l_dir = vec_sub(data->scene->lght.cords, rec->point);
     normalize(l_dir);
     mix_color = calculate_ambient(data, rec->object);
     diffuse = calculate_diffuse(data, l_dir, color, rec);

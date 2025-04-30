@@ -55,8 +55,9 @@ bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec)
 		{
 			if (ray_inter_sp(ray, shp, &t, rec) && t < closest_t)
 			{
-                rec->point = add(&ray.origin, scale(&ray.dir, t));
-                rec->normal = vec_sub(rec->point, &shp->cords);
+                rec->point = add(ray.origin, scale(ray.dir, t));
+                //rec->normal = vec_sub(rec->point, shp->cords);
+				rec->normal = normalize(vec_sub(rec->point, shp->cords));
 				closest_t = t;
 				rec->t = t;
 				rec->object = shp;

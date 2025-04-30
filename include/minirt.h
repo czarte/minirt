@@ -104,8 +104,8 @@ typedef struct s_obag {
 
 typedef struct s_hit_record {
 	float		t;
-	t_vec		*point;
-	t_vec		*normal;
+	t_vec		point;
+	t_vec		normal;
 	t_shapes	*object;
 	bool		hit;
 }			t_hit_record;
@@ -167,6 +167,6 @@ bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec);
 int     make_color(t_rgb rgb);
 int     ray_color(t_ray ray, t_data *data);
 t_rgb   shader(t_rgb color, t_data *data, t_hit_record *rec);
-t_rgb   calculate_diffuse(t_data *data, t_vec *dir, t_rgb color, t_hit_record *rec);
+t_rgb   calculate_diffuse(t_data *data, t_vec dir, t_rgb color, t_hit_record *rec);
 
 #endif

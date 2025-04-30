@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: voparkan <voparkan@student.42prague.com>   +#+  +:+       +#+        */
+/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:44:17 by voparkan          #+#    #+#             */
-/*   Updated: 2025/03/22 18:44:17 by voparkan         ###   ########.fr       */
+/*   Updated: 2025/04/29 18:14:58 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ void	mk_scene_ambient(t_data *data, char *tmp)
 void	mk_scene_camera(t_data *data, char *tmp)
 {
 	t_obag	*ob;
+	t_vec	*world_up;
 
 	ob = malloc(sizeof(t_obag));
 	init_tobag(ob);
+	world_up = new_vec(0.0, 1.0, 0.0);
 	while (tmp[ob->i] != '\0')
 	{
 		do_j_bzero(ob);
@@ -61,10 +63,17 @@ void	mk_scene_camera(t_data *data, char *tmp)
 			tvec_from_split(&data->scene->cam.cords, ob->spl_buf);
 		if (ob->k == 1)
 			tvec_from_split(&data->scene->cam.orient, ob->spl_buf);
+		// Add focal lenght check, should be > 0 and < 180
 		if (ob->k == 2)
 			data->scene->cam.fov = ft_atoi(ob->buf);
 		if (ob->k < 2)
 			free(ob->spl_buf);
+		if (fabs(vec_dot(&data->scene->cam.orient, world_up)) > 0.999)
+		{
+			world_up->x = 0.0;
+			world_up->y = 0.0;
+			world_up->z = 1.0;
+		}
 		ob->k++;
 	}
 	free(ob);

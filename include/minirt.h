@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/29 15:41:11 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/04/29 17:36:12 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_rgb {
 typedef struct s_cam {
 	t_vec			cords;
 	t_vec			orient;
+	t_vec			right;
+	t_vec			up;
 	int 			fov;
 } t_cam;
 

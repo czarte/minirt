@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:42:51 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/24 01:03:57 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/01 15:08:13 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec)
 			if (ray_inter_sp(ray, shp, &t, rec) && t < closest_t)
 			{
                 rec->point = add(ray.origin, scale(ray.dir, t));
-                //rec->normal = vec_sub(rec->point, shp->cords);
 				rec->normal = normalize(vec_sub(rec->point, shp->cords));
 				closest_t = t;
 				rec->t = t;

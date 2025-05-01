@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:17:47 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/24 00:49:04 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:40:47 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_rgb calculate_diffuse(t_data *data, t_vec dir, t_rgb color, t_hit_record *rec)
     t_rgb diffuse;
     double factor;
 
-    factor = vec_dot(&rec->normal, &dir);
+    factor = fmax(0.0, vec_dot(&rec->normal, &dir)); 
     diffuse.r = (int)(data->scene->lght.bright * (float) data->scene->lght.rgb.r * (float) color.r * (float) factor / 255.0f);
     diffuse.g = (int)(data->scene->lght.bright * (float) data->scene->lght.rgb.g * (float) color.g * (float) factor / 255.0f);
     diffuse.b = (int)(data->scene->lght.bright * (float) data->scene->lght.rgb.b * (float) color.b * (float) factor / 255.0f);
@@ -45,8 +45,7 @@ t_rgb shader(t_rgb color, t_data *data, t_hit_record *rec)
     t_rgb mix_color;
     t_rgb diffuse;
 
-    l_dir = vec_sub(data->scene->lght.cords, rec->point);
-    normalize(l_dir);
+    l_dir = normalize(vec_sub(data->scene->lght.cords, rec->point));
     mix_color = calculate_ambient(data, rec->object);
     diffuse = calculate_diffuse(data, l_dir, color, rec);
     mix_color.r = min(mix_color.r + diffuse.r, 255);
@@ -65,6 +64,12 @@ int	ray_color(t_ray ray, t_data *data)
     }
     else
     {
-        return(make_color(data->scene->ambi.rgb)*data->scene->ambi.ratio);
+        t_rgb bg = {
+            .r = data->scene->ambi.rgb.r * data->scene->ambi.ratio,
+            .g = data->scene->ambi.rgb.g * data->scene->ambi.ratio,
+            .b = data->scene->ambi.rgb.b * data->scene->ambi.ratio
+        };
+        return (make_color(bg));
+        // return(make_color(data->scene->ambi.rgb)*data->scene->ambi.ratio);
     }
 }

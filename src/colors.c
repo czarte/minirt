@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:17:47 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/01 13:40:47 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:08:22 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	make_color(t_rgb rgb)
 	return ((rgb.r << 16) | (rgb.g << 8) | rgb.b);
 }
 
-t_rgb calculate_ambient(t_data *data, t_shapes *shp)
+t_rgb	calculate_ambient(t_data *data, t_shapes *shp)
 {
     t_rgb ambient_color;
 
@@ -27,12 +27,12 @@ t_rgb calculate_ambient(t_data *data, t_shapes *shp)
     return (ambient_color);
 }
 
-t_rgb calculate_diffuse(t_data *data, t_vec dir, t_rgb color, t_hit_record *rec)
+t_rgb	calculate_diffuse(t_data *data, t_vec l_dir, t_rgb color, t_hit_record *rec)
 {
     t_rgb diffuse;
     double factor;
 
-    factor = fmax(0.0, vec_dot(&rec->normal, &dir)); 
+    factor = fmax(0.0, vec_dot(&rec->normal, &l_dir));
     diffuse.r = (int)(data->scene->lght.bright * (float) data->scene->lght.rgb.r * (float) color.r * (float) factor / 255.0f);
     diffuse.g = (int)(data->scene->lght.bright * (float) data->scene->lght.rgb.g * (float) color.g * (float) factor / 255.0f);
     diffuse.b = (int)(data->scene->lght.bright * (float) data->scene->lght.rgb.b * (float) color.b * (float) factor / 255.0f);

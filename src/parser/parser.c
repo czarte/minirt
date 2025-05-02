@@ -54,9 +54,9 @@ bool	read_next_line(int fd, char *line_buf, int *i)
 	{
 		if (buffer[0] == '\n')
 			break ;
-		if (*i >= 1023) // защита от переполнения
+		if (*i >= 1023)
 		{
-			line_buf[1023] = '\0'; // обязательно завершим строку
+			line_buf[1023] = '\0';
 			return true;
 		}
 		line_buf[(*i)++] = buffer[0];

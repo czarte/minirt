@@ -44,13 +44,17 @@ t_rgb shader(t_rgb color, t_data *data, t_hit_record *rec)
     t_vec l_dir;
     t_rgb mix_color;
     t_rgb diffuse;
+    double factor;
+//    t_vec normalize_normal = normalize(rec->normal);
 
     l_dir = normalize(vec_sub(data->scene->lght.cords, rec->point));
+    factor = fmax(0.0, vec_dot(&rec->normal, &l_dir));
     mix_color = calculate_ambient(data, rec->object);
+    double mix_factor = factor;
     diffuse = calculate_diffuse(data, l_dir, color, rec);
-    mix_color.r = min(mix_color.r + diffuse.r, 255);
-    mix_color.g = min(mix_color.g + diffuse.g, 255);
-    mix_color.b = min(mix_color.b + diffuse.b, 255);
+    mix_color.r = min(mix_color.r * 0.4f + diffuse.r * factor, 255);
+    mix_color.g = min(mix_color.g * 0.4f + diffuse.g * factor, 255);
+    mix_color.b = min(mix_color.b * 0.4f + diffuse.b * factor, 255);
     return (mix_color);
 }
 

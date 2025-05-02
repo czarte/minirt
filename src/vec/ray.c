@@ -1,5 +1,6 @@
 #include "../../include/minirt.h"
 #include "../../include/vec.h"
+#include <math.h>
 
 t_ray   shoot_ray(int x, int y, t_data *data) {
     float aspect = (float) WIN_WIDTH / WIN_HEIGHT;

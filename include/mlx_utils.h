@@ -38,8 +38,8 @@
 #  define KEY_DOWN 65364
 #  define KEY_LEFT 65361
 #  define KEY_RIGHT 65363
-#  define KEY_FORWARD 65365 // Example, adjust as needed
-#  define KEY_BACKWARD 65366 // Example, adjust as needed
+#  define KEY_FORWARD 107 // Example, adjust as needed
+#  define KEY_BACKWARD 108 // Example, adjust as needed
 # else
 #  error "Unsupported operating system"
 # endif

@@ -29,12 +29,14 @@ bool in_sphere(int i, int j, t_shapes *shp) {
 
 void	init_scene_img(t_data *data)
 {
-	data->scene_img.mlx_ptr = data->mlx_ptr;
-	data->scene_img.ptr = mlx_new_image(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
-	data->scene_img.pixels = mlx_get_data_addr(data->scene_img.ptr,
-								&data->scene_img.bits_per_pixel,
-								&data->scene_img.line_length,
-								&data->scene_img.endian);
+
+	data->scene_img[data->frame % 2]->mlx_ptr = data->mlx_ptr;
+	data->scene_img[data->frame % 2]->ptr = mlx_new_image(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
+	data->scene_img[data->frame % 2]->pixels = mlx_get_data_addr(data->scene_img[data->frame % 2]->ptr,
+                                                                 &data->scene_img[data->frame % 2]->bits_per_pixel,
+                                                                 &data->scene_img[data->frame % 2]->line_length,
+                                                                 &data->scene_img[data->frame % 2]->endian);
+    printf("data frame %d\n", data->frame);
 }
 
 bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec)
@@ -101,12 +103,12 @@ void cast_rays(t_data *data)
         {
             ray = shoot_ray(w, h, data);
 			color = ray_color(ray, data);
-			mrt_put_pixel(&(data->scene_img), w, h, color);
+			mrt_put_pixel(data->scene_img[data->frame % 2], w, h, color);
             h++;
         }
         w++;
     }
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->scene_img.ptr, 0, 0);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->scene_img[data->frame % 2]->ptr, 0, 0);
 }
 
 int	main(int argc, char *argv[])

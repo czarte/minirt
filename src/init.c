@@ -26,7 +26,13 @@ int	init_program(t_data *data, int argc, char **argv)
 		perror("Error opening file");
 		return (-1);
 	}
+    data->frame = 1;
+    data->test = malloc(sizeof(int));
+    *data->test = 0;
+    data->scene_img[0] = malloc(sizeof(t_img));
+    data->scene_img[1] = malloc(sizeof(t_img));
 	init_scene(data);
 	init_objects(data);
+    printf("INIT data->frame: %d\n", data->frame);
 	return (0);
 }

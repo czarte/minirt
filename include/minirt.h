@@ -82,6 +82,8 @@ typedef struct s_shapes {
 } t_shapes;
 
 typedef struct s_data {
+    int         frame;
+    int         *test;
 	int 		argc;
 	char 		**argv;
 	garbage		*garbage;
@@ -91,7 +93,7 @@ typedef struct s_data {
 	t_scene		*scene;
     int			key;
 	char 		*filename;
-	t_img		scene_img;
+	t_img		*scene_img[2];
     void		*mlx_ptr;
     void		*win_ptr;
 } t_data;

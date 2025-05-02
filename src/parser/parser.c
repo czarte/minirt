@@ -1,0 +1,151 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/15 15:33:32 by voparkan          #+#    #+#             */
+/*   Updated: 2025/05/02 18:24:213 by aevstign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/minirt.h"
+
+// bool	asign_line(char ***lines, char **line, int *i, t_obag *bag)
+// {
+// 	(*line)[(*i)] = '\0';
+// 	if (!check_line(*line, bag))
+// 		return (false);
+// 	**lines = *line;
+// 	// need to check NULL
+// 	*line = malloc(1024);
+// 	bzero(*line, 1024);
+// 	(*lines)++;
+// 	*i = 0;
+// 	return (true);
+// }
+
+void	exit_error(char *msg)
+{
+	printf("Error: %s\n", msg);
+	exit(EXIT_FAILURE);
+}
+
+bool	process_line(char *line, t_obag *bag, char ***lines)
+{
+	if (!check_line(line, bag))
+		return (false);
+	**lines = ft_strdup(line);
+	if (!**lines)
+		return (false);
+	(*lines)++;
+	return (true);
+}
+
+bool	read_next_line(int fd, char *line_buf, int *i)
+{
+	char	buffer[1];
+	int		bytes_read;
+
+	*i = 0;
+	bytes_read = read(fd, buffer, 1);
+	while (bytes_read > 0)
+	{
+		if (buffer[0] == '\n')
+			break ;
+		if (*i >= 1023) // защита от переполнения
+		{
+			line_buf[1023] = '\0'; // обязательно завершим строку
+			return true;
+		}
+		line_buf[(*i)++] = buffer[0];
+		bytes_read = read(fd, buffer, 1);
+		if (bytes_read < 0) {
+			perror("Read failed");
+			return false;
+		}
+	}
+	line_buf[(*i)] = '\0';
+	return (*i > 0 || bytes_read > 0);
+}
+
+void	do_lines(t_data *data, char ***lines)
+{
+	char	line[1024];
+	t_obag	bag;
+	int		i;
+	char	**current;
+
+	i = 0;
+	bag = (t_obag){0, 0, 0, NULL};
+	current = *lines;
+	while (read_next_line(data->scenefd, line, &i))
+	{
+		if (i == 0)
+			continue ;
+		if (!process_line(line, &bag, &current))
+			exit_error("Invalid scene line");
+	}
+	*current = NULL;
+}
+
+// bag is used here to store camera, ambient and light counts
+// void	do_lines(t_data *data, char *buffer, char ***lines)
+// {
+// 	char	*line;
+// 	int		i;
+// 	t_obag	bag;
+
+// 	i = 0;
+// 	bag = (t_obag){0, 0, 0, NULL};
+// 	line = malloc(1024);
+// 	bzero(line, 1024);
+// 	while (read(data->scenefd, buffer, 1) > 0)
+// 	{
+// 		if (strncmp(buffer, "\n", 1) == 0)
+// 		{
+// 			if (!asign_line(lines, &line, &i, &bag))
+// 			{
+// 				// free(line);
+// 				// free_split(*lines);
+// 				exit(-1);
+// 			}
+// 		}
+// 		else
+// 			line[i++] = buffer[0];
+// 	}
+// 	**lines = line;
+// 	(*lines)++;
+// 	**lines = NULL;
+// }
+
+void	print_lines(char ***tmp)
+{
+	while (**tmp != NULL)
+	{
+		printf("%s\n", **tmp);
+		(*tmp)++;
+	}
+}
+
+void	init_scene(t_data *data)
+{
+	char	**lines;
+	char	**tmp;
+
+	data->scenefd = open(data->filename, O_RDONLY);
+	if (data->scenefd == -1)
+	{
+		perror("Error opening file");
+		close(data->scenefd);
+		exit(-1);
+	}
+	lines = malloc(100 * sizeof(char *));
+	tmp = lines;
+	do_lines(data, &lines);
+	close(data->scenefd);
+	data->lines = tmp;
+	print_lines(&tmp);
+	construct_scene(data);
+}

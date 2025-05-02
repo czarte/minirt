@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/23 23:44:48 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/02 19:43:27 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,11 @@ int	check_mouse_button(int button,int x,int y, void *p);
 
 /*parser*/
 void	init_scene(t_data *data);
+
+bool	check_line(char *line, t_obag *bag);
+bool	handle_headers(int camera_count, int light_count, int ambient_count);
+void	free_split(char **split);
+
 
 /*init*/
 int	init_program(t_data *data, int argc, char **argv);

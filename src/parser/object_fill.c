@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   object_fill.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: voparkan <voparkan@student.42prague.com>   +#+  +:+       +#+        */
+/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:35:45 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/11 16:38:41 by voparkan         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:34:03 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minirt.h"
+#include "../../include/minirt.h"
 
 void	tvec_from_split(t_vec *v, char **split)
 {

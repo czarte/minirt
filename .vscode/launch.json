@@ -1,0 +1,81 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "cppdbg",
+      "request": "launch",
+      "name": "Launch miniRT",
+      "program": "${workspaceFolder}/miniRT",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "environment": [],
+      "externalConsole": true,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable GDB pretty printing",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "build"
+    },
+    {
+      "type": "cppdbg",
+      "request": "launch",
+      "name": "Launch miniRT with LLDB",
+      "program": "${workspaceFolder}/miniRT", // Path to your compiled binary
+      "args": [], // Add any command-line arguments here
+      "cwd": "${workspaceFolder}", // Set the working directory
+      "stopAtEntry": false,
+      "environment": [],
+      "externalConsole": true,
+      "MIMode": "lldb", // Use LLDB as the debugger
+      "setupCommands": [
+        {
+          "description": "Enable LLDB pretty printing",
+          "text": "settings set target.process.python-os-plugin false",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "Build with Makefile" // Ensure the project is built before debugging
+    },
+    {
+      "type": "cppdbg",
+      "request": "launch",
+      "name": "Launch miniRT in Container",
+      "program": "/home/program/miniRT", // Path to the binary inside the container
+      "args": [], // Add any command-line arguments here
+      "cwd": "/home/program", // Working directory inside the container
+      "stopAtEntry": false,
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb", // Use GDB for debugging in Linux
+      "miDebuggerPath": "/usr/bin/gdb", // Path to GDB inside the container
+      "setupCommands": [
+        {
+          "description": "Enable GDB pretty printing",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "pipeTransport": {
+        "pipeProgram": "docker",
+        "pipeArgs": ["exec", "-i", "minirt"], // Replace with your container name
+        "debuggerPath": "/usr/bin/gdb" // Path to GDB inside the container
+      },
+      "sourceFileMap": {
+        "/home/program": "${workspaceFolder}" // Map container paths to local paths
+      },
+      "preLaunchTask": "Build with Makefile"
+    }
+  ],
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "programPath",
+      "description": "Enter the path to the miniRT executable (e.g., miniRT)"
+    }
+  ]
+}

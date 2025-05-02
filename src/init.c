@@ -3,14 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: voparkan <voparkan@student.42prague.com>   +#+  +:+       +#+        */
+/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 15:52:10 by voparkan          #+#    #+#             */
-/*   Updated: 2025/03/16 15:52:28 by voparkan         ###   ########.fr       */
+/*   Updated: 2025/05/02 20:26:35 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
+
+void	check_input(t_data *data)
+{
+	char	*buffer;
+
+	data->scenefd = open(data->filename, O_RDONLY);
+	if (data->scenefd == -1)
+	{
+		perror("Error opening file");
+		exit(-1);
+	}
+	buffer = malloc(1);
+	if (buffer == NULL)
+	{
+		printf("Error allocating memory\n");
+		exit(-1);
+	}
+	if (read(data->scenefd, buffer, 1) <= 0)
+	{
+		printf("Error: Scene is empty\n");
+		exit(-1);
+	}
+	close(data->scenefd);
+	return ;
+}
 
 int	init_program(t_data *data, int argc, char **argv)
 {
@@ -20,12 +45,7 @@ int	init_program(t_data *data, int argc, char **argv)
 		return (-1);
 	}
 	data->filename = argv[1];
-	data->scenefd = open(data->filename, O_RDONLY);
-	if (data->scenefd == -1)
-	{
-		perror("Error opening file");
-		return (-1);
-	}
+	check_input(data);
 	init_scene(data);
 	init_objects(data);
 	return (0);

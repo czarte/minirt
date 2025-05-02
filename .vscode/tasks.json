@@ -1,0 +1,24 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "Build with Makefile",
+      "command": "docker",
+      "args": ["exec", "-w", "/home/program", "minirt", "make"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "type": "shell",
+      "label": "Clean with Makefile",
+      "command": "docker",
+      "args": ["exec", "-w", "/home/program", "minirt", "make", "clean"],
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}

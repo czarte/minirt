@@ -35,6 +35,8 @@
 #  define O_KEY_A_L 106
 #  define O_KEY_X_F 109
 #  define O_KEY_y_B 110
+#  define A_KEY_UP 237
+#  define A_KEY_DWN 233
 #  define KEY_W 13
 #  define KEY_A 0
 #  define KEY_S 1
@@ -49,6 +51,8 @@
 # elif defined(__linux__)
 // Linux Keymaps
 #  define KEY_ESC 65307
+#  define A_KEY_UP 237
+#  define A_KEY_DWN 233
 #  define L_KEY_A_L 97
 #  define L_KEY_D_R 100
 #  define L_KEY_S_B 115
@@ -70,6 +74,10 @@
 # else
 #  error "Unsupported operating system"
 # endif
+
+//ambient
+//9 - 237
+//0 + 233
 
 // light
 //97 a

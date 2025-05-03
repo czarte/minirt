@@ -121,7 +121,7 @@ void	init_tobag(t_obag *obag);
 
 /*window handing functions*/
 int init_mlx_window(t_data *data);
-int	key_exit(int key, void *params);
+int	key_mapping(int key, void *params);
 int	check_exit_button(int button,int x,int y, void *p);
 int	check_mouse_button(int button,int x,int y, void *p);
 

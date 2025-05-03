@@ -123,7 +123,7 @@ int	main(int argc, char *argv[])
 		exit(-1);
     //place_images(data);
     cast_rays(data);
-	mlx_key_hook(data->win_ptr, &key_exit, (void *)data);
+	mlx_key_hook(data->win_ptr, &key_mapping, (void *)data);
 	mlx_mouse_hook(data->win_ptr, &check_mouse_button, (void *)data);
 	//mlx_hook(data->win_ptr, 33, 1L << 17, &mlx_loop_end, data->mlx_ptr);
 	mlx_loop(data->mlx_ptr);

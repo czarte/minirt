@@ -50,7 +50,6 @@ t_rgb shader(t_rgb color, t_data *data, t_hit_record *rec)
     l_dir = normalize(vec_sub(data->scene->lght.cords, rec->point));
     factor = fmax(0.0, vec_dot(&rec->normal, &l_dir));
     mix_color = calculate_ambient(data, rec->object);
-    double mix_factor = factor;
     diffuse = calculate_diffuse(data, l_dir, color, rec);
     mix_color.r = min(mix_color.r * 0.4f + diffuse.r * factor, 255);
     mix_color.g = min(mix_color.g * 0.4f + diffuse.g * factor, 255);

@@ -139,11 +139,11 @@ int	key_mapping(int key, void *params)
     resolve_light_move(data, key, &cast);
     resolve_camera_move(data, key, &cast);
     resolve_object_move(data, key, &cast);
-    if (key == A_KEY_DWN && data->scene->ambi.ratio > 0.01f) {
-        data->scene->ambi.ratio -= 0.01f;
+    if (key == A_KEY_DWN && (data->scene->ambi.ratio >= 0.1f && data->scene->ambi.ratio <= 1.0)) {
+        data->scene->ambi.ratio -= 0.1f;
         cast = true;
-    } else if (key == A_KEY_UP && data->scene->ambi.ratio < 0.09f) {
-        data->scene->ambi.ratio += 0.01f;
+    } else if (key == A_KEY_UP && (data->scene->ambi.ratio <= 0.9f && data->scene->ambi.ratio >= 0.0f)) {
+        data->scene->ambi.ratio += 0.1f;
         cast = true;
     }
     if (cast)

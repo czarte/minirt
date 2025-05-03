@@ -54,7 +54,7 @@ bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec)
 		shp = (t_shapes *)lst->content;
 		if (ft_strncmp(shp->identifier, "sp", 2) == 0)
 		{
-			if (ray_inter_sp(ray, shp, &t, rec) && t < closest_t)
+			if (ray_inter_sp(ray, shp, &t) && t < closest_t)
 			{
                 rec->point = add(ray.origin, scale(ray.dir, t));
 				rec->normal = normalize(vec_sub(rec->point, shp->cords));

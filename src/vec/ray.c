@@ -16,7 +16,7 @@ t_ray   shoot_ray(int x, int y, t_data *data) {
     return ((t_ray){data->scene->cam.cords, direction});
 }
 
-bool    ray_inter_sp(t_ray ray, t_shapes *shp, float *t, t_hit_record *rec) {
+bool    ray_inter_sp(t_ray ray, t_shapes *shp, float *t) {
     float t1;
     float t2;
     float shp_radius = shp->diameter / 2;

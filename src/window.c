@@ -142,8 +142,7 @@ int	key_mapping(int key, void *params)
     if (key == A_KEY_DWN && data->scene->ambi.ratio > 0.01f) {
         data->scene->ambi.ratio -= 0.01f;
         cast = true;
-    }
-    if (key == A_KEY_UP && data->scene->ambi.ratio < 0.09f) {
+    } else if (key == A_KEY_UP && data->scene->ambi.ratio < 0.09f) {
         data->scene->ambi.ratio += 0.01f;
         cast = true;
     }

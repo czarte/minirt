@@ -36,7 +36,6 @@ void	init_scene_img(t_data *data)
                                                                  &data->scene_img[data->frame % 2]->bits_per_pixel,
                                                                  &data->scene_img[data->frame % 2]->line_length,
                                                                  &data->scene_img[data->frame % 2]->endian);
-    printf("data frame %d\n", data->frame);
 }
 
 bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec)

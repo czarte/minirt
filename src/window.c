@@ -77,10 +77,8 @@ int	key_exit(int key, void *params)
 	t_data	*data;
 
 	data = (t_data *) params;
-    printf("HERE data->test: %d\n", *data->test);
     int frame_n = data->frame % 2;
 	printf("Keys in miniRT : %d\n", key);
-    printf("&data->scene_img: %p frame_n: %d\n", data->scene_img[frame_n]->ptr, frame_n);
 	if (key == KEY_ESC || key == 17 || key == 53)
 	{
         mlx_destroy_image(data->mlx_ptr, data->scene_img[frame_n]->ptr);
@@ -89,54 +87,37 @@ int	key_exit(int key, void *params)
 		free_data(data);
 		exit(0);
 	}
-    if (key == KEY_A || key == KEY_LEFT) { //left
-        //ft_lstiter(data->shapes, &to_left);
-        data->scene->lght   .cords.x -= 1;
-        //mlx_clear_window(data->mlx_ptr, data->win_ptr);
-        data->frame++;
-        cast_rays(data);
-        mlx_destroy_image(data->mlx_ptr, data->scene_img[frame_n]->ptr);
-    }
-    if (key == KEY_D || key == KEY_RIGHT) { //right
-        //ft_lstiter(data->shapes, &to_right);
+    data->frame++;
+    if (key == L_KEY_A_L) //light left
+        data->scene->lght.cords.x -= 1;
+    if (key == L_KEY_D_R) //light right
         data->scene->lght.cords.x += 1;
-        //mlx_clear_window(data->mlx_ptr, data->win_ptr);
-        data->frame++;
-        cast_rays(data);
-        mlx_destroy_image(data->mlx_ptr, data->scene_img[frame_n]->ptr);
-    }
-    if (key == KEY_DOWN) { //bottom
-        //ft_lstiter(data->shapes, &to_bottom);
+    if (key == L_KEY_S_B) //light bottom
         data->scene->lght.cords.y -= 1;
-        //mlx_clear_window(data->mlx_ptr, data->win_ptr);
-        data->frame++;
-        cast_rays(data);
-        mlx_destroy_image(data->mlx_ptr, data->scene_img[frame_n]->ptr);
-    }
-    if (key == KEY_UP) {  //top
-        //ft_lstiter(data->shapes, &to_top);
+    if (key == L_KEY_W_U) //light top
         data->scene->lght.cords.y += 1;
-        //mlx_clear_window(data->mlx_ptr, data->win_ptr);
-        data->frame++;
-        cast_rays(data);
-        mlx_destroy_image(data->mlx_ptr, data->scene_img[frame_n]->ptr);
-    }
-    if (key == KEY_W || key == KEY_FORWARD) {  //forward
-		data->scene->cam.cords.z -= 1;
-		// ft_lstiter(data->shapes, &to_forw);
-        //mlx_clear_window(data->mlx_ptr, data->win_ptr);
-        data->frame++;
-        cast_rays(data);
-        mlx_destroy_image(data->mlx_ptr, data->scene_img[frame_n]->ptr);
-    }
-    if (key == KEY_S || key == KEY_BACKWARD) {  //backward
+    if (key == C_KEY_UP) //camera forward
+        data->scene->cam.cords.y += 1;
+    if (key == C_KEY_DOWN) //camera backward
+        data->scene->cam.cords.y -= 1;
+    if (key == C_KEY_LEFT) //camera forward
+        data->scene->cam.cords.x -= 1;
+    if (key == C_KEY_RIGHT) //camera backward
+        data->scene->cam.cords.x += 1;
+    if (key == C_KEY_FORWARD) //camera forward
+        data->scene->cam.cords.z -= 1;
+    if (key == C_KEY_BACKWARD) //camera backward
 		data->scene->cam.cords.z += 1;
-        //ft_lstiter(data->shapes, &to_back);
-        //mlx_clear_window(data->mlx_ptr, data->win_ptr);
-        data->frame++;
-        cast_rays(data);
-        mlx_destroy_image(data->mlx_ptr, data->scene_img[frame_n]->ptr);
-    }
+    if (key == O_KEY_A_L)
+        ft_lstiter(data->shapes, &to_left);
+    if (key == O_KEY_W_U)
+        ft_lstiter(data->shapes, &to_top);
+    if (key == O_KEY_D_R)
+        ft_lstiter(data->shapes, &to_right);
+    if (key == O_KEY_S_B)
+        ft_lstiter(data->shapes, &to_bottom);
+    cast_rays(data);
+    mlx_destroy_image(data->mlx_ptr, data->scene_img[frame_n]->ptr);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 19:36:45 by aevstign          #+#    #+#             */
-/*   Updated: 2025/05/04 12:59:14 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/04 14:13:24 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,14 @@ bool	validate_rgb(char *token)
 	int		i;
 	int		value;
 
+	i = 0;
 	splited_rgb = ft_split(token, ',');
+	if (!splited_rgb)
+		return (false);
 	while (splited_rgb[i])
 	{
 		value = ft_atoi(splited_rgb[i]);
-		if (splited_rgb[i] < 0 || splited_rgb[i] > 255)
+		if (value < 0 || value > 255)
 		{
 			free_split(splited_rgb);
 			return (false);
@@ -106,9 +109,15 @@ bool	validate_ambient(char **tokens, int count)
 		printf("Error: Wrong number of parameters for: %s\n", tokens[0]);
 		return (false);
 	}
-	if (!validate_rgb(tokens[3]))
+	ratio = ft_atof(tokens[1]);
+	if (ratio <= 0.0 || ratio >= 1.0)
 	{
-		printf("Error: wrong color intervals for ambient");
+		printf("Error: ambient ratio is wrong\n");
+		return (false);
+	}
+	if (!validate_rgb(tokens[2]))
+	{
+		printf("Error: wrong color intervals for ambient\n");
 		return (false);
 	}
 	return (true);
@@ -121,7 +130,52 @@ bool	validate_light(char **tokens, int count)
 		printf("Error: Wrong number of parameters for: %s\n", tokens[0]);
 		return (false);
 	}
-	if (!validate_rgb(tokens[3]) || count != 3)
+	if (!validate_rgb(tokens[3]))
+	{
+		printf("Error: wrong color intervals for light \n");
+		return (false);
+	}
+	return (true);
+}
+
+bool	validate_sphere(char **tokens, int count)
+{
+	if (count != 4)
+	{
+		printf("Error: Wrong number of parameters for: %s\n", tokens[0]);
+		return (false);
+	}
+	if (!validate_rgb(tokens[3]))
+	{
+		printf("Error: wrong color intervals for light");
+		return (false);
+	}
+	return (true);
+}
+
+bool	validate_plane(char **tokens, int count)
+{
+	if (count != 4)
+	{
+		printf("Error: Wrong number of parameters for: %s\n", tokens[0]);
+		return (false);
+	}
+	if (!validate_rgb(tokens[3]))
+	{
+		printf("Error: wrong color intervals for light");
+		return (false);
+	}
+	return (true);
+}
+
+bool	validate_cylindr(char **tokens, int count)
+{
+	if (count != 4)
+	{
+		printf("Error: Wrong number of parameters for: %s\n", tokens[0]);
+		return (false);
+	}
+	if (!validate_rgb(tokens[3]))
 	{
 		printf("Error: wrong color intervals for light");
 		return (false);
@@ -148,12 +202,12 @@ bool	validate_tokens(char **tokens)
 		return (validate_ambient(tokens, count));
 	if (!strcmp(tokens[0], "L"))
 		return (validate_light(tokens, count));
-	if (!strcmp(tokens[0], "cp") && count != 4)
-		return (false);
+	if (!strcmp(tokens[0], "sp"))
+		return (validate_sphere(tokens, count));
 	if (!strcmp(tokens[0], "pl") && count != 4)
-		return (false);
-	if (!strcmp(tokens[0], "cy") && count != 6)
-		return (false);
+		return (validate_plane(tokens, count));
+	if (!strcmp(tokens[0], "cy"))
+		return (validate_cylindr(tokens, count));
 	return (true);
 }
 

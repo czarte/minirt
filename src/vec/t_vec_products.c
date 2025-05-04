@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/05/04 13:01:46 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/04 13:06:24 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,12 @@ t_vec	normalize(t_vec a)
     return (scale(a, 1.0 / length));
 }
 
-t_vec	*divide_by_scalar(t_vec *a, float s)
-	return (vec3(a->x / s, a->y / s, a->z / s));
+// t_vec	*divide_by_scalar(t_vec *a, float s)
+// {
+// 	return (vec3(a->x / s, a->y / s, a->z / s));
+// }
 
-t_vec	*substract(t_vec *a, t_vec *b)
-	return (vec3(a.x - b->x, a->y - b->y, a.z - b->z));
+// t_vec	*substract(t_vec *a, t_vec *b)
+// {
+// 	return (vec3(a->x - b->x, a->y - b->y, a->z - b->z));
+// }

@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 19:36:45 by aevstign          #+#    #+#             */
-/*   Updated: 2025/05/04 10:59:52 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/04 12:59:14 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,110 @@ bool	is_valid_identifier(const char *id)
 		|| !strcmp(id, "sp") || !strcmp(id, "pl") || !strcmp(id, "cy"));
 }
 
+bool	validate_rgb(char *token)
+{
+	char	**splited_rgb;
+	int		i;
+	int		value;
+
+	splited_rgb = ft_split(token, ',');
+	while (splited_rgb[i])
+	{
+		value = ft_atoi(splited_rgb[i]);
+		if (splited_rgb[i] < 0 || splited_rgb[i] > 255)
+		{
+			free_split(splited_rgb);
+			return (false);
+		}
+		i++;
+	}
+	if (i != 3)
+	{
+		free_split(splited_rgb);
+		return (false);
+	}
+	free_split(splited_rgb);
+	return (true);
+}
+
+bool	validate_camera(char **tokens, int count)
+{
+	int	fov;
+
+	fov = ft_atoi(tokens[3]);
+	if (count != 4)
+	{
+		printf("Error: Wrong number of parameters for: %s\n", tokens[0]);
+		return (false);
+	}
+	if (fov < 0 || fov > 180)
+	{
+		printf("Error: Wrong fov for camera\n");
+		return (false);
+	}
+	return (true);
+}
+
+bool	validate_ambient(char **tokens, int count)
+{
+	double	ratio;
+
+	if (count != 3)
+	{
+		printf("Error: Wrong number of parameters for: %s\n", tokens[0]);
+		return (false);
+	}
+	if (!validate_rgb(tokens[3]))
+	{
+		printf("Error: wrong color intervals for ambient");
+		return (false);
+	}
+	return (true);
+}
+
+bool	validate_light(char **tokens, int count)
+{
+	if (count != 4)
+	{
+		printf("Error: Wrong number of parameters for: %s\n", tokens[0]);
+		return (false);
+	}
+	if (!validate_rgb(tokens[3]) || count != 3)
+	{
+		printf("Error: wrong color intervals for light");
+		return (false);
+	}
+	return (true);
+}
+
+bool	validate_tokens(char **tokens)
+{
+	int	count;
+	int	fov;
+
+	count = 0;
+	if (!is_valid_identifier(tokens[0]))
+	{
+		printf("Error: Unknown identifier '%s'\n", tokens[0]);
+		return (false);
+	}
+	while (tokens[count])
+		count++;
+	if (!strcmp(tokens[0], "C"))
+		return (validate_camera(tokens, count));
+	if (!strcmp(tokens[0], "A"))
+		return (validate_ambient(tokens, count));
+	if (!strcmp(tokens[0], "L"))
+		return (validate_light(tokens, count));
+	if (!strcmp(tokens[0], "cp") && count != 4)
+		return (false);
+	if (!strcmp(tokens[0], "pl") && count != 4)
+		return (false);
+	if (!strcmp(tokens[0], "cy") && count != 6)
+		return (false);
+	return (true);
+}
+
 bool	check_line(char *line, t_obag *bag)
 {
 	int		i;
@@ -62,11 +166,10 @@ bool	check_line(char *line, t_obag *bag)
 	while (ft_spacious(line[i]))
 		i++;
 	tokens = ft_split(line, ' ');
-	if (!tokens)
+	if (!tokens || !tokens[0])
 		return (false);
-	if (!is_valid_identifier(tokens[0]))
+	if (!validate_tokens(tokens))
 	{
-		printf("Error: Unknown identifier '%s'\n", tokens[0]);
 		free_split(tokens);
 		return (false);
 	}

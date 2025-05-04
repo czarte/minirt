@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/09 14:42:51 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/24 01:03:57 by aevstign         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2025/05/04 13:00:30 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "include/minirt.h"
 #include <float.h>

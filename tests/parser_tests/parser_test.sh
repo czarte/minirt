@@ -35,6 +35,8 @@ L 10,10,10 0.5 255,255,255
 EOF
 
 cat > "$SCENES_DIR/multiple_cameras.rt" <<EOF
+A 0.2 255,255,255
+L 10,10,10 0.5 255,255,255
 C 0,0,0 0,0,1 70
 C 1,1,1 0,1,0 60
 EOF
@@ -42,6 +44,7 @@ EOF
 cat > "$SCENES_DIR/unknown_type.rt" <<EOF
 C 0,0,0 0,0,1 70
 A 0.2 255,255,255
+L 10,10,10 0.5 255,255,255
 X 0,0,0 1
 EOF
 

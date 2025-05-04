@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 19:36:45 by aevstign          #+#    #+#             */
-/*   Updated: 2025/05/02 21:51:07 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/04 10:59:52 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ bool	check_line(char *line, t_obag *bag)
 		return (false);
 	if (!is_valid_identifier(tokens[0]))
 	{
-		printf("Error: Unknown identifier");
+		printf("Error: Unknown identifier '%s'\n", tokens[0]);
 		free_split(tokens);
 		return (false);
 	}

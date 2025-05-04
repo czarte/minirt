@@ -12,20 +12,6 @@
 
 #include "../../include/minirt.h"
 
-// bool	asign_line(char ***lines, char **line, int *i, t_obag *bag)
-// {
-// 	(*line)[(*i)] = '\0';
-// 	if (!check_line(*line, bag))
-// 		return (false);
-// 	**lines = *line;
-// 	// need to check NULL
-// 	*line = malloc(1024);
-// 	bzero(*line, 1024);
-// 	(*lines)++;
-// 	*i = 0;
-// 	return (true);
-// }
-
 void	exit_error(char *msg)
 {
 	printf("Error: %s\n", msg);
@@ -34,9 +20,14 @@ void	exit_error(char *msg)
 
 bool	process_line(char *line, t_obag *bag, char ***lines)
 {
+	char	*dup;
+
 	if (!check_line(line, bag))
 		return (false);
-	**lines = ft_strdup(line);
+	dup = ft_strdup(line);
+	if (!dup)
+		return (false);
+	**lines = dup;
 	if (!**lines)
 		return (false);
 	(*lines)++;
@@ -57,19 +48,21 @@ bool	read_next_line(int fd, char *line_buf, int *i)
 		if (*i >= 1023)
 		{
 			line_buf[1023] = '\0';
-			return true;
+			return (true);
 		}
 		line_buf[(*i)++] = buffer[0];
 		bytes_read = read(fd, buffer, 1);
-		if (bytes_read < 0) {
+		if (bytes_read < 0)
+		{
 			perror("Read failed");
-			return false;
+			return (false);
 		}
 	}
 	line_buf[(*i)] = '\0';
-	return (*i > 0 || bytes_read > 0);
+	return (bytes_read != 0 || *i > 0);
 }
 
+// bag is used here to store camera, ambient and light counts
 void	do_lines(t_data *data, char ***lines)
 {
 	char	line[1024];
@@ -87,38 +80,10 @@ void	do_lines(t_data *data, char ***lines)
 		if (!process_line(line, &bag, &current))
 			exit_error("Invalid scene line");
 	}
+	if (!handle_headers(bag.i, bag.j, bag.k))
+		exit_error("Invalid scene line");
 	*current = NULL;
 }
-
-// bag is used here to store camera, ambient and light counts
-// void	do_lines(t_data *data, char *buffer, char ***lines)
-// {
-// 	char	*line;
-// 	int		i;
-// 	t_obag	bag;
-
-// 	i = 0;
-// 	bag = (t_obag){0, 0, 0, NULL};
-// 	line = malloc(1024);
-// 	bzero(line, 1024);
-// 	while (read(data->scenefd, buffer, 1) > 0)
-// 	{
-// 		if (strncmp(buffer, "\n", 1) == 0)
-// 		{
-// 			if (!asign_line(lines, &line, &i, &bag))
-// 			{
-// 				// free(line);
-// 				// free_split(*lines);
-// 				exit(-1);
-// 			}
-// 		}
-// 		else
-// 			line[i++] = buffer[0];
-// 	}
-// 	**lines = line;
-// 	(*lines)++;
-// 	**lines = NULL;
-// }
 
 void	print_lines(char ***tmp)
 {
@@ -138,7 +103,6 @@ void	init_scene(t_data *data)
 	if (data->scenefd == -1)
 	{
 		perror("Error opening file");
-		close(data->scenefd);
 		exit(-1);
 	}
 	lines = malloc(100 * sizeof(char *));

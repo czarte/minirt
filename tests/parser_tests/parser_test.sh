@@ -82,7 +82,7 @@ run_test "$SCENES_DIR/empty.rt" "Error: Scene is empty"
 run_test "$SCENES_DIR/missing_camera.rt" "Error: Scene must contain exactly one camera (C)"
 run_test "$SCENES_DIR/multiple_cameras.rt" "Error: Scene must contain exactly one camera (C)"
 run_test "$SCENES_DIR/unknown_type.rt" "Error: Unknown identifier"
-run_test "$SCENES_DIR/bad_rgb.rt" "RGB values must be"
+run_test "$SCENES_DIR/bad_rgb.rt" "Error: wrong color intervals for sp";
 run_test "$SCENES_DIR/bad_orientation.rt" "Orientation vector"
 run_test "$SCENES_DIR/bad_brightness.rt" "Brightness must be"
 run_test "$SCENES_DIR/negative_diameter.rt" "Sphere diameter"

@@ -68,11 +68,15 @@ C 0,0,0 0,0,1 70
 EOF
 
 cat > "$SCENES_DIR/negative_diameter.rt" <<EOF
+A 0.2 255,255,255
+L 10,10,10 0.5 255,255,255
 C 0,0,0 0,0,1 70
 sp 0,0,0 -5 255,255,255
 EOF
 
 cat > "$SCENES_DIR/negative_height.rt" <<EOF
+A 0.2 255,255,255
+L 10,10,10 0.5 255,255,255
 C 0,0,0 0,0,1 70
 cy 0,0,0 0,1,0 5 -10 255,255,255
 EOF
@@ -83,10 +87,10 @@ run_test "$SCENES_DIR/missing_camera.rt" "Error: Scene must contain exactly one 
 run_test "$SCENES_DIR/multiple_cameras.rt" "Error: Scene must contain exactly one camera (C)"
 run_test "$SCENES_DIR/unknown_type.rt" "Error: Unknown identifier"
 run_test "$SCENES_DIR/bad_rgb.rt" "Error: wrong color intervals for sp";
-run_test "$SCENES_DIR/bad_orientation.rt" "Orientation vector"
-run_test "$SCENES_DIR/bad_brightness.rt" "Brightness must be"
-run_test "$SCENES_DIR/negative_diameter.rt" "Sphere diameter"
-run_test "$SCENES_DIR/negative_height.rt" "Cylinder height"
+run_test "$SCENES_DIR/bad_orientation.rt" "Error: Wrong orientation for cy"
+run_test "$SCENES_DIR/bad_brightness.rt" "Error: wrong ratio for L"
+run_test "$SCENES_DIR/negative_diameter.rt" "Error: Diametr should be positive for sp";
+run_test "$SCENES_DIR/negative_height.rt" "Error: Height should be positive for cy"
 
 echo ""
 echo "✅ Passed: $OK"

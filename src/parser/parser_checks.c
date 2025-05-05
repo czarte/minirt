@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 19:36:45 by aevstign          #+#    #+#             */
-/*   Updated: 2025/05/04 23:17:50 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/05 13:39:44 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	free_split(char **split)
 	i = 0;
 	while (split[i])
 	{
-		free(split[i]);
+		if (split[i])
+			free(split[i]);
 		i++;
 	}
 	free(split);
@@ -82,6 +83,25 @@ bool	validate_rgb(char *token)
 	return (true);
 }
 
+bool	validate_orientation(char *tokens)
+{
+	char	**splited_ort;
+	t_vec	vec;
+	double	x;
+	double	y;
+	double	z;
+
+	splited_ort = ft_split(tokens, ',');
+	if (!splited_ort)
+		return (false);
+	x = ft_atof(splited_ort[0]);
+	y = ft_atof(splited_ort[1]);
+	z = ft_atof(splited_ort[2]);
+	free_split(splited_ort);
+	vec = (t_vec){x, y, z};
+	return (vec_length(&vec) > 0.999 && vec_length(&vec) < 1.001);
+}
+
 bool	validate_camera(char **tokens, int count)
 {
 	int	fov;
@@ -89,12 +109,17 @@ bool	validate_camera(char **tokens, int count)
 	fov = ft_atoi(tokens[3]);
 	if (count != 4)
 	{
-		printf("Error: Wrong number of parameters for: %s\n", tokens[0]);
+		printf("Error: Wrong number of parameters for %s\n", tokens[0]);
 		return (false);
 	}
 	if (fov < 0 || fov > 180)
 	{
 		printf("Error: Wrong fov for camera\n");
+		return (false);
+	}
+	if (!validate_orientation(tokens[2]))
+	{
+		printf("Error: Wrong orientation for %s\n", tokens[0]);
 		return (false);
 	}
 	return (true);
@@ -106,18 +131,18 @@ bool	validate_ambient(char **tokens, int count)
 
 	if (count != 3)
 	{
-		printf("Error: Wrong number of parameters for: %s\n", tokens[0]);
+		printf("Error: Wrong number of parameters for %s\n", tokens[0]);
 		return (false);
 	}
 	ratio = ft_atof(tokens[1]);
 	if (ratio <= 0.0 || ratio >= 1.0)
 	{
-		printf("Error: ambient ratio is wrong\n");
+		printf("Error: wrong ratio for %s\n", tokens[0]);
 		return (false);
 	}
 	if (!validate_rgb(tokens[2]))
 	{
-		printf("Error: wrong color intervals for: %s\n", tokens[0]);
+		printf("Error: wrong color intervals for %s\n", tokens[0]);
 		return (false);
 	}
 	return (true);
@@ -125,14 +150,22 @@ bool	validate_ambient(char **tokens, int count)
 
 bool	validate_light(char **tokens, int count)
 {
+	double ratio;
+
 	if (count != 4)
 	{
-		printf("Error: Wrong number of parameters for: %s\n", tokens[0]);
+		printf("Error: Wrong number of parameters for %s\n", tokens[0]);
 		return (false);
 	}
 	if (!validate_rgb(tokens[3]))
 	{
-		printf("Error: wrong color intervals for: %s\n", tokens[0]);
+		printf("Error: wrong color intervals for %s\n", tokens[0]);
+		return (false);
+	}
+	ratio = ft_atof(tokens[2]);
+	if (ratio <= 0.0 || ratio >= 1.0)
+	{
+		printf("Error: wrong ratio for %s\n", tokens[0]);
 		return (false);
 	}
 	return (true);
@@ -140,14 +173,22 @@ bool	validate_light(char **tokens, int count)
 
 bool	validate_sphere(char **tokens, int count)
 {
+	double	diameter;
+
 	if (count != 4)
 	{
-		printf("Error: Wrong number of parameters for: %s\n", tokens[0]);
+		printf("Error: Wrong number of parameters for %s\n", tokens[0]);
 		return (false);
 	}
 	if (!validate_rgb(tokens[3]))
 	{
 		printf("Error: wrong color intervals for %s\n", tokens[0]);
+		return (false);
+	}
+	diameter = ft_atof(tokens[2]);
+	if (diameter < 0)
+	{
+		printf("Error: Diametr should be positive for %s\n", tokens[0]);
 		return (false);
 	}
 	return (true);
@@ -157,12 +198,17 @@ bool	validate_plane(char **tokens, int count)
 {
 	if (count != 4)
 	{
-		printf("Error: Wrong number of parameters for: %s\n", tokens[0]);
+		printf("Error: Wrong number of parameters for %s\n", tokens[0]);
 		return (false);
 	}
 	if (!validate_rgb(tokens[3]))
 	{
-		printf("Error: wrong color intervals for: %s\n", tokens[0]);
+		printf("Error: wrong color intervals for %s\n", tokens[0]);
+		return (false);
+	}
+	if (!validate_orientation(tokens[2]))
+	{
+		printf("Error: Wrong orientation for %s\n", tokens[0]);
 		return (false);
 	}
 	return (true);
@@ -170,14 +216,27 @@ bool	validate_plane(char **tokens, int count)
 
 bool	validate_cylindr(char **tokens, int count)
 {
-	if (count != 4)
+	double	height;
+
+	if (count != 6)
 	{
-		printf("Error: Wrong number of parameters for: %s\n", tokens[0]);
+		printf("Error: Wrong number of parameters for %s\n", tokens[0]);
 		return (false);
 	}
-	if (!validate_rgb(tokens[3]))
+	if (!validate_rgb(tokens[5]))
 	{
-		printf("Error: wrong color intervals for: %s\n", tokens[0]);
+		printf("Error: wrong color intervals for %s\n", tokens[0]);
+		return (false);
+	}
+	if (!validate_orientation(tokens[2]))
+	{
+		printf("Error: Wrong orientation for %s\n", tokens[0]);
+		return (false);
+	}
+	height = atof(tokens[4]);
+	if (height < 0)
+	{
+		printf("Error: Height should be positive for %s\n", tokens[0]);
 		return (false);
 	}
 	return (true);

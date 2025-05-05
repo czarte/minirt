@@ -6,12 +6,12 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:44:17 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/02 11:34:33 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/05 13:46:34 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
-#include "../../include/debug.h"
+#include "../include/minirt.h"
+#include "../include/debug.h"
 
 void	mk_scene_ambient(t_data *data, char *tmp)
 {

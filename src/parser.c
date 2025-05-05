@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "../include/minirt.h"
 
 void	exit_error(char *msg)
 {
@@ -80,7 +80,7 @@ void	do_lines(t_data *data, char ***lines)
 		if (!process_line(line, &bag, &current))
 			exit_error("Invalid scene line");
 	}
-	if (!handle_headers(bag.i, bag.j, bag.k))
+	if (!handle_identifiers(bag.i, bag.j, bag.k))
 		exit_error("Invalid scene line");
 	*current = NULL;
 }

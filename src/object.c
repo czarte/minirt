@@ -6,12 +6,12 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:23:38 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/02 11:34:18 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/05 13:46:48 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
-#include "../../include/debug.h"
+#include "../include/minirt.h"
+#include "../include/debug.h"
 
 void	mk_obj_pl(t_data *data, char *tmp)
 {

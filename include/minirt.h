@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/05/04 13:00:49 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/05 14:23:05 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,6 @@ int	check_mouse_button(int button,int x,int y, void *p);
 
 /*parser*/
 void	init_scene(t_data *data);
-
-bool	check_line(char *line, t_obag *bag);
-bool	handle_headers(int camera_count, int light_count, int ambient_count);
 void	free_split(char **split);
 
 
@@ -174,5 +171,22 @@ int     make_color(t_rgb rgb);
 int     ray_color(t_ray ray, t_data *data);
 t_rgb   shader(t_rgb color, t_data *data, t_hit_record *rec);
 t_rgb   calculate_diffuse(t_data *data, t_vec dir, t_rgb color, t_hit_record *rec);
+
+
+/*validator*/
+bool	check_line(char *line, t_obag *bag);
+bool	handle_identifiers(int camera_count, int light_count,
+			int ambient_count);
+
+bool	validate_camera(char **tokens, int count);
+bool	validate_light(char **tokens, int count);
+bool	validate_ambient(char **tokens, int count);
+bool	validate_sphere(char **tokens, int count);
+bool	validate_plane(char **tokens, int count);
+bool	validate_cylindr(char **tokens, int count);
+
+
+bool	validate_rgb(char *token);
+bool	validate_orientation(char *tokens);
 
 #endif

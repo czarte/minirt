@@ -6,11 +6,11 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:35:45 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/02 11:34:03 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/05 13:46:52 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "../include/minirt.h"
 
 void	tvec_from_split(t_vec *v, char **split)
 {

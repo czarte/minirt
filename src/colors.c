@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:17:47 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/02 11:08:22 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/06 16:20:44 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,56 @@ t_rgb	calculate_diffuse(t_data *data, t_vec l_dir, t_rgb color, t_hit_record *re
     return (diffuse);
 }
 
+bool    is_in_shadow(t_data *data, t_vec point, t_vec light_pos, t_vec normal)
+{
+	t_vec			to_light;
+	t_ray			shadow_ray;
+	double			light_dist;
+	t_hit_record	tmp;
+	double			hit_dist;
+
+	to_light = vec_sub(light_pos, point);
+	light_dist = vec_length(to_light);
+	shadow_ray.origin = add(point, scale(normal, 1e-3));
+	shadow_ray.dir = normalize(to_light);
+	if (hit_objects(data, shadow_ray, &tmp))
+	{
+		hit_dist = vec_length(vec_sub(tmp.point, point));
+		if (hit_dist < light_dist)
+			return (true);
+	}
+	return (false);
+}
+
+// Compute shadow softness factor:
+// - dot(normal, light_dir) gives how directly the surface faces the light (1.0 = fully facing).
+// - fmax ensures we ignore negative values (light from behind).
+// - Multiplied by 0.5 to limit the max contribution from this term.
+// - Added 0.2 as a base value to keep shadows slightly visible (not pitch black).
+// Final result ranges from 0.2 (fully in shadow) to 0.7 (partially lit).
+
 t_rgb shader(t_rgb color, t_data *data, t_hit_record *rec)
 {
     t_vec l_dir;
     t_rgb mix_color;
     t_rgb diffuse;
     double factor;
-//    t_vec normalize_normal = normalize(rec->normal);
 
     l_dir = normalize(vec_sub(data->scene->lght.cords, rec->point));
     factor = fmax(0.0, vec_dot(&rec->normal, &l_dir));
     mix_color = calculate_ambient(data, rec->object);
-    diffuse = calculate_diffuse(data, l_dir, color, rec);
+	if (is_in_shadow(data, rec->point, data->scene->lght.cords, rec->normal))
+	{
+	    float softness = 0.2f + 0.5f * fmax(0.0, vec_dot(&rec->normal, &l_dir));
+		float visibility = 0.2f;
+		factor *= visibility; 
+  		diffuse = calculate_diffuse(data, l_dir, color, rec);
+   		diffuse.r *= softness;
+    	diffuse.g *= softness;
+    	diffuse.b *= softness;
+	}
+	else
+    	diffuse = calculate_diffuse(data, l_dir, color, rec);
     mix_color.r = min(mix_color.r * 0.4f + diffuse.r * factor, 255);
     mix_color.g = min(mix_color.g * 0.4f + diffuse.g * factor, 255);
     mix_color.b = min(mix_color.b * 0.4f + diffuse.b * factor, 255);

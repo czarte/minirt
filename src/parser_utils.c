@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 12:58:54 by aevstign          #+#    #+#             */
-/*   Updated: 2025/05/09 14:11:48 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:13:24 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,14 @@ void	check_scene_alloc(t_data *data, void *ptr)
 	{
 		free_data(data);
 		exit_error("Error: failed to allocate memory");
+	}
+}
+
+void	print_lines(char ***tmp)
+{
+	while (**tmp != NULL)
+	{
+		printf("%s\n", **tmp);
+		(*tmp)++;
 	}
 }

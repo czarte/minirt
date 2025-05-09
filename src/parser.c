@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 15:33:32 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/09 13:40:51 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:21:42 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ bool	process_line(char *line, t_obag *bag, char ***lines)
 	if (!dup)
 		return (false);
 	**lines = dup;
-	if (!**lines)
-		return (false);
 	(*lines)++;
 	return (true);
 }
@@ -56,6 +54,13 @@ bool	read_next_line(int fd, char *line_buf, int *i)
 	return (bytes_read != 0 || *i > 0);
 }
 
+static void	cleanup_and_exit(char **current, char **start, char *error_message)
+{
+	*current = NULL;
+	free_lines(start);
+	exit_error(error_message);
+}
+
 // bag is used here to store camera, ambient and light counts
 void	do_lines(t_data *data, char ***lines)
 {
@@ -63,35 +68,23 @@ void	do_lines(t_data *data, char ***lines)
 	t_obag	bag;
 	int		i;
 	char	**current;
+	char	**start;
 
 	i = 0;
 	bag = (t_obag){0, 0, 0, NULL};
 	current = *lines;
+	start = current;
 	while (read_next_line(data->scenefd, line, &i))
 	{
 		if (i == 0)
 			continue ;
 		if (!process_line(line, &bag, &current))
-		{
-			free_lines(*lines);
-			exit_error("Invalid scene line");
-		}
+			cleanup_and_exit(current, start, "Invalid scene line");
 	}
 	if (!handle_identifiers(bag.i, bag.j, bag.k))
-	{
-		free_lines(*lines);
-		exit_error("Invalid scene line");
-	}
+		cleanup_and_exit(current, start, "Invalid scene line");
 	*current = NULL;
-}
-
-void	print_lines(char ***tmp)
-{
-	while (**tmp != NULL)
-	{
-		printf("%s\n", **tmp);
-		(*tmp)++;
-	}
+	*lines = start;
 }
 
 void	init_scene(t_data *data)
@@ -103,8 +96,7 @@ void	init_scene(t_data *data)
 	if (data->scenefd == -1)
 		exit_error("Error opening file");
 	lines = malloc(100 * sizeof(char *));
-	if (!lines)
-		perror("Failed to allocate memory in init_scene");
+	check_scene_alloc(data, lines);
 	tmp = lines;
 	do_lines(data, &lines);
 	close(data->scenefd);

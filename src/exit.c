@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 16:14:41 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/09 13:39:16 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:09:11 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@ void	free_lines(char **lines)
 	int	i;
 
 	i = 0;
+	// if (!lines || lines[0])
+	// 	return ;
 	while (lines[i])
 	{
-		free(lines[i]);
+		if (lines[i])
+			free(lines[i]);
 		i++;
 	}
 	free(lines);

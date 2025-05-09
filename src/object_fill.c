@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:35:45 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/09 14:23:13 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/09 14:50:15 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ void	iter_pl(t_data *data, char *tmp, t_shapes *pl_shape)
 	{
 		read_next_word(tmp, ob);
 		if (ob->k < 3)
+		{
 			ob->spl_buf = ft_split(ob->buf, ',');
+			check_scene_alloc(data, ob->spl_buf);
+		}
 		ob->j = 0;
 		if (ob->k == 0)
 			tvec_from_split(&pl_shape->cords, ob->spl_buf);

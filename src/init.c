@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 15:52:10 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/02 23:22:14 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/09 15:36:34 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,11 @@ void	check_input(t_data *data)
 		exit(-1);
 	}
 	buffer = malloc(1);
-	if (buffer == NULL)
-	{
-		printf("Error allocating memory\n");
-		exit(-1);
-	}
+	check_scene_alloc(data, buffer);
 	if (read(data->scenefd, buffer, 1) <= 0)
 	{
 		printf("Error: Scene is empty\n");
-		exit(-1);
+		exit(EXIT_FAILURE);
 	}
 	close(data->scenefd);
 	free(buffer);

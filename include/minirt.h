@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/05/09 14:19:40 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:14:59 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void	exit_error(char *msg);
 /*parser_utils*/
 void	check_scene_alloc(t_data *data, void *ptr);
 void	read_next_word(char *tmp, t_obag *ob);
+void	print_lines(char ***tmp);
 
 
 /*init*/

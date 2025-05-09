@@ -6,17 +6,11 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 15:33:32 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/02 18:24:213 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/09 13:40:51 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
-
-void	exit_error(char *msg)
-{
-	printf("Error: %s\n", msg);
-	exit(EXIT_FAILURE);
-}
 
 bool	process_line(char *line, t_obag *bag, char ***lines)
 {
@@ -78,10 +72,16 @@ void	do_lines(t_data *data, char ***lines)
 		if (i == 0)
 			continue ;
 		if (!process_line(line, &bag, &current))
+		{
+			free_lines(*lines);
 			exit_error("Invalid scene line");
+		}
 	}
 	if (!handle_identifiers(bag.i, bag.j, bag.k))
+	{
+		free_lines(*lines);
 		exit_error("Invalid scene line");
+	}
 	*current = NULL;
 }
 
@@ -101,11 +101,10 @@ void	init_scene(t_data *data)
 
 	data->scenefd = open(data->filename, O_RDONLY);
 	if (data->scenefd == -1)
-	{
-		perror("Error opening file");
-		exit(-1);
-	}
+		exit_error("Error opening file");
 	lines = malloc(100 * sizeof(char *));
+	if (!lines)
+		perror("Failed to allocate memory in init_scene");
 	tmp = lines;
 	do_lines(data, &lines);
 	close(data->scenefd);

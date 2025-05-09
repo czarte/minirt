@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:35:45 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/05 13:46:52 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/09 14:23:13 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,16 @@ void	trgb_from_split(t_rgb *rgb, char **split)
 	}
 }
 
-void	iter_pl(char *tmp, t_shapes *pl_shape)
+void	iter_pl(t_data *data, char *tmp, t_shapes *pl_shape)
 {
 	t_obag	*ob;
 
 	ob = malloc(sizeof(t_obag));
+	check_scene_alloc(data, ob);
 	init_tobag(ob);
 	while (tmp[ob->i] != '\0')
 	{
-		do_j_bzero(ob);
-		while (ft_spacious(tmp[ob->i]))
-			ob->i++;
-		while (tmp[ob->i] && !ft_spacious(tmp[ob->i]))
-			ob->buf[ob->j++] = tmp[ob->i++];
-		ob->buf[ob->i] = '\0';
+		read_next_word(tmp, ob);
 		if (ob->k < 3)
 			ob->spl_buf = ft_split(ob->buf, ',');
 		ob->j = 0;
@@ -70,24 +66,24 @@ void	iter_pl(char *tmp, t_shapes *pl_shape)
 			free(ob->spl_buf);
 		ob->k++;
 	}
+	free(ob);
 }
 
-void	iter_sp(char *tmp, t_shapes *sp_shape)
+void	iter_sp(t_data *data, char *tmp, t_shapes *sp_shape)
 {
 	t_obag	*ob;
 
 	ob = malloc(sizeof(t_obag));
+	check_scene_alloc(data, ob);
 	init_tobag(ob);
 	while (tmp[ob->i] != '\0')
 	{
-		do_j_bzero(ob);
-		while (ft_spacious(tmp[ob->i]))
-			ob->i++;
-		while (tmp[ob->i] && !ft_spacious(tmp[ob->i]))
-			ob->buf[ob->j++] = tmp[ob->i++];
-		ob->buf[ob->i] = '\0';
+		read_next_word(tmp, ob);
 		if (ob->k != 1)
+		{
 			ob->spl_buf = ft_split(ob->buf, ',');
+			check_scene_alloc(data, ob->spl_buf);
+		}
 		ob->j = 0;
 		if (ob->k == 0)
 			tvec_from_split(&sp_shape->cords, ob->spl_buf);
@@ -99,20 +95,25 @@ void	iter_sp(char *tmp, t_shapes *sp_shape)
 			free(ob->spl_buf);
 		ob->k++;
 	}
+	free(ob);
 }
 
-void	iter_cy(char *tmp, t_shapes *cy_shape)
+void	iter_cy(t_data *data, char *tmp, t_shapes *cy_shape)
 {
 	t_obag	*ob;
 
 	ob = malloc(sizeof(t_obag));
+	check_scene_alloc(data, ob);
 	init_tobag(ob);
 	while (tmp[ob->i] != '\0')
 	{
 		do_j_bzero(ob);
 		move_cp_buf(tmp, ob);
 		if (ob->k < 2 || ob->k > 3)
+		{
 			ob->spl_buf = ft_split(ob->buf, ',');
+			check_scene_alloc(data, ob->spl_buf);
+		}
 		ob->j = 0;
 		if (ob->k == 0)
 			tvec_from_split(&cy_shape->cords, ob->spl_buf);
@@ -128,4 +129,5 @@ void	iter_cy(char *tmp, t_shapes *cy_shape)
 			free(ob->spl_buf);
 		ob->k++;
 	}
+	free(ob);
 }

@@ -6,10 +6,9 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/05/05 14:23:05 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/09 14:19:40 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINIRT_LIBRARY
 #define MINIRT_LIBRARY
@@ -116,36 +115,42 @@ void	init_tobag(t_obag *obag);
 
 
 /*window handing functions*/
-int init_mlx_window(t_data *data);
-int	key_exit(int key, void *params);
-int	check_exit_button(int button,int x,int y, void *p);
-int	check_mouse_button(int button,int x,int y, void *p);
+int		init_mlx_window(t_data *data);
+int		key_exit(int key, void *params);
+int		check_exit_button(int button, int x, int y, void *p);
+int		check_mouse_button(int button, int x, int y, void *p);
 
 /*parser*/
 void	init_scene(t_data *data);
 void	free_split(char **split);
+void	exit_error(char *msg);
+
+/*parser_utils*/
+void	check_scene_alloc(t_data *data, void *ptr);
+void	read_next_word(char *tmp, t_obag *ob);
 
 
 /*init*/
-int	init_program(t_data *data, int argc, char **argv);
+int		init_program(t_data *data, int argc, char **argv);
 
 /*exit*/
+void	free_lines(char **lines);
 void	free_data(t_data *data);
 void	free_imgs(void *shp);
 
 /*utils*/
-int     ft_spacious(int c);
-int     min(int a, int b);
-int     max(int a, int b);
+int		ft_spacious(int c);
+int		min(int a, int b);
+int		max(int a, int b);
 
 /*scene*/
-void	construct_scene(t_data * data);
+void	construct_scene(t_data *data);
 void	mk_scene_ambient(t_data *data, char *tmp);
-void	mk_scene_camera(t_data * data, char *tmp);
-void	mk_scene_light(t_data * data, char * tmp);
-void	mk_obj_pl(t_data * data, char * tmp);
-void	mk_obj_sp(t_data * data, char * tmp);
-void	mk_obj_cy(t_data * data, char * tmp);
+void	mk_scene_camera(t_data *data, char *tmp);
+void	mk_scene_light(t_data *data, char *tmp);
+void	mk_obj_pl(t_data *data, char *tmp);
+void	mk_obj_sp(t_data *data, char *tmp);
+void	mk_obj_cy(t_data *data, char *tmp);
 
 /*objects & shapes*/
 
@@ -153,24 +158,25 @@ void	init_objects(t_data *data);
 void	print_shapes(t_list *shapes);
 void	tvec_from_split(t_vec *v, char **split);
 void	trgb_from_split(t_rgb *rgb, char **split);
-void	iter_pl(char *tmp, t_shapes *pl_shape);
-void	iter_sp(char *tmp, t_shapes *sp_shape);
-void	iter_cy(char *tmp, t_shapes *cy_shape);
+void	iter_pl(t_data *data, char *tmp, t_shapes *pl_shape);
+void	iter_sp(t_data *data, char *tmp, t_shapes *sp_shape);
+void	iter_cy(t_data *data, char *tmp, t_shapes *cy_shape);
 void	move_cp_buf(char *tmp, t_obag *ob);
 
 /*rays*/
-t_ray   shoot_ray(int x, int y, t_data *data);
-bool    ray_inter_sp(t_ray ray, t_shapes *shp, float *t, t_hit_record *rec);
-void    cast_rays(t_data *data);
+t_ray	shoot_ray(int x, int y, t_data *data);
+bool	ray_inter_sp(t_ray ray, t_shapes *shp, float *t, t_hit_record *rec);
+void	cast_rays(t_data *data);
 
 /*hit*/
 bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec);
 
 /*colors*/
-int     make_color(t_rgb rgb);
-int     ray_color(t_ray ray, t_data *data);
-t_rgb   shader(t_rgb color, t_data *data, t_hit_record *rec);
-t_rgb   calculate_diffuse(t_data *data, t_vec dir, t_rgb color, t_hit_record *rec);
+int		make_color(t_rgb rgb);
+int		ray_color(t_ray ray, t_data *data);
+t_rgb	shader(t_rgb color, t_data *data, t_hit_record *rec);
+t_rgb	calculate_diffuse(t_data *data, t_vec dir, t_rgb color,
+			t_hit_record *rec);
 
 
 /*validator*/

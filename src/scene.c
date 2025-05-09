@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:44:17 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/05 13:46:34 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/09 14:11:53 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ void	mk_scene_ambient(t_data *data, char *tmp)
 		i++;
 	while (tmp[i] != '\0' && !ft_spacious(tmp[i]))
 		buf[j++] = tmp[i++];
-	buf[i] = '\0';
+	buf[j] = '\0';
 	spl_buf = ft_split(buf, ',');
+	check_scene_alloc(data, spl_buf);
 	trgb_from_split(&data->scene->ambi.rgb, spl_buf);
 	free(spl_buf);
 }
@@ -46,17 +47,16 @@ void	mk_scene_camera(t_data *data, char *tmp)
 	t_obag	*ob;
 
 	ob = malloc(sizeof(t_obag));
+	check_scene_alloc(data, ob);
 	init_tobag(ob);
 	while (tmp[ob->i] != '\0')
 	{
-		do_j_bzero(ob);
-		while (ft_spacious(tmp[ob->i]))
-			ob->i++;
-		while (tmp[ob->i] && !ft_spacious(tmp[ob->i]))
-			ob->buf[ob->j++] = tmp[ob->i++];
-		ob->buf[ob->i] = '\0';
+		read_next_word(tmp, ob);
 		if (ob->k < 2)
+		{
 			ob->spl_buf = ft_split(ob->buf, ',');
+			check_scene_alloc(data, ob->spl_buf);
+		}
 		if (ob->k == 0)
 			tvec_from_split(&data->scene->cam.cords, ob->spl_buf);
 		if (ob->k == 1)
@@ -75,17 +75,16 @@ void	mk_scene_light(t_data *data, char *tmp)
 	t_obag	*ob;
 
 	ob = malloc(sizeof(t_obag));
+	check_scene_alloc(data, ob);
 	init_tobag(ob);
 	while (tmp[ob->i] != '\0')
 	{
-		do_j_bzero(ob);
-		while (ft_spacious(tmp[ob->i]))
-			ob->i++;
-		while (tmp[ob->i] && !ft_spacious(tmp[ob->i]))
-			ob->buf[ob->j++] = tmp[ob->i++];
-		ob->buf[ob->i] = '\0';
+		read_next_word(tmp, ob);
 		if (ob->k != 1)
+		{
 			ob->spl_buf = ft_split(ob->buf, ',');
+			check_scene_alloc(data, ob->spl_buf);
+		}
 		if (ob->k == 0)
 			tvec_from_split(&data->scene->lght.cords, ob->spl_buf);
 		if (ob->k == 1)
@@ -105,11 +104,8 @@ void	construct_scene(t_data *data)
 
 	tmp = data->lines;
 	data->scene = malloc(sizeof(t_scene));
-	if (data->scene == NULL)
-	{
-		perror("Error allocating memory for scene");
-		exit(-1);
-	}
+	if (!data->scene)
+		exit_error("Error allocating memory for scene");
 	while (*tmp)
 	{
 		if (*tmp[0] == 'A')

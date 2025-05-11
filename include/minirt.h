@@ -15,6 +15,7 @@
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 #define WIN_TITLE "MiniRT"
+#define EPSILON 1e-6
 
 #include "external.h"
 #include "mlx_utils.h"
@@ -163,6 +164,7 @@ void	move_cp_buf(char *tmp, t_obag *ob);
 /*rays*/
 t_ray   shoot_ray(int x, int y, t_data *data);
 bool    ray_inter_sp(t_ray ray, t_shapes *shp, float *t);
+bool    ray_inter_cy(t_ray ray, t_shapes *shp, float *t);
 void    cast_rays(t_data *data);
 
 /*hit*/

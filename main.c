@@ -62,8 +62,20 @@ bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec)
 				rec->t = t;
 				rec->object = shp;
 				rec->hit = true;
-			}	
+			}
 		}
+        if (ft_strncmp(shp->identifier, "cy", 2) == 0)
+        {
+            if (ray_inter_cy(ray, shp, &t) && t < closest_t)
+            {
+                rec->point = add(ray.origin, scale(ray.dir, t));
+                rec->normal = normalize(vec_sub(rec->point, shp->cords));
+                closest_t = t;
+                rec->t = t;
+                rec->object = shp;
+                rec->hit = true;
+            }
+        }
 		lst = lst->next;
 	}
 	return (rec->hit);

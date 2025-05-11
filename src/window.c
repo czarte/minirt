@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 17:14:47 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/30 19:26:57 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/10 13:42:58 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void    resolve_light_move(t_data *data, int key, bool *cast)
 
 void    resolve_camera_move(t_data *data, int key, bool *cast)
 {
-    if (key == C_KEY_UP || key == C_KEY_DOWN || key == C_KEY_LEFT || key == C_KEY_RIGHT || key == C_KEY_FORWARD || key == C_KEY_BACKWARD)
+    if (key == C_KEY_UP || key == C_KEY_DOWN || key == C_KEY_LEFT || key == C_KEY_RIGHT || key == 61 || key == 45)
         *cast = true;
     if (key == C_KEY_UP) //camera forward
         data->scene->cam.cords.y += 1;
@@ -98,9 +98,9 @@ void    resolve_camera_move(t_data *data, int key, bool *cast)
         data->scene->cam.cords.x -= 1;
     if (key == C_KEY_RIGHT) //camera backward
         data->scene->cam.cords.x += 1;
-    if (key == C_KEY_FORWARD) //camera forward
+    if (key == 61) //camera forward
         data->scene->cam.cords.z -= 1;
-    if (key == C_KEY_BACKWARD) //camera backward
+    if (key == 45) //camera backward
         data->scene->cam.cords.z += 1;
 }
 

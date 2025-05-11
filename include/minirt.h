@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/06 16:18:13 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/11 12:24:25 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ void	move_cp_buf(char *tmp, t_obag *ob);
 /*rays*/
 t_ray   shoot_ray(int x, int y, t_data *data);
 bool    ray_inter_sp(t_ray ray, t_shapes *shp, float *t);
+bool	ray_inter_pl(t_ray ray, t_shapes *shp, float *t);
 void    cast_rays(t_data *data);
 
 /*hit*/

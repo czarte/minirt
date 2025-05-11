@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:44:17 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/29 18:14:58 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:42:02 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	mk_scene_camera(t_data *data, char *tmp)
 			tvec_from_split(&data->scene->cam.cords, ob->spl_buf);
 		if (ob->k == 1)
 			tvec_from_split(&data->scene->cam.orient, ob->spl_buf);
-		// Add focal lenght check, should be > 0 and < 180
 		if (ob->k == 2)
 			data->scene->cam.fov = ft_atoi(ob->buf);
 		if (ob->k < 2)

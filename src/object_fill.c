@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:35:45 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/09 14:50:15 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/11 16:39:30 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,7 @@ void	iter_pl(t_data *data, char *tmp, t_shapes *pl_shape)
 	while (tmp[ob->i] != '\0')
 	{
 		read_next_word(tmp, ob);
-		if (ob->k < 3)
-		{
-			ob->spl_buf = ft_split(ob->buf, ',');
-			check_scene_alloc(data, ob->spl_buf);
-		}
-		ob->j = 0;
-		if (ob->k == 0)
-			tvec_from_split(&pl_shape->cords, ob->spl_buf);
-		if (ob->k == 1)
-			tvec_from_split(&pl_shape->axis, ob->spl_buf);
-		if (ob->k == 2)
-			trgb_from_split(&pl_shape->rgb, ob->spl_buf);
-		if (ob->k < 3)
-			free(ob->spl_buf);
+		process_pl(data, pl_shape, ob);
 		ob->k++;
 	}
 	free(ob);
@@ -82,20 +69,7 @@ void	iter_sp(t_data *data, char *tmp, t_shapes *sp_shape)
 	while (tmp[ob->i] != '\0')
 	{
 		read_next_word(tmp, ob);
-		if (ob->k != 1)
-		{
-			ob->spl_buf = ft_split(ob->buf, ',');
-			check_scene_alloc(data, ob->spl_buf);
-		}
-		ob->j = 0;
-		if (ob->k == 0)
-			tvec_from_split(&sp_shape->cords, ob->spl_buf);
-		if (ob->k == 1)
-			sp_shape->diameter = atof(ob->buf);
-		if (ob->k == 2)
-			trgb_from_split(&sp_shape->rgb, ob->spl_buf);
-		if (ob->k != 1)
-			free(ob->spl_buf);
+		process_sp(data, sp_shape, ob);
 		ob->k++;
 	}
 	free(ob);
@@ -112,24 +86,7 @@ void	iter_cy(t_data *data, char *tmp, t_shapes *cy_shape)
 	{
 		do_j_bzero(ob);
 		move_cp_buf(tmp, ob);
-		if (ob->k < 2 || ob->k > 3)
-		{
-			ob->spl_buf = ft_split(ob->buf, ',');
-			check_scene_alloc(data, ob->spl_buf);
-		}
-		ob->j = 0;
-		if (ob->k == 0)
-			tvec_from_split(&cy_shape->cords, ob->spl_buf);
-		if (ob->k == 1)
-			tvec_from_split(&cy_shape->axis, ob->spl_buf);
-		if (ob->k == 2)
-			cy_shape->diameter = atof(ob->buf);
-		if (ob->k == 3)
-			cy_shape->height = atof(ob->buf);
-		if (ob->k == 4)
-			trgb_from_split(&cy_shape->rgb, ob->spl_buf);
-		if (ob->k < 2 || ob->k > 3)
-			free(ob->spl_buf);
+		process_cy(data, cy_shape, ob);
 		ob->k++;
 	}
 	free(ob);

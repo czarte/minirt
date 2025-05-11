@@ -18,9 +18,8 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make bonus -C $(LIBFTDIR)
 	@cp $(LIBFTDIR)/$(LIBFT) .
-	$(CC) $(CPPFLAGS) $(OBJ) $(LIBFT) mlx/libmlx.a -lXext -lX11 -o $(NAME)
+	$(CC) $(CPPFLAGS) $(OBJ) $(LIBFT) mlx/libmlx.a -lm -lXext -lX11 -o $(NAME)
 	#$(CC) $(CPPFLAGS) $(OBJ) $(LIBFT) -Lmlx -lmlx -framework OpenGL -framework AppKit -L/usr/X11/lib -lXext -lX11 -o $(NAME)
-
 
 $(MLX):
 
@@ -31,6 +30,12 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean $(NAME)
+
+noleak: CPPFLAGS = $(NO_SAN_FLAGS)
+noleak: re
+
+memleak: noleak
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./$(NAME) $(ARGS)
 
 test: $(OBJ)
 	@c++ ./tests/vec_tests_test.cpp -Iinclude -Igoogletest/googletest/include/ -std=c++14 -o vec_tests.o

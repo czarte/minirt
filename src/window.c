@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
+#include "../include/debug.h"
 
 int	init_mlx_window(t_data *data)
 {
@@ -90,18 +91,26 @@ void    resolve_camera_move(t_data *data, int key, bool *cast)
 {
     if (key == C_KEY_UP || key == C_KEY_DOWN || key == C_KEY_LEFT || key == C_KEY_RIGHT || key == C_KEY_FORWARD || key == C_KEY_BACKWARD)
         *cast = true;
-    if (key == C_KEY_UP) //camera forward
+    if (key == C_KEY_UP) //camera up
         data->scene->cam.cords.y += 1;
-    if (key == C_KEY_DOWN) //camera backward
+    if (key == C_KEY_DOWN) //camera down
         data->scene->cam.cords.y -= 1;
-    if (key == C_KEY_LEFT) //camera forward
+    if (key == C_KEY_LEFT) {
+        //camera left
         data->scene->cam.cords.x -= 1;
-    if (key == C_KEY_RIGHT) //camera backward
+        ft_lstiter(data->shapes, &to_right);
+    }
+    if (key == C_KEY_RIGHT) {
+        //camera right
         data->scene->cam.cords.x += 1;
+        ft_lstiter(data->shapes, &to_left);
+    }
     if (key == C_KEY_FORWARD) //camera forward
         data->scene->cam.cords.z -= 1;
     if (key == C_KEY_BACKWARD) //camera backward
         data->scene->cam.cords.z += 1;
+    print_shapes(data->shapes);
+    print_scene(data);
 }
 
 void    resolve_object_move(t_data *data, int key, bool *cast)

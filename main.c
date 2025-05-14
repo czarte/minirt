@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:42:51 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/14 16:10:43 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/11 12:41:52 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,30 +64,18 @@ bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec)
 				rec->hit = true;
 			}	
 		}
-        if (ft_strncmp(shp->identifier, "cy", 2) == 0)
-        {
-            if (ray_inter_cy(ray, shp, &t) && t < closest_t)
-            {
-                rec->point = add(ray.origin, scale(ray.dir, t));
-				rec->normal = normalize(vec_sub(rec->point, shp->cords));
+		else if (ft_strncmp(shp->identifier, "pl", 2) == 0)
+		{
+			if (ray_inter_pl(ray, shp, &t) && t < closest_t)
+			{
+				rec->point = add(ray.origin, scale(ray.dir, t));
+				rec->normal = normalize(shp->axis);
 				closest_t = t;
 				rec->t = t;
 				rec->object = shp;
 				rec->hit = true;
-			}	
+			}
 		}
-        if (ft_strncmp(shp->identifier, "cy", 2) == 0)
-        {
-            if (ray_inter_cy(ray, shp, &t) && t < closest_t)
-            {
-                rec->point = add(ray.origin, scale(ray.dir, t));
-                rec->normal = normalize(vec_sub(rec->point, shp->cords));
-                closest_t = t;
-                rec->t = t;
-                rec->object = shp;
-                rec->hit = true;
-            }
-        }
 		lst = lst->next;
 	}
 	return (rec->hit);

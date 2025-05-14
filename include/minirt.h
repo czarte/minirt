@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/11 12:24:25 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/14 16:10:50 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 #define WIN_TITLE "MiniRT"
+#define EPSILON 1e-6
 
 #include "external.h"
 #include "mlx_utils.h"
@@ -164,6 +165,7 @@ void	move_cp_buf(char *tmp, t_obag *ob);
 t_ray   shoot_ray(int x, int y, t_data *data);
 bool    ray_inter_sp(t_ray ray, t_shapes *shp, float *t);
 bool	ray_inter_pl(t_ray ray, t_shapes *shp, float *t);
+bool    ray_inter_cy(t_ray ray, t_shapes *shp, float *t);
 void    cast_rays(t_data *data);
 
 /*hit*/

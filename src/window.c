@@ -6,11 +6,12 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 17:14:47 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/10 13:42:58 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/14 16:25:48 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
+#include "../include/debug.h"
 
 int	init_mlx_window(t_data *data)
 {
@@ -90,18 +91,25 @@ void    resolve_camera_move(t_data *data, int key, bool *cast)
 {
     if (key == C_KEY_UP || key == C_KEY_DOWN || key == C_KEY_LEFT || key == C_KEY_RIGHT || key == 61 || key == 45)
         *cast = true;
-    if (key == C_KEY_UP) //camera forward
+    if (key == C_KEY_UP) //camera up
         data->scene->cam.cords.y += 1;
-    if (key == C_KEY_DOWN) //camera backward
+    if (key == C_KEY_DOWN) //camera down
         data->scene->cam.cords.y -= 1;
-    if (key == C_KEY_LEFT) //camera forward
+    if (key == C_KEY_LEFT) {
+        //camera left
         data->scene->cam.cords.x -= 1;
-    if (key == C_KEY_RIGHT) //camera backward
+        ft_lstiter(data->shapes, &to_right);
+    }
+    if (key == C_KEY_RIGHT) {
+        //camera right
         data->scene->cam.cords.x += 1;
+    }
     if (key == 61) //camera forward
         data->scene->cam.cords.z -= 1;
     if (key == 45) //camera backward
         data->scene->cam.cords.z += 1;
+    print_shapes(data->shapes);
+    print_scene(data);
 }
 
 void    resolve_object_move(t_data *data, int key, bool *cast)
@@ -154,22 +162,22 @@ int	key_mapping(int key, void *params)
 	return (0);
 }
 
-int	check_exit_button(int button, int x, int y, void *params)
-{
-	t_data	*data;
+// int	check_exit_button(int button, int x, int y, void *params)
+// {
+// 	t_data	*data;
 
-	data = (t_data *) params;
-	(void) x;
-	(void) y;
-	if (button == 32)
-	{
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		//mlx_destroy_display(data->mlx_ptr);
-		free_data(data);
-		exit(0);
-	}
-	return (0);
-}
+// 	data = (t_data *) params;
+// 	(void) x;
+// 	(void) y;
+// 	if (button == 32)
+// 	{
+// 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+// 		//mlx_destroy_display(data->mlx_ptr);
+// 		free_data(data);
+// 		exit(0);
+// 	}
+// 	return (0);
+// }
 
 int	check_mouse_button(int button, int x, int y, void *params)
 {

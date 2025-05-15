@@ -17,14 +17,20 @@
 t_ray	shoot_ray(int x, int y, t_data *data)
 {
 	float	aspect = (float) WIN_WIDTH / WIN_HEIGHT;
-	float	fov_radians = (data->scene->cam.fov * M_PI) / 180.0;
-	float	scale = tanf(fov_radians / 2);
-	float	nor_x = (2 * (x + 0.5) / (float) WIN_WIDTH - 1) * aspect * scale;
-	float	nor_y = (1 - 2 * (y + 0.5) / (float) WIN_HEIGHT) * scale;
-	t_vec	canvas_point = (t_vec){nor_x, nor_y, -1};
-	t_vec	direction = normalize(canvas_point);
+	float	fov_radians = data->scene->cam.fov * (M_PI / 180.0);
+	float	scale_fov = tanf(fov_radians / 2);
+	float	nor_x = (2.0f * (x + 0.5f) / (float) WIN_WIDTH - 1.0f) * aspect * scale_fov;
+	float	nor_y = (1.0f - 2.0f * (y + 0.5) / (float) WIN_HEIGHT) * scale_fov;
+	//t_vec	canvas_point = (t_vec){nor_x, nor_y, -1};
+	t_vec	direction; //= normalize( add(add(scale(data->scene->cam.right, nor_x), scale(data->scene->cam.up, nor_y)), data->scene->cam.orient ));
+    direction = add(data->scene->cam.orient, scale(data->scene->cam.right, nor_x));
+    direction = add(direction, scale(data->scene->cam.up, nor_y));
 
-	return ((t_ray){data->scene->cam.cords, direction});
+
+    //normalize(canvas_point);
+
+    //return ((t_ray){data->scene->cam.cords, direction});
+	return ((t_ray){data->scene->cam.cords, normalize(direction)});
 }
 
 bool	ray_inter_sp(t_ray ray, t_shapes *shp, float *t)

@@ -74,6 +74,9 @@ void	mk_scene_camera(t_data *data, char *tmp)
 			world_up->z = 1.0;
 		}
 		ob->k++;
+        (*data).scene->cam.world_up = *world_up;
+        data->scene->cam.right = normalize(cross(normalize(data->scene->cam.orient), *world_up));
+        data->scene->cam.up = cross(data->scene->cam.right, normalize(data->scene->cam.orient));
 	}
 	free(ob);
 }

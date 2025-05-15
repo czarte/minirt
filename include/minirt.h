@@ -43,6 +43,7 @@ typedef struct s_cam {
 	t_vec			orient;
 	t_vec			right;
 	t_vec			up;
+    t_vec           world_up;
 	int 			fov;
 } t_cam;
 

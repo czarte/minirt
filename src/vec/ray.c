@@ -69,6 +69,7 @@ bool	ray_inter_pl(t_ray ray, t_shapes *shp, float *t)
 	*t = numer / denom;
 	return (*t > 0.001f);
 }
+
 bool    ray_inter_cy(t_ray ray, t_shapes *shp, float *t) {
     float t1;
     float t2;

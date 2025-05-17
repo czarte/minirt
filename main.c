@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/05/04 13:00:30 by aevstign         ###   ########.fr       */
+/*   Created: 2025/03/09 14:42:51 by voparkan          #+#    #+#             */
+/*   Updated: 2025/05/14 19:12:49 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ bool in_sphere(int i, int j, t_shapes *shp) {
 
 void	init_scene_img(t_data *data)
 {
-	data->scene_img.mlx_ptr = data->mlx_ptr;
-	data->scene_img.ptr = mlx_new_image(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
-	data->scene_img.pixels = mlx_get_data_addr(data->scene_img.ptr,
-								&data->scene_img.bits_per_pixel,
-								&data->scene_img.line_length,
-								&data->scene_img.endian);
+
+	data->scene_img[data->frame % 2]->mlx_ptr = data->mlx_ptr;
+	data->scene_img[data->frame % 2]->ptr = mlx_new_image(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
+	data->scene_img[data->frame % 2]->pixels = mlx_get_data_addr(data->scene_img[data->frame % 2]->ptr,
+                                                                 &data->scene_img[data->frame % 2]->bits_per_pixel,
+                                                                 &data->scene_img[data->frame % 2]->line_length,
+                                                                 &data->scene_img[data->frame % 2]->endian);
 }
 
 bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec)
@@ -54,17 +55,40 @@ bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec)
 		shp = (t_shapes *)lst->content;
 		if (ft_strncmp(shp->identifier, "sp", 2) == 0)
 		{
-			if (ray_inter_sp(ray, shp, &t, rec) && t < closest_t)
+			if (ray_inter_sp(ray, shp, &t) && t < closest_t)
 			{
                 rec->point = add(ray.origin, scale(ray.dir, t));
-                //rec->normal = vec_sub(rec->point, shp->cords);
 				rec->normal = normalize(vec_sub(rec->point, shp->cords));
 				closest_t = t;
 				rec->t = t;
 				rec->object = shp;
 				rec->hit = true;
-			}	
+			}
 		}
+		else if (ft_strncmp(shp->identifier, "pl", 2) == 0)
+		{
+			if (ray_inter_pl(ray, shp, &t) && t < closest_t)
+			{
+				rec->point = add(ray.origin, scale(ray.dir, t));
+				rec->normal = normalize(shp->axis);
+				closest_t = t;
+				rec->t = t;
+				rec->object = shp;
+				rec->hit = true;
+			}
+		}
+        if (ft_strncmp(shp->identifier, "cy", 2) == 0)
+        {
+            if (ray_inter_cy(ray, shp, &t) && t < closest_t)
+            {
+                rec->point = add(ray.origin, scale(ray.dir, t));
+                rec->normal = normalize(vec_sub(rec->point, shp->cords));
+                closest_t = t;
+                rec->t = t;
+                rec->object = shp;
+                rec->hit = true;
+            }
+        }
 		lst = lst->next;
 	}
 	return (rec->hit);
@@ -103,12 +127,12 @@ void cast_rays(t_data *data)
         {
             ray = shoot_ray(w, h, data);
 			color = ray_color(ray, data);
-			mrt_put_pixel(&(data->scene_img), w, h, color);
+			mrt_put_pixel(data->scene_img[data->frame % 2], w, h, color);
             h++;
         }
         w++;
     }
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->scene_img.ptr, 0, 0);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->scene_img[data->frame % 2]->ptr, 0, 0);
 }
 
 int	main(int argc, char *argv[])
@@ -124,7 +148,7 @@ int	main(int argc, char *argv[])
 		exit(-1);
     //place_images(data);
     cast_rays(data);
-	mlx_key_hook(data->win_ptr, &key_exit, (void *)data);
+	mlx_key_hook(data->win_ptr, &key_mapping, (void *)data);
 	mlx_mouse_hook(data->win_ptr, &check_mouse_button, (void *)data);
 	//mlx_hook(data->win_ptr, 33, 1L << 17, &mlx_loop_end, data->mlx_ptr);
 	mlx_loop(data->mlx_ptr);

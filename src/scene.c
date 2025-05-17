@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:44:17 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/09 14:11:53 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:42:02 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@ void	mk_scene_ambient(t_data *data, char *tmp)
 void	mk_scene_camera(t_data *data, char *tmp)
 {
 	t_obag	*ob;
+	t_vec	*world_up;
 
 	ob = malloc(sizeof(t_obag));
 	check_scene_alloc(data, ob);
 	init_tobag(ob);
+	world_up = new_vec(0.0, 1.0, 0.0);
 	while (tmp[ob->i] != '\0')
 	{
 		read_next_word(tmp, ob);
@@ -65,7 +67,16 @@ void	mk_scene_camera(t_data *data, char *tmp)
 			data->scene->cam.fov = ft_atoi(ob->buf);
 		if (ob->k < 2)
 			free(ob->spl_buf);
+		if (fabs(vec_dot(&data->scene->cam.orient, world_up)) > 0.999)
+		{
+			world_up->x = 0.0;
+			world_up->y = 0.0;
+			world_up->z = 1.0;
+		}
 		ob->k++;
+        (*data).scene->cam.world_up = *world_up;
+        data->scene->cam.right = normalize(cross(normalize(data->scene->cam.orient), *world_up));
+        data->scene->cam.up = cross(data->scene->cam.right, normalize(data->scene->cam.orient));
 	}
 	free(ob);
 }

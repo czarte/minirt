@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/05/04 13:06:24 by aevstign         ###   ########.fr       */
+/*   Created: 2025/04/05 18:28:24 by voparkan          #+#    #+#             */
+/*   Updated: 2025/05/06 14:26:25 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_vec	scale(t_vec a, double s)
 
 t_vec	normalize(t_vec a)
 {
-	float length = vec_length(&a);
+	float length = vec_length(a);
     if (length == 0)
         return ((t_vec){0, 0, 0});
     return (scale(a, 1.0 / length));

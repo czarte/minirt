@@ -5,20 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/05/11 16:38:38 by aevstign         ###   ########.fr       */
+/*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
+/*   Updated: 2025/05/14 19:13:43 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H 
-# define MINIRT_LIBRARY
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
-# define WIN_TITLE "MiniRT"
+#ifndef MINIRT_LIBRARY
+#define MINIRT_LIBRARY
+#define WIN_WIDTH 800
+#define WIN_HEIGHT 600
+#define WIN_TITLE "MiniRT"
+#define EPSILON 1e-6
 
-# include "external.h"
-# include "vec.h"
+#include "external.h"
+#include "mlx_utils.h"
+#include "vec.h"
 
 typedef struct s_ray
 {
@@ -44,8 +45,11 @@ typedef struct s_cam
 {
 	t_vec			cords;
 	t_vec			orient;
-	int				fov;
-}			t_cam;
+	t_vec			right;
+	t_vec			up;
+    t_vec           world_up;
+	int 			fov;
+} t_cam;
 
 typedef struct s_light
 {
@@ -85,24 +89,25 @@ typedef struct s_shapes
 	float			diameter;
 	float			height;
 	t_rgb			rgb;
-	t_img			img;
-}				t_shapes;
+    t_img			img;
+} t_shapes;
 
-typedef struct s_data
-{
-	int			argc;
-	char		**argv;
-	t_garbage	*garbage;
+typedef struct s_data {
+    int         frame;
+    int         *test;
+	int 		argc;
+	char 		**argv;
+	garbage		*garbage;
 	int			scenefd;
 	char		**lines;
 	t_list		*shapes;
 	t_scene		*scene;
-	int			key;
-	char		*filename;
-	t_img		scene_img;
-	void		*mlx_ptr;
-	void		*win_ptr;
-}			t_data;
+    int			key;
+	char 		*filename;
+	t_img		*scene_img[2];
+    void		*mlx_ptr;
+    void		*win_ptr;
+} t_data;
 
 /* bags */
 typedef struct s_obag
@@ -128,10 +133,10 @@ void	init_tobag(t_obag *obag);
 
 
 /*window handing functions*/
-int		init_mlx_window(t_data *data);
-int		key_exit(int key, void *params);
-int		check_exit_button(int button, int x, int y, void *p);
-int		check_mouse_button(int button, int x, int y, void *p);
+int init_mlx_window(t_data *data);
+int	key_mapping(int key, void *params);
+int	check_exit_button(int button,int x,int y, void *p);
+int	check_mouse_button(int button,int x,int y, void *p);
 
 /*parser*/
 void	init_scene(t_data *data);
@@ -182,9 +187,11 @@ void	iter_cy(t_data *data, char *tmp, t_shapes *cy_shape);
 void	move_cp_buf(char *tmp, t_obag *ob);
 
 /*rays*/
-t_ray	shoot_ray(int x, int y, t_data *data);
-bool	ray_inter_sp(t_ray ray, t_shapes *shp, float *t, t_hit_record *rec);
-void	cast_rays(t_data *data);
+t_ray   shoot_ray(int x, int y, t_data *data);
+bool    ray_inter_sp(t_ray ray, t_shapes *shp, float *t);
+bool	ray_inter_pl(t_ray ray, t_shapes *shp, float *t);
+bool    ray_inter_cy(t_ray ray, t_shapes *shp, float *t);
+void    cast_rays(t_data *data);
 
 /*hit*/
 bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec);

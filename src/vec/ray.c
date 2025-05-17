@@ -87,125 +87,29 @@ void	calculate_cy_bag(t_cybag *b, t_shapes *shp, t_ray ray)
 	b->discriminant = b->b_f * b->b_f - 4 * b->a_f * b->c_f;
 }
 
-//bool	ray_inter_cy(t_ray ray, t_shapes *shp, float *t)
-//{
-//	t_cybag	b;
-//	float	crb;
-//
-//	calculate_cy_bag(&b, shp, ray);
-//	if (b.discriminant < 0)
-//		return (false);
-//	b.sqrt_disc = sqrtf(b.discriminant);
-//	b.t1 = (-b.b_f - b.sqrt_disc) / (2 * b.a_f);
-//	b.t2 = (-b.b_f + b.sqrt_disc) / (2 * b.a_f);
-//	b.t_candidates[0] = b.t1;
-//	b.t_candidates[1] = b.t2;
-//	crb = process_cy_body(b, shp, ray);
-//	if (crb > 0)
-//	{
-//		*t = crb;
-//		return (true);
-//	}
-//	crb = process_cy_cap(b, shp, ray);
-//	if (crb > 0)
-//	{
-//		*t = crb;
-//		return (true);
-//	}
-//	return (false);
-//}
-
-float	process_cy_cap(t_cybag b, t_shapes *shp, t_ray ray)
+bool	ray_inter_cy(t_ray ray, t_shapes *shp, float *t)
 {
-	int i;
+	t_cybag	b;
 
-	i = 0;
-	while (i < 2)
+	calculate_cy_bag(&b, shp, ray);
+	if (b.discriminant < 0)
+		return (false);
+	b.sqrt_disc = sqrtf(b.discriminant);
+	b.t1 = (-b.b_f - b.sqrt_disc) / (2 * b.a_f);
+	b.t2 = (-b.b_f + b.sqrt_disc) / (2 * b.a_f);
+	b.t_candidates[0] = b.t1;
+	b.t_candidates[1] = b.t2;
+	b.crb = process_cy_body(b, shp, ray);
+	if (b.crb > 0)
 	{
-		b.cap_center = add(shp->cords, scale(b.nor_cyl, i * shp->height));
-		b.denom = vec_dot(&ray.dir, &b.nor_cyl);
-		if (fabs(b.denom) < EPSILON) {
-			i++;
-			continue;
-		}
-		b.sub = vec_sub(b.cap_center, ray.origin);
-		b.t_cap = vec_dot(&b.sub, &b.nor_cyl) / b.denom;
-		if (b.t_cap < 0) {
-			i++;
-			continue;
-		}
-		b.mul = scale(ray.dir, b.t_cap);
-		b.lp = add(ray.origin, b.mul);
-		if (vec_length(vec_sub(b.lp, b.cap_center)) <= b.radius)
-			return (b.t_cap);
-		i++;
+		*t = b.crb;
+		return (true);
 	}
-	return (-1.0f);
-}
-
-float	process_cy_body(t_cybag b, t_shapes *shp, t_ray ray)
-{
-	for (int i = 0; i < 2; ++i)
+	b.crb = process_cy_cap(b, shp, ray);
+	if (b.crb > 0)
 	{
-		b.ti = b.t_candidates[i];
-		if (b.ti < 0)
-			continue ;
-		b.p = add(ray.origin, scale(ray.dir, b.ti));
-		b.p_b = vec_sub(b.p, shp->cords);
-		b.height = vec_dot(&b.p_b, &b.nor_cyl);
-		if (b.height >= 0 && b.height <= shp->height)
-			return (b.ti);
+		*t = b.crb;
+		return (true);
 	}
-	return (-1.0f);
-}
-
-bool    ray_inter_cy(t_ray ray, t_shapes *shp, float *t) {
-	float t1;
-	float t2;
-	float radius = shp->diameter / 2;
-	t_vec oc = vec_sub(ray.origin, shp->cords);
-	t_vec nor_cyl = normalize(shp->cords);
-	t_vec a = vec_sub(ray.dir, scale(nor_cyl, vec_dot(&ray.dir, &nor_cyl)));
-	t_vec b = vec_sub(oc, scale(nor_cyl, vec_dot(&oc, &nor_cyl)));
-	float a_f = vec_dot(&a, &a);
-	float b_f = 2.0f * vec_dot(&a, &b);
-	float c_f = vec_dot(&b, &b) - radius * radius;
-	float discriminant = b_f * b_f - 4 * a_f * c_f;
-
-	if (discriminant < 0) return false;
-
-	float sqrt_disc = sqrtf(discriminant);
-	t1 = (-b_f - sqrt_disc) / (2 * a_f);
-	t2 = (-b_f + sqrt_disc) / (2 * a_f);
-
-	float t_candidates[2] = { t1, t2 };
-	for (int i = 0; i < 2; ++i) {
-		float ti = t_candidates[i];
-		if (ti < 0) continue;
-		t_vec p = add(ray.origin, scale(ray.dir, ti));
-		t_vec p_b = vec_sub(p, shp->cords);
-		float height = vec_dot(&p_b, &nor_cyl);
-		if (height >= 0 && height <= shp->height) {
-			*t = ti;
-			return (true);
-		}
-	}
-
-	for (int i = 0; i < 2; i++) {
-		t_vec cap_center = add(shp->cords, scale(nor_cyl, i * shp->height));
-		float denom = vec_dot(&ray.dir, &nor_cyl);
-		if (fabs(denom) < EPSILON) continue;
-
-		t_vec sub = vec_sub(cap_center, ray.origin);
-		float t_cap = vec_dot(&sub, &nor_cyl) / denom;
-		if (t_cap < 0) continue;
-		t_vec mul = scale(ray.dir, t_cap);
-		t_vec p = add(ray.origin, mul);
-		if (vec_length(vec_sub(p, cap_center)) <= radius) {
-			*t = t_cap;
-			return true;
-		}
-	}
-
-	return false;
+	return (false);
 }

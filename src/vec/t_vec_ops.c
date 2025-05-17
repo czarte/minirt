@@ -24,11 +24,14 @@ double	vec_dot(t_vec *a, t_vec *b)
 
 double	vec_cos(t_vec *a, t_vec *b)
 {
-    double dot = vec_dot(a, b);
-    double len = vec_length(*a) * vec_length(*b);
-    if (len == 0)
-        return (0);
-    return (dot / len);
+	double	dot;
+	double	len;
+
+	dot = vec_dot(a, b);
+	len = vec_length(*a) * vec_length(*b);
+	if (len == 0)
+		return (0);
+	return (dot / len);
 }
 
 bool	compare_vecs(t_vec *a, t_vec *b)

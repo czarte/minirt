@@ -138,6 +138,7 @@ typedef struct s_spbag {
 }   t_spbag;
 
 typedef struct s_cybag {
+    int     i;
     float	t1;
     float	t2;
     float	radius;
@@ -151,6 +152,7 @@ typedef struct s_cybag {
     float   ti;
     float   denom;
     float   t_cap;
+    float	crb;
     t_vec   sub;
     t_vec	oc;
     t_vec	nor_cyl;

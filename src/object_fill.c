@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 16:35:45 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/11 16:39:30 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/17 14:25:00 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	tvec_from_split(t_vec *v, char **split)
 	int	j;
 
 	j = 0;
-	v->x = atof(split[0]);
-	v->y = atof(split[1]);
-	v->z = atof(split[2]);
+	v->x = ft_atof(split[0]);
+	v->y = ft_atof(split[1]);
+	v->z = ft_atof(split[2]);
 	while (j < 3)
 	{
 		free(split[j]);

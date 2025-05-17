@@ -6,13 +6,13 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 15:52:10 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/09 15:36:34 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/17 18:31:53 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-void	check_input(t_data *data)
+void	check_file_empty(t_data *data)
 {
 	char	*buffer;
 
@@ -20,7 +20,7 @@ void	check_input(t_data *data)
 	if (data->scenefd == -1)
 	{
 		perror("Error opening file");
-		exit(-1);
+		exit(EXIT_FAILURE);
 	}
 	buffer = malloc(1);
 	check_scene_alloc(data, buffer);
@@ -42,7 +42,7 @@ int	init_program(t_data *data, int argc, char **argv)
 		return (-1);
 	}
 	data->filename = argv[1];
-	check_input(data);
+	check_file_empty(data);
 	init_scene(data);
 	init_objects(data);
 	return (0);

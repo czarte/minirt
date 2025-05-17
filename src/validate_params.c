@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:53:24 by aevstign          #+#    #+#             */
-/*   Updated: 2025/05/05 14:22:33 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/17 13:59:11 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ bool	validate_ambient(char **tokens, int count)
 		return (false);
 	}
 	ratio = ft_atof(tokens[1]);
-	if (ratio <= 0.0 || ratio >= 1.0)
+	if (ratio < 0.0 || ratio > 1.0)
 	{
 		printf("Error: wrong ratio for %s\n", tokens[0]);
 		return (false);

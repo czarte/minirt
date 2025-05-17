@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:23:38 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/09 14:47:12 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/17 14:10:43 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	mk_obj_cy(t_data *data, char *tmp)
 	ft_lstadd_front(&data->shapes, new);
 }
 
-// Why shapes equals null right after malloc?
 void	init_objects(t_data *data)
 {
 	char	**tmp;

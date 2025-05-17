@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:47:21 by aevstign          #+#    #+#             */
-/*   Updated: 2025/05/05 14:23:56 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/17 14:25:12 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ bool	validate_cylindr(char **tokens, int count)
 		printf("Error: Wrong orientation for %s\n", tokens[0]);
 		return (false);
 	}
-	height = atof(tokens[4]);
+	height = ft_atof(tokens[4]);
 	if (height < 0)
 	{
 		printf("Error: Height should be positive for %s\n", tokens[0]);

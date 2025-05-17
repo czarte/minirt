@@ -39,7 +39,6 @@ void	free_lines(char **lines)
 void	free_data(t_data *data)
 {
 	free_lines(data->lines);
-	//ft_lstiter(data->shapes, &free_imgs);
 	ft_lstclear(&data->shapes, &free);
 	free(data->shapes);
 	if (data->scene)

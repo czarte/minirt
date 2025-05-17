@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 13:14:09 by aevstign          #+#    #+#             */
-/*   Updated: 2025/04/11 14:06:27 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/17 14:24:24 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,29 +97,3 @@ double	ft_atof(const char *str)
 	}
 	return (res * sign);
 }
-
-// int	main(void)
-// {
-// 	char *tests[] = {
-// 		"42",
-// 		"-42",
-// 		"3.1415",
-// 		"-0.001",
-// 		"1.23e3",      // 1230.0
-// 		"1.23e+3",     // 1230.0
-// 		"1.23e-3",     // 0.00123
-// 		"-5.67e2",     // -567.0
-// 		"   \t\n 123.456e2",
-// 		"bad42",       // should stop parsing at 'b'
-// 		"42bad",       // parses 42.0
-// 		NULL
-// 	};
-
-// 	for (int i = 0; tests[i]; i++)
-// 	{
-// 		double result = ft_atof(tests[i]);
-// 		printf("ft_atof(\"%s\") = %f\n", tests[i], result);
-// 	}
-
-// 	return 0;
-// }

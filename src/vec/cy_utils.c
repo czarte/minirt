@@ -50,7 +50,10 @@ float	process_cy_body(t_cybag b, t_shapes *shp, t_ray ray)
 	{
 		b.ti = b.t_candidates[b.i];
 		if (b.ti < 0)
+		{
+			b.i++;
 			continue ;
+		}
 		b.p = add(ray.origin, scale(ray.dir, b.ti));
 		b.p_b = vec_sub(b.p, shp->cords);
 		b.height = vec_dot(&b.p_b, &b.nor_cyl);

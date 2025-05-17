@@ -109,6 +109,60 @@ typedef struct s_obag {
 	char		buf[1024];
 } t_obag;
 
+typedef struct s_sbag {
+    t_vec	l_dir;
+    t_rgb	mix_color;
+    t_rgb	diffuse;
+    double	factor;
+    float	softness;
+    float	visibility;
+}   t_sbag;
+
+typedef struct s_rbag {
+    float	aspect;
+    float	fov_radians;
+    float	scale_fov;
+    float	nor_x;
+    float	nor_y;
+}   t_rbag;
+
+typedef struct s_spbag {
+    float	t1;
+    float	t2;
+    float	shp_radius;
+    float	a;
+    float	b;
+    float	c;
+    float	discriminant;
+    t_vec	oc;
+}   t_spbag;
+
+typedef struct s_cybag {
+    float	t1;
+    float	t2;
+    float	radius;
+    float	a_f;
+    float	b_f;
+    float	c_f;
+    float	discriminant;
+    float   sqrt_disc;
+    float   t_candidates[2];
+    float   height;
+    float   ti;
+    float   denom;
+    float   t_cap;
+    t_vec   sub;
+    t_vec	oc;
+    t_vec	nor_cyl;
+    t_vec	a;
+    t_vec	b;
+    t_vec   p;
+    t_vec   p_b;
+    t_vec   cap_center;
+    t_vec   mul;
+    t_vec   lp;
+} t_cybag;
+
 typedef struct s_hit_record {
 	float		t;
 	t_vec		point;
@@ -141,6 +195,7 @@ void	free_imgs(void *shp);
 int     ft_spacious(int c);
 int     min(int a, int b);
 int     max(int a, int b);
+void	print_vec(t_vec a);
 
 /*scene*/
 void	construct_scene(t_data * data);
@@ -161,6 +216,8 @@ void	iter_pl(char *tmp, t_shapes *pl_shape);
 void	iter_sp(char *tmp, t_shapes *sp_shape);
 void	iter_cy(char *tmp, t_shapes *cy_shape);
 void	move_cp_buf(char *tmp, t_obag *ob);
+float	process_cy_cap(t_cybag b, t_shapes *shp, t_ray ray);
+float	process_cy_body(t_cybag b, t_shapes *shp, t_ray ray);
 
 /*rays*/
 t_ray   shoot_ray(int x, int y, t_data *data);
@@ -171,11 +228,13 @@ void    cast_rays(t_data *data);
 
 /*hit*/
 bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec);
+bool	is_in_shadow(t_data *data, t_vec point, t_vec light_pos, t_vec normal);
 
 /*colors*/
 int     make_color(t_rgb rgb);
 int     ray_color(t_ray ray, t_data *data);
 t_rgb   shader(t_rgb color, t_data *data, t_hit_record *rec);
 t_rgb   calculate_diffuse(t_data *data, t_vec dir, t_rgb color, t_hit_record *rec);
+t_rgb	calculate_ambient(t_data *data, t_shapes *shp);
 
 #endif

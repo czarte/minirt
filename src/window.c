@@ -30,127 +30,21 @@ int	init_mlx_window(t_data *data)
 	return (0);
 }
 
-void    to_left(void *shp) {
-    t_shapes	*shape;
-
-    shape = (t_shapes *)shp;
-    shape->cords.x += 1;
-}
-
-void    to_right(void *shp) {
-    t_shapes	*shape;
-
-    shape = (t_shapes *)shp;
-    shape->cords.x -= 1;
-}
-
-void    to_top(void *shp) {
-    t_shapes	*shape;
-
-    shape = (t_shapes *)shp;
-    shape->cords.y -= 1;
-}
-
-void    to_bottom(void *shp) {
-    t_shapes	*shape;
-
-    shape = (t_shapes *)shp;
-    shape->cords.y += 1;
-}
-
-void    to_forw(void *shp) {
-    t_shapes	*shape;
-
-    shape = (t_shapes *)shp;
-    shape->cords.z += 1;
-}
-
-void    to_back(void *shp) {
-    t_shapes	*shape;
-
-    shape = (t_shapes *)shp;
-    shape->cords.z -= 1;
-}
-
-void    resolve_light_move(t_data *data, int key, bool *cast)
-{
-    if (key == L_KEY_A_L || key == L_KEY_D_R || key == L_KEY_S_B || key == L_KEY_W_U)
-        *cast = true;
-    if (key == L_KEY_A_L) //light left
-        data->scene->lght.cords.x -= 1;
-    if (key == L_KEY_D_R) //light right
-        data->scene->lght.cords.x += 1;
-    if (key == L_KEY_S_B) //light bottom
-        data->scene->lght.cords.y -= 1;
-    if (key == L_KEY_W_U) //light top
-        data->scene->lght.cords.y += 1;
-}
-
-void    resolve_camera_move(t_data *data, int key, bool *cast)
-{
-    if (key == C_KEY_UP || key == C_KEY_DOWN || key == C_KEY_LEFT || key == C_KEY_RIGHT || key == 61 || key == 45)
-        *cast = true;
-    if (key == C_KEY_UP) //camera forward
-        data->scene->cam.cords.y += 1;
-    if (key == C_KEY_DOWN) //camera backward
-        data->scene->cam.cords.y -= 1;
-    if (key == C_KEY_LEFT) //camera forward
-        data->scene->cam.cords.x -= 1;
-    if (key == C_KEY_RIGHT) //camera backward
-        data->scene->cam.cords.x += 1;
-    if (key == 61) //camera forward
-        data->scene->cam.cords.z -= 1;
-    if (key == 45) //camera backward
-        data->scene->cam.cords.z += 1;
-}
-
-void    resolve_object_move(t_data *data, int key, bool *cast)
-{
-    if (key == O_KEY_A_L || key == O_KEY_W_U || key == O_KEY_D_R || key == O_KEY_S_B)
-        *cast = true;
-    if (key == O_KEY_A_L)
-        ft_lstiter(data->shapes, &to_left);
-    if (key == O_KEY_W_U)
-        ft_lstiter(data->shapes, &to_top);
-    if (key == O_KEY_D_R)
-        ft_lstiter(data->shapes, &to_right);
-    if (key == O_KEY_S_B)
-        ft_lstiter(data->shapes, &to_bottom);
-}
-
 int	key_mapping(int key, void *params)
 {
 	t_data	*data;
-    bool    cast;
+	int		frame_n;
 
 	data = (t_data *) params;
-    cast = false;
-    int frame_n = data->frame % 2;
-	printf("Keys in miniRT : %d\n", key);
+	frame_n = data->frame % 2;
 	if (key == KEY_ESC || key == 17 || key == 53)
 	{
-        mlx_destroy_image(data->mlx_ptr, data->scene_img[frame_n]->ptr);
+		mlx_destroy_image(data->mlx_ptr, data->scene_img[frame_n]->ptr);
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		mlx_destroy_display(data->mlx_ptr);
 		free_data(data);
 		exit(0);
 	}
-    data->frame++;
-    resolve_light_move(data, key, &cast);
-    resolve_camera_move(data, key, &cast);
-    resolve_object_move(data, key, &cast);
-    if (key == A_KEY_DWN && (data->scene->ambi.ratio >= 0.1f && data->scene->ambi.ratio <= 1.0)) {
-        data->scene->ambi.ratio -= 0.1f;
-        cast = true;
-    } else if (key == A_KEY_UP && (data->scene->ambi.ratio <= 0.9f && data->scene->ambi.ratio >= 0.0f)) {
-        data->scene->ambi.ratio += 0.1f;
-        cast = true;
-    }
-    if (cast)
-    {
-        cast_rays(data);
-        mlx_destroy_image(data->mlx_ptr, data->scene_img[frame_n]->ptr);
-    }
 	return (0);
 }
 
@@ -164,7 +58,7 @@ int	check_exit_button(int button, int x, int y, void *params)
 	if (button == 32)
 	{
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		//mlx_destroy_display(data->mlx_ptr);
+		mlx_destroy_display(data->mlx_ptr);
 		free_data(data);
 		exit(0);
 	}

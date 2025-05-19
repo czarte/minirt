@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 12:58:54 by aevstign          #+#    #+#             */
-/*   Updated: 2025/05/11 16:39:29 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/17 20:43:09 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	read_next_word(char *tmp, t_obag *ob)
 
 void	check_scene_alloc(t_data *data, void *ptr)
 {
-	int		i;
-
 	if (!ptr)
 	{
 		free_data(data);

@@ -6,13 +6,13 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:53:24 by aevstign          #+#    #+#             */
-/*   Updated: 2025/05/17 13:59:11 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/18 17:56:22 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-bool	validate_rgb(char *token)
+bool	validate_rgb(const char *token)
 {
 	char	**splited_rgb;
 	int		i;
@@ -41,7 +41,7 @@ bool	validate_rgb(char *token)
 	return (true);
 }
 
-bool	validate_orientation(char *tokens)
+bool	validate_orientation(const char *tokens)
 {
 	char	**splited_ort;
 	t_vec	vec;
@@ -57,10 +57,10 @@ bool	validate_orientation(char *tokens)
 	z = ft_atof(splited_ort[2]);
 	free_split(splited_ort);
 	vec = (t_vec){x, y, z};
-	return (vec_length(&vec) > 0.999 && vec_length(&vec) < 1.001);
+	return (vec_length(vec) > 0.999 && vec_length(vec) < 1.001);
 }
 
-bool	validate_ambient(char **tokens, int count)
+bool	validate_ambient(char **tokens, const int count)
 {
 	double	ratio;
 

@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 19:36:45 by aevstign          #+#    #+#             */
-/*   Updated: 2025/05/05 14:23:26 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/17 20:42:51 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ bool	is_valid_identifier(const char *id)
 bool	validate_tokens(char **tokens)
 {
 	int	count;
-	int	fov;
 
 	count = 0;
 	if (!is_valid_identifier(tokens[0]))

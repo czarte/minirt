@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:44:17 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/10 20:42:02 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/19 21:04:01 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	mk_scene_ambient(t_data *data, char *tmp)
 	while (!ft_spacious(tmp[i]))
 		buf[j++] = tmp[i++];
 	buf[i] = '\0';
-	data->scene->ambi.ratio = atof(buf);
+	data->scene->ambi.ratio = ft_atof(buf);
 	bzero(buf, 1024);
 	j = 0;
 	while (ft_spacious(tmp[i]))
@@ -42,15 +42,24 @@ void	mk_scene_ambient(t_data *data, char *tmp)
 	free(spl_buf);
 }
 
+static void	set_camera_vectors(t_cam *cam)
+{
+	t_vec	world_up;
+
+	world_up = (t_vec){0.0, 1.0, 0.0};
+	if (fabs(vec_dot(&cam->orient, &world_up)) > 0.999)
+		world_up = (t_vec){0.0, 0.0, 1.0};
+	cam->right = normalize(cross(cam->orient, world_up));
+	cam->up = cross(cam->right, cam->orient);
+}
+
 void	mk_scene_camera(t_data *data, char *tmp)
 {
 	t_obag	*ob;
-	t_vec	*world_up;
 
 	ob = malloc(sizeof(t_obag));
 	check_scene_alloc(data, ob);
 	init_tobag(ob);
-	world_up = new_vec(0.0, 1.0, 0.0);
 	while (tmp[ob->i] != '\0')
 	{
 		read_next_word(tmp, ob);
@@ -67,17 +76,9 @@ void	mk_scene_camera(t_data *data, char *tmp)
 			data->scene->cam.fov = ft_atoi(ob->buf);
 		if (ob->k < 2)
 			free(ob->spl_buf);
-		if (fabs(vec_dot(&data->scene->cam.orient, world_up)) > 0.999)
-		{
-			world_up->x = 0.0;
-			world_up->y = 0.0;
-			world_up->z = 1.0;
-		}
 		ob->k++;
-        (*data).scene->cam.world_up = *world_up;
-        data->scene->cam.right = normalize(cross(normalize(data->scene->cam.orient), *world_up));
-        data->scene->cam.up = cross(data->scene->cam.right, normalize(data->scene->cam.orient));
 	}
+	set_camera_vectors(&data->scene->cam);
 	free(ob);
 }
 
@@ -99,7 +100,7 @@ void	mk_scene_light(t_data *data, char *tmp)
 		if (ob->k == 0)
 			tvec_from_split(&data->scene->lght.cords, ob->spl_buf);
 		if (ob->k == 1)
-			data->scene->lght.bright = atof(ob->buf);
+			data->scene->lght.bright = ft_atof(ob->buf);
 		if (ob->k == 2)
 			trgb_from_split(&data->scene->lght.rgb, ob->spl_buf);
 		if (ob->k != 1)
@@ -115,8 +116,8 @@ void	construct_scene(t_data *data)
 
 	tmp = data->lines;
 	data->scene = malloc(sizeof(t_scene));
-	if (!data->scene)
-		exit_error("Error allocating memory for scene");
+	check_scene_alloc(data, data->scene);
+	memset(data->scene, 0, sizeof(t_scene));
 	while (*tmp)
 	{
 		if (*tmp[0] == 'A')

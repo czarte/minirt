@@ -6,10 +6,9 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:28:24 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/06 14:26:25 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/17 19:44:52 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../include/minirt.h"
 #include "../../include/vec.h"
@@ -42,13 +41,3 @@ t_vec	normalize(t_vec a)
         return ((t_vec){0, 0, 0});
     return (scale(a, 1.0 / length));
 }
-
-// t_vec	*divide_by_scalar(t_vec *a, float s)
-// {
-// 	return (vec3(a->x / s, a->y / s, a->z / s));
-// }
-
-// t_vec	*substract(t_vec *a, t_vec *b)
-// {
-// 	return (vec3(a->x - b->x, a->y - b->y, a->z - b->z));
-// }

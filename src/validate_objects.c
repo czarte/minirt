@@ -6,13 +6,13 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:47:21 by aevstign          #+#    #+#             */
-/*   Updated: 2025/05/17 14:25:12 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/17 19:45:34 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-bool	validate_camera(char **tokens, int count)
+bool	validate_camera(char **tokens, const int count)
 {
 	int	fov;
 
@@ -35,7 +35,7 @@ bool	validate_camera(char **tokens, int count)
 	return (true);
 }
 
-bool	validate_light(char **tokens, int count)
+bool	validate_light(char **tokens, const int count)
 {
 	double	ratio;
 
@@ -50,7 +50,7 @@ bool	validate_light(char **tokens, int count)
 		return (false);
 	}
 	ratio = ft_atof(tokens[2]);
-	if (ratio <= 0.0 || ratio >= 1.0)
+	if (ratio < 0.0 || ratio > 1.0)
 	{
 		printf("Error: wrong ratio for %s\n", tokens[0]);
 		return (false);
@@ -58,7 +58,7 @@ bool	validate_light(char **tokens, int count)
 	return (true);
 }
 
-bool	validate_sphere(char **tokens, int count)
+bool	validate_sphere(char **tokens, const int count)
 {
 	double	diameter;
 
@@ -81,7 +81,7 @@ bool	validate_sphere(char **tokens, int count)
 	return (true);
 }
 
-bool	validate_plane(char **tokens, int count)
+bool	validate_plane(char **tokens, const int count)
 {
 	if (count != 4)
 	{
@@ -101,7 +101,7 @@ bool	validate_plane(char **tokens, int count)
 	return (true);
 }
 
-bool	validate_cylindr(char **tokens, int count)
+bool	validate_cylindr(char **tokens, const int count)
 {
 	double	height;
 

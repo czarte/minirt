@@ -41,7 +41,7 @@ void	process_sp(t_data *data, t_shapes *sp_shape, t_obag *ob)
 	if (ob->k == 0)
 		tvec_from_split(&sp_shape->cords, ob->spl_buf);
 	if (ob->k == 1)
-		sp_shape->diameter = atof(ob->buf);
+		sp_shape->diameter = ft_atof(ob->buf);
 	if (ob->k == 2)
 		trgb_from_split(&sp_shape->rgb, ob->spl_buf);
 	if (ob->k != 1)
@@ -61,9 +61,9 @@ void	process_cy(t_data *data, t_shapes *cy_shape, t_obag *ob)
 	if (ob->k == 1)
 		tvec_from_split(&cy_shape->axis, ob->spl_buf);
 	if (ob->k == 2)
-		cy_shape->diameter = atof(ob->buf);
+		cy_shape->diameter = ft_atof(ob->buf);
 	if (ob->k == 3)
-		cy_shape->height = atof(ob->buf);
+		cy_shape->height = ft_atof(ob->buf);
 	if (ob->k == 4)
 		trgb_from_split(&cy_shape->rgb, ob->spl_buf);
 	if (ob->k < 2 || ob->k > 3)

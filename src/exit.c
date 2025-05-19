@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 16:14:41 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/11 16:40:18 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:09:44 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,16 @@ void	free_lines(char **lines)
 
 void	free_data(t_data *data)
 {
-	free_lines(data->lines);
-	ft_lstclear(&data->shapes, &free);
-	free(data->shapes);
+	if (data->lines)
+		free_lines(data->lines);
+	if (data->scene_img[0])
+		free(data->scene_img[0]);
+	if (data->scene_img[1])
+		free(data->scene_img[1]);
+	if (data->shapes)
+		ft_lstclear(&data->shapes, &free);
 	if (data->scene)
 		free(data->scene);
+	close(data->scenefd);
+	free(data);
 }

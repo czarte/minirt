@@ -6,7 +6,7 @@
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:42:51 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/14 19:12:49 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/19 13:18:52 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ int	main(int argc, char *argv[])
 	data = malloc(sizeof(t_data));
 	if (data == NULL)
 		return (-1);
+	memset(data, 0, sizeof(t_data));
 	if (init_program(data, argc, argv) == -1)
 		exit(-1);
 	if (init_mlx_window(data) == -1)
@@ -152,7 +153,7 @@ int	main(int argc, char *argv[])
 	//mlx_hook(data->win_ptr, 33, 1L << 17, &mlx_loop_end, data->mlx_ptr);
 	mlx_loop(data->mlx_ptr);
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	//mlx_destroy_display(data->mlx_ptr);
+	mlx_destroy_display(data->mlx_ptr);
 	free_data(data);
 	//exit(0);
 	return (0);

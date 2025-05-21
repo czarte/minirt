@@ -9,5 +9,6 @@ RUN	git clone https://github.com/czarte/minirt.git minirt && \
 	apt-get install libbsd-dev -y
 
 RUN	cd minirt \
-	git checkout camera_movement_linux
+git checkout camera_movement_linux
+
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
+/*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/19 12:56:00 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/21 15:59:34 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,23 +151,6 @@ void	check_scene_alloc(t_data *data, void *ptr);
 void	read_next_word(char *tmp, t_obag *ob);
 void	print_lines(char ***tmp);
 int		line_count(char *filename);
-{
-	char buffer[1];
-	int fd;
-	int count;
-
-	count = 0;
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		exit_error("Error opening file");
-	while (read(fd, buffer, 1 ))
-	{
-		if (buffer[0] == '\n')
-			count++;
-	}
-	close(fd);
-	return (count);
-}
 
 /*process_objects*/
 void	process_pl(t_data *data, t_shapes *pl_shape, t_obag *ob);

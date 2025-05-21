@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
+/*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 18:44:17 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/19 21:04:01 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/21 18:22:30 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ static void	set_camera_vectors(t_cam *cam)
 	t_vec	world_up;
 
 	world_up = (t_vec){0.0, 1.0, 0.0};
-	if (fabs(vec_dot(&cam->orient, &world_up)) > 0.999)
-		world_up = (t_vec){0.0, 0.0, 1.0};
 	cam->right = normalize(cross(cam->orient, world_up));
 	cam->up = cross(cam->right, cam->orient);
 }

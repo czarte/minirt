@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_params.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
+/*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:53:24 by aevstign          #+#    #+#             */
-/*   Updated: 2025/05/18 17:56:22 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/21 18:21:11 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,15 @@ bool	validate_rgb(const char *token)
 	return (true);
 }
 
+bool	validate_cords(t_vec vec)
+{
+	if ((vec.x < -1.0 || vec.y > 1.0 )
+		|| (vec.y < -1.0 || vec.y > 1.0)
+			|| (vec.z < -1.0 || vec.y > 1.0))
+			return (false);
+	return (true);
+}
+
 bool	validate_orientation(const char *tokens)
 {
 	char	**splited_ort;
@@ -57,7 +66,7 @@ bool	validate_orientation(const char *tokens)
 	z = ft_atof(splited_ort[2]);
 	free_split(splited_ort);
 	vec = (t_vec){x, y, z};
-	return (vec_length(vec) > 0.999 && vec_length(vec) < 1.001);
+	return (validate_cords(vec));
 }
 
 bool	validate_ambient(char **tokens, const int count)

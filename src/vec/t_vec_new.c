@@ -23,3 +23,8 @@ t_vec	*new_vec(float x, float y, float z)
 	r->z = z;
 	return (r);
 }
+
+void	print_vec(t_vec a)
+{
+	printf("vec x: %f, y: %f, z: %f\n", a.x, a.y, a.z);
+}

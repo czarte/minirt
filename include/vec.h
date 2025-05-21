@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VEC_LIBRARY
-#define VEC_LIBRARY
+#ifndef VEC_H
+#define VEC_H
 
 #include "external.h"
 

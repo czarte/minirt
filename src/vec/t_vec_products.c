@@ -18,9 +18,9 @@ t_vec	add(t_vec a, t_vec b)
 	return ((t_vec){a.x + b.x, a.y + b.y, a.z + b.z});
 }
 
-t_vec   vec_sub(t_vec a, t_vec b)
+t_vec	vec_sub(t_vec a, t_vec b)
 {
-    return ((t_vec){a.x - b.x, a.y - b.y, a.z - b.z});
+	return ((t_vec){a.x - b.x, a.y - b.y, a.z - b.z});
 }
 
 t_vec	cross(t_vec a, t_vec b)
@@ -31,13 +31,15 @@ t_vec	cross(t_vec a, t_vec b)
 
 t_vec	scale(t_vec a, double s)
 {
-	return ((t_vec){ a.x * s, a.y * s, a.z * s});
+	return ((t_vec){a.x * s, a.y * s, a.z * s});
 }
 
 t_vec	normalize(t_vec a)
 {
-	float length = vec_length(a);
-    if (length == 0)
-        return ((t_vec){0, 0, 0});
-    return (scale(a, 1.0 / length));
+	float	length;
+
+	length = vec_length(a);
+	if (length == 0)
+		return ((t_vec){0, 0, 0});
+	return (scale(a, 1.0 / length));
 }

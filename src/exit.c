@@ -21,7 +21,6 @@ void	free_imgs(void *shp)
 		free(shape->img.ptr);
 }
 
-
 void	free_lines(char **lines)
 {
 	int	i;

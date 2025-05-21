@@ -13,7 +13,6 @@
 #include "../../include/minirt.h"
 #include "../../include/vec.h"
 #include <math.h>
-#include <float.h>
 
 t_ray	shoot_ray(int x, int y, t_data *data)
 {

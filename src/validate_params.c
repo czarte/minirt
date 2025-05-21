@@ -41,6 +41,15 @@ bool	validate_rgb(const char *token)
 	return (true);
 }
 
+bool	validate_orientation_vals(t_vec vec)
+{
+	if ((vec.x < -1.0 || vec.x > 1.0)
+		|| (vec.y < -1.0 || vec.y > 1.0)
+		|| (vec.z < -1.0 || vec.z > 1.0))
+		return (false);
+	return (true);
+}
+
 bool	validate_orientation(const char *tokens)
 {
 	char	**splited_ort;
@@ -57,7 +66,7 @@ bool	validate_orientation(const char *tokens)
 	z = ft_atof(splited_ort[2]);
 	free_split(splited_ort);
 	vec = (t_vec){x, y, z};
-	return (vec_length(vec) > 0.999 && vec_length(vec) < 1.001);
+	return (validate_orientation_vals(vec));
 }
 
 bool	validate_ambient(char **tokens, const int count)

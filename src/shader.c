@@ -45,3 +45,19 @@ t_rgb	shader(t_rgb color, t_data *data, t_hit_record *rec)
 	sb.mix_color.b = min(sb.mix_color.b * 0.4f + sb.diffuse.b * sb.factor, 255);
 	return (sb.mix_color);
 }
+
+int min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	else
+		return (b);
+}
+
+int max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
+}

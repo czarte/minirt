@@ -10,10 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
 #include "../../include/vec.h"
-#include <math.h>
-#include <float.h>
+#include "../../include/minirt.h"
 
 float	process_cy_cap(t_cybag b, t_shapes *shp, t_ray ray)
 {

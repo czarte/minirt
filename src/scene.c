@@ -47,8 +47,6 @@ static void	set_camera_vectors(t_cam *cam)
 	t_vec	world_up;
 
 	world_up = (t_vec){0.0, 1.0, 0.0};
-	if (fabs(vec_dot(&cam->orient, &world_up)) > 0.999)
-		world_up = (t_vec){0.0, 0.0, 1.0};
 	cam->right = normalize(cross(cam->orient, world_up));
 	cam->up = cross(cam->right, cam->orient);
 }

@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <float.h>
 # include <stdbool.h>
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"

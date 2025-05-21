@@ -1,9 +1,10 @@
 SRC 		= main.c src/window.c src/parser.c src/init.c src/ft_spacious.c \
 				src/exit.c src/scene.c src/object.c src/colors.c src/object_fill.c \
 				src/helpers/o_bags.c src/helpers/print_objects.c src/vec/ray.c \
-        src/parser_utils.c src/validate_objects.c  src/validate_params.c \
+        		src/parser_utils.c src/validate_objects.c  src/validate_params.c \
 				src/vec/t_vec_new.c src/vec/t_vec_ops.c src/vec/t_vec_products.c \
-				src/shader.c src/vec/cy_utils.c src/process_objects.c 
+				src/shader.c src/vec/cy_utils.c src/process_objects.c \
+				src/validate.c
 OBJ 		= $(SRC:.c=.o)
 CC 			= cc
 RM 			= rm -f

@@ -24,28 +24,44 @@
 
 #include "include/minirt.h"
 
-void	mrt_put_pixel(t_img *img, int x, int y, int color)
+void	resolve_hit(t_hit_record *rec, float t, t_ray ray, t_shapes *shp)
 {
-	int	offset;
-
-	offset = (img->line_length * y) + (x * (img->bits_per_pixel / 8));
-	*((unsigned int *)(offset + img->pixels)) = color;
+	rec->point = add(ray.origin, scale(ray.dir, t));
+	rec->t = t;
+	rec->object = shp;
+	rec->hit = true;
 }
 
-void	init_scene_img(t_data *data)
+void	do_hit(t_ray ray, t_hit_record *rec, float *closest_t, t_shapes *shp)
 {
-	data->scene_img[data->frame % 2]->mlx_ptr = data->mlx_ptr;
-	data->scene_img[data->frame % 2]->ptr = mlx_new_image(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
-	data->scene_img[data->frame % 2]->pixels = mlx_get_data_addr(data->scene_img[data->frame % 2]->ptr,
-                                                                 &data->scene_img[data->frame % 2]->bits_per_pixel,
-                                                                 &data->scene_img[data->frame % 2]->line_length,
-                                                                 &data->scene_img[data->frame % 2]->endian);
+	float		t;
+
+	if ((ft_strncmp(shp->identifier, "sp", 2) == 0)
+		&& (ray_inter_sp(ray, shp, &t) && t < *closest_t))
+	{
+		*closest_t = t;
+		resolve_hit(rec, t, ray, shp);
+		rec->normal = normalize(vec_sub(rec->point, shp->cords));
+	}
+	else if ((ft_strncmp(shp->identifier, "pl", 2) == 0)
+		&& (ray_inter_pl(ray, shp, &t) && t < *closest_t))
+	{
+		*closest_t = t;
+		resolve_hit(rec, t, ray, shp);
+		rec->normal = normalize(shp->axis);
+	}
+	if ((ft_strncmp(shp->identifier, "cy", 2) == 0)
+		&& (ray_inter_cy(ray, shp, &t) && t < *closest_t))
+	{
+		*closest_t = t;
+		resolve_hit(rec, t, ray, shp);
+		rec->normal = normalize(vec_sub(rec->point, shp->cords));
+	}
 }
 
 bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec)
 {
-	t_list 		*lst;
-	float		t;
+	t_list		*lst;
 	float		closest_t;
 	t_shapes	*shp;
 
@@ -56,69 +72,35 @@ bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec)
 	while (lst)
 	{
 		shp = (t_shapes *)lst->content;
-		if (ft_strncmp(shp->identifier, "sp", 2) == 0)
-		{
-			if (ray_inter_sp(ray, shp, &t) && t < closest_t)
-			{
-				closest_t = t;
-				rec->point = add(ray.origin, scale(ray.dir, t));
-				rec->normal = normalize(vec_sub(rec->point, shp->cords));
-                rec->t = t;
-				rec->object = shp;
-				rec->hit = true;
-			}
-		}
-		else if (ft_strncmp(shp->identifier, "pl", 2) == 0)
-		{
-			if (ray_inter_pl(ray, shp, &t) && t < closest_t)
-			{
-				closest_t = t;
-				rec->point = add(ray.origin, scale(ray.dir, t));
-				rec->normal = normalize(shp->axis);
-				rec->t = t;
-				rec->object = shp;
-				rec->hit = true;
-			}
-		}
-        if (ft_strncmp(shp->identifier, "cy", 2) == 0)
-        {
-            if (ray_inter_cy(ray, shp, &t) && t < closest_t)
-            {
-            	closest_t = t;
-                rec->point = add(ray.origin, scale(ray.dir, t));
-                rec->normal = normalize(vec_sub(rec->point, shp->cords));
-                rec->t = t;
-                rec->object = shp;
-                rec->hit = true;
-            }
-        }
+		do_hit(ray, rec, &closest_t, shp);
 		lst = lst->next;
 	}
 	return (rec->hit);
 }
 
-void cast_rays(t_data *data)
+void	cast_rays(t_data *data)
 {
-    int     w;
-    int     h;
-    t_ray   ray;
+	int		w;
+	int		h;
+	t_ray	ray;
 	int		color;
 
 	init_scene_img(data);
-    w = h = 0;
-    while (w < WIN_WIDTH)
-    {
+	w = 0;
+	while (w < WIN_WIDTH)
+	{
 		h = 0;
-        while (h < WIN_HEIGHT)
-        {
-            ray = shoot_ray(w, h, data);
+		while (h < WIN_HEIGHT)
+		{
+			ray = shoot_ray(w, h, data);
 			color = ray_color(ray, data);
 			mrt_put_pixel(data->scene_img[data->frame % 2], w, h, color);
-            h++;
-        }
-        w++;
-    }
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->scene_img[data->frame % 2]->ptr, 0, 0);
+			h++;
+		}
+		w++;
+	}
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+		data->scene_img[data->frame % 2]->ptr, 0, 0);
 }
 
 int	main(int argc, char *argv[])
@@ -135,7 +117,6 @@ int	main(int argc, char *argv[])
 		exit(-1);
 	cast_rays(data);
 	mlx_key_hook(data->win_ptr, &key_mapping, (void *)data);
-	mlx_mouse_hook(data->win_ptr, &check_mouse_button, (void *)data);
 	mlx_hook(data->win_ptr, 33, 1L << 17, &mlx_loop_end, data->mlx_ptr);
 	mlx_loop(data->mlx_ptr);
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);

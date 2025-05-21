@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLX_UTILS
-# define MLX_UTILS
+#ifndef MLX_UTILS_H
+# define MLX_UTILS_H
 
 // Detect the operating system
 # ifdef __APPLE__
@@ -75,31 +75,4 @@
 #  error "Unsupported operating system"
 # endif
 
-//ambient
-//9 - 237
-//0 + 233
-
-// light
-//97 a
-//100 d
-//115 s
-//119 w
-//120 x
-//121 y
-
-//objects
-//105 i
-//106 j
-//107 k
-//108 l
-//109 m
-//110 n
-
-//camera
-//65361 left
-//65362 up
-//65363 right
-//65364 bottom
-//65351 +
-//65453 -
 #endif

@@ -31,7 +31,6 @@ void	check_file_empty(t_data *data)
 	}
 	close(data->scenefd);
 	free(buffer);
-	return ;
 }
 
 int	init_program(t_data *data, int argc, char **argv)
@@ -44,9 +43,9 @@ int	init_program(t_data *data, int argc, char **argv)
 	data->filename = argv[1];
 	data->frame = 1;
 	check_file_empty(data);
+	init_scene(data);
 	data->scene_img[0] = malloc(sizeof(t_img));
 	data->scene_img[1] = malloc(sizeof(t_img));
-	init_scene(data);
 	init_objects(data);
 	printf("INIT data->frame: %d\n", data->frame);
 	return (0);

@@ -150,6 +150,24 @@ void	exit_error(char *msg);
 void	check_scene_alloc(t_data *data, void *ptr);
 void	read_next_word(char *tmp, t_obag *ob);
 void	print_lines(char ***tmp);
+int		line_count(char *filename);
+{
+	char buffer[1];
+	int fd;
+	int count;
+
+	count = 0;
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+		exit_error("Error opening file");
+	while (read(fd, buffer, 1 ))
+	{
+		if (buffer[0] == '\n')
+			count++;
+	}
+	close(fd);
+	return (count);
+}
 
 /*process_objects*/
 void	process_pl(t_data *data, t_shapes *pl_shape, t_obag *ob);

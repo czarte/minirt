@@ -97,8 +97,10 @@ bool	check_line(char *line, t_obag *bag)
 		free_split(tokens);
 		return (false);
 	}
-	if (!strcmp(tokens[0], "C"))
+	if (!strcmp(tokens[0], "C")) {
+		printf("Value is: %d\n", bag->i);
 		bag->i++;
+	}
 	if (!strcmp(tokens[0], "L"))
 		bag->j++;
 	if (!strcmp(tokens[0], "A"))

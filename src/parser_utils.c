@@ -45,3 +45,22 @@ void	print_lines(char ***tmp)
 		(*tmp)++;
 	}
 }
+
+int	line_count(char *filename)
+{
+	char	buffer[1];
+	int		fd;
+	int		count;
+
+	count = 0;
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+		exit_error("Error opening file");
+	while (read(fd, buffer, 1))
+	{
+		if (buffer[0] == '\n')
+			count++;
+	}
+	close(fd);
+	return (count);
+}

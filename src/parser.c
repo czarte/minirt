@@ -72,6 +72,7 @@ void	do_lines(t_data *data, char ***lines)
 	current = *lines;
 	while (true)
 	{
+		printf("We are here %d \n", i);
 		read_state = read_next_line(data->scenefd, line, &i);
 		if (read_state == 0)
 			break ;
@@ -92,13 +93,13 @@ void	init_scene(t_data *data)
 	char	**lines;
 	char	**tmp;
 
+	lines = malloc(line_count(data->filename) * sizeof(char *));
 	data->scenefd = open(data->filename, O_RDONLY);
 	if (data->scenefd == -1)
 	{
 		free(data);
 		exit_error("Error opening file");
 	}
-	lines = malloc(100 * sizeof(char *));
 	check_scene_alloc(data, lines);
 	tmp = lines;
 	do_lines(data, &lines);

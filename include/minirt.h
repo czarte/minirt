@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/21 15:59:34 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/21 16:07:04 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ typedef struct s_hit_record
 void	do_j_bzero(t_obag *ob);
 void	init_tobag(t_obag *obag);
 
-
 /*window handing functions*/
 int		init_mlx_window(t_data *data);
 int		key_mapping(int key, void *params);
@@ -218,7 +217,6 @@ bool	validate_ambient(char **tokens, const int count);
 bool	validate_sphere(char **tokens, const int count);
 bool	validate_plane(char **tokens, const int count);
 bool	validate_cylindr(char **tokens, const int count);
-
 
 bool	validate_rgb(const char *token);
 bool	validate_orientation(const char *tokens);

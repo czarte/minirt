@@ -12,6 +12,19 @@
 
 #include "../include/minirt.h"
 
+void	check_filename(t_data *data)
+{
+	char *filename;
+
+	filename = data->filename;
+	if (ft_strncmp(filename + ft_strlen(filename) - 3, ".rt", 3))
+	{
+		perror("Error opening file: wrong format");
+		free(data);
+		exit(EXIT_FAILURE);
+	}
+}
+
 void	check_file_empty(t_data *data)
 {
 	char	*buffer;
@@ -20,6 +33,7 @@ void	check_file_empty(t_data *data)
 	if (data->scenefd == -1)
 	{
 		perror("Error opening file");
+		free(data);
 		exit(EXIT_FAILURE);
 	}
 	buffer = malloc(1);
@@ -27,6 +41,8 @@ void	check_file_empty(t_data *data)
 	if (read(data->scenefd, buffer, 1) <= 0)
 	{
 		printf("Error: Scene is empty\n");
+		free(buffer);
+		free(data);
 		exit(EXIT_FAILURE);
 	}
 	close(data->scenefd);
@@ -42,6 +58,7 @@ int	init_program(t_data *data, int argc, char **argv)
 	}
 	data->filename = argv[1];
 	data->frame = 1;
+	check_filename(data);
 	check_file_empty(data);
 	init_scene(data);
 	data->scene_img[0] = malloc(sizeof(t_img));

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.c                                           :+:      :+:    :+:   */
+/*   shader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
+/*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:17:47 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/06 16:20:44 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:22:17 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_rgb	shader(t_rgb color, t_data *data, t_hit_record *rec)
 	return (sb.mix_color);
 }
 
-int min(int a, int b)
+int	min(int a, int b)
 {
 	if (a < b)
 		return (a);
@@ -54,7 +54,7 @@ int min(int a, int b)
 		return (b);
 }
 
-int max(int a, int b)
+int	max(int a, int b)
 {
 	if (a > b)
 		return (a);

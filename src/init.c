@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
+/*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 15:52:10 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/19 17:29:45 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:19:54 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	check_filename(t_data *data)
 {
-	char *filename;
+	char	*filename;
 
 	filename = data->filename;
 	if (ft_strncmp(filename + ft_strlen(filename) - 3, ".rt", 3))

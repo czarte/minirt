@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
+/*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 19:36:45 by aevstign          #+#    #+#             */
-/*   Updated: 2025/05/17 20:42:51 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:17:10 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ bool	handle_identifiers(int camera_count, int light_count, int ambient_count)
 bool	is_valid_identifier(const char *id)
 {
 	return (!strcmp(id, "A") || !strcmp(id, "C") || !strcmp(id, "L")
-		|| !strcmp(id, "sp") || !strcmp(id, "pl") || !strcmp(id, "cy"));
+		|| !strcmp(id, "sp") || !strcmp(id, "pl") || !strcmp(id, "cy")
+		|| !strcmp(id, "#"));
 }
 
 bool	validate_tokens(char **tokens)

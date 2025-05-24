@@ -19,6 +19,7 @@
 # define READ_SUCCESS 1
 # define READ_EOF 0
 # define READ_ERROR -1
+# define FLT_MAX 3.40282347e+38F
 
 # include "external.h"
 # include "mlx_utils.h"
@@ -122,69 +123,74 @@ typedef struct s_obag
 	char		buf[1024];
 }			t_obag;
 
-typedef struct s_sbag {
-    t_vec	l_dir;
-    t_rgb	mix_color;
-    t_rgb	diffuse;
-    double	factor;
-    float	softness;
-    float	visibility;
-}   t_sbag;
+typedef struct s_sbag
+{
+	t_vec		l_dir;
+	t_rgb		mix_color;
+	t_rgb		diffuse;
+	double		factor;
+	float		softness;
+	float		visibility;
+}	t_sbag;
 
-typedef struct s_rbag {
-    float	aspect;
-    float	fov_radians;
-    float	scale_fov;
-    float	nor_x;
-    float	nor_y;
-}   t_rbag;
+typedef struct s_rbag
+{
+	float		aspect;
+	float		fov_radians;
+	float		scale_fov;
+	float		nor_x;
+	float		nor_y;
+}	t_rbag;
 
-typedef struct s_spbag {
-    float	t1;
-    float	t2;
-    float	shp_radius;
-    float	a;
-    float	b;
-    float	c;
-    float	discriminant;
-    t_vec	oc;
-}   t_spbag;
+typedef struct s_spbag
+{
+	float		t1;
+	float		t2;
+	float		shp_radius;
+	float		a;
+	float		b;
+	float		c;
+	float		discriminant;
+	t_vec		oc;
+}	t_spbag;
 
-typedef struct s_cybag {
-    int     i;
-    float	t1;
-    float	t2;
-    float	radius;
-    float	a_f;
-    float	b_f;
-    float	c_f;
-    float	discriminant;
-    float   sqrt_disc;
-    float   t_candidates[2];
-    float   height;
-    float   ti;
-    float   denom;
-    float   t_cap;
-    float	crb;
-    t_vec   sub;
-    t_vec	oc;
-    t_vec	nor_cyl;
-    t_vec	a;
-    t_vec	b;
-    t_vec   p;
-    t_vec   p_b;
-    t_vec   cap_center;
-    t_vec   mul;
-    t_vec   lp;
-} t_cybag;
+typedef struct s_cybag
+{
+	int			i;
+	float		t1;
+	float		t2;
+	float		radius;
+	float		a_f;
+	float		b_f;
+	float		c_f;
+	float		discriminant;
+	float		sqrt_disc;
+	float		t_candidates[2];
+	float		height;
+	float		ti;
+	float		denom;
+	float		t_cap;
+	float		crb;
+	t_vec		sub;
+	t_vec		oc;
+	t_vec		nor_cyl;
+	t_vec		a;
+	t_vec		b;
+	t_vec		p;
+	t_vec		p_b;
+	t_vec		cap_center;
+	t_vec		mul;
+	t_vec		lp;
+}	t_cybag;
 
-typedef struct s_hit_record {
+typedef struct s_hit_record
+{
 	float		t;
 	t_vec		point;
 	t_vec		normal;
 	t_shapes	*object;
 	bool		hit;
-}			t_hit_record;
+}	t_hit_record;
 
 void	do_j_bzero(t_obag *ob);
 void	init_tobag(t_obag *obag);
@@ -220,9 +226,9 @@ void	free_data(t_data *data);
 void	free_imgs(void *shp);
 
 /*utils*/
-int     ft_spacious(int c);
-int     min(int a, int b);
-int     max(int a, int b);
+int		ft_spacious(int c);
+int		min(int a, int b);
+int		max(int a, int b);
 void	print_vec(t_vec a);
 
 /*scene*/
@@ -233,6 +239,8 @@ void	mk_scene_light(t_data *data, char *tmp);
 void	mk_obj_pl(t_data *data, char *tmp);
 void	mk_obj_sp(t_data *data, char *tmp);
 void	mk_obj_cy(t_data *data, char *tmp);
+void	mrt_put_pixel(t_img *img, int x, int y, int color);
+void	init_scene_img(t_data *data);
 
 /*objects & shapes*/
 

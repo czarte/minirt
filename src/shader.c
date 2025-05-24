@@ -61,3 +61,23 @@ int	max(int a, int b)
 	else
 		return (b);
 }
+
+void	mrt_put_pixel(t_img *img, int x, int y, int color)
+{
+	int	offset;
+
+	offset = (img->line_length * y) + (x * (img->bits_per_pixel / 8));
+	*((unsigned int *)(offset + img->pixels)) = color;
+}
+
+void	init_scene_img(t_data *data)
+{
+	data->scene_img[data->frame % 2]->mlx_ptr = data->mlx_ptr;
+	data->scene_img[data->frame % 2]->ptr = mlx_new_image(data->mlx_ptr,
+			WIN_WIDTH, WIN_HEIGHT);
+	data->scene_img[data->frame % 2]->pixels = mlx_get_data_addr(
+			data->scene_img[data->frame % 2]->ptr,
+			&data->scene_img[data->frame % 2]->bits_per_pixel,
+			&data->scene_img[data->frame % 2]->line_length,
+			&data->scene_img[data->frame % 2]->endian);
+}

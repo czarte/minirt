@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EX_LIBRARY
-#define EX_LIBRARY
+#ifndef EXTERNAL_H
+# define EXTERNAL_H
 
 # include <math.h>
 # include <stdio.h>
@@ -19,7 +19,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <float.h>
 # include <stdbool.h>
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"

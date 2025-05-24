@@ -40,6 +40,7 @@ int			ft_memcmp(const void *s1, const void *s2, size_t n);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
 void		*ft_calloc(size_t count, size_t size);
 int			ft_atoi(const char *str);
+double		ft_atof(const char *str);
 char		*ft_strdup(const char *s1);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);

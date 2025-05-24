@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   external.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: voparkan <voparkan@student.42prague.com>   +#+  +:+       +#+        */
+/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:03:56 by voparkan          #+#    #+#             */
-/*   Updated: 2025/04/05 19:05:46 by voparkan         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:17:43 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EX_LIBRARY
-#define EX_LIBRARY
+#ifndef EXTERNAL_H
+# define EXTERNAL_H
 
 # include <math.h>
 # include <stdio.h>

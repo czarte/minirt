@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
+/*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 17:14:47 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/10 13:42:58 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:59:13 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	key_mapping(int key, void *params)
 		mlx_destroy_image(data->mlx_ptr, data->scene_img[frame_n]->ptr);
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		mlx_destroy_display(data->mlx_ptr);
+		free(data->mlx_ptr);
 		free_data(data);
 		exit(0);
 	}
@@ -67,40 +68,6 @@ int	key_mapping(int key, void *params)
 	{
 		cast_rays(data);
 		mlx_destroy_image(data->mlx_ptr, data->scene_img[frame_n]->ptr);
-	}
-	return (0);
-}
-
-int	check_exit_button(int button, int x, int y, void *params)
-{
-	t_data	*data;
-
-	data = (t_data *) params;
-	(void) x;
-	(void) y;
-	if (button == 32)
-	{
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		mlx_destroy_display(data->mlx_ptr);
-		free_data(data);
-		exit(0);
-	}
-	return (0);
-}
-
-int	check_mouse_button(int button, int x, int y, void *params)
-{
-	t_data	*data;
-
-	data = (t_data *) params;
-	(void) x;
-	(void) y;
-	if (button == 17)
-	{
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		mlx_destroy_display(data->mlx_ptr);
-		free_data(data);
-		exit(0);
 	}
 	return (0);
 }

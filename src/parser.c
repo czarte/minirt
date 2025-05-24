@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
+/*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 15:33:32 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/19 17:28:03 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:40:39 by aevstign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	do_lines(t_data *data, char ***lines)
 	current = *lines;
 	while (true)
 	{
-		printf("We are here %d \n", i);
 		read_state = read_next_line(data->scenefd, line, &i);
 		if (read_state == 0)
 			break ;
@@ -92,8 +91,11 @@ void	init_scene(t_data *data)
 {
 	char	**lines;
 	char	**tmp;
+	int		lc;
 
-	lines = malloc(line_count(data->filename) * sizeof(char *));
+	lc = line_count(data->filename);
+	lines = malloc((lc + 1) * sizeof(char *));
+	lines[lc] = NULL;
 	data->scenefd = open(data->filename, O_RDONLY);
 	if (data->scenefd == -1)
 	{

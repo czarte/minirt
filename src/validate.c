@@ -99,10 +99,7 @@ bool	check_line(char *line, t_obag *bag)
 		return (false);
 	}
 	if (!strcmp(tokens[0], "C"))
-	{
-		printf("Value is: %d\n", bag->i);
 		bag->i++;
-	}
 	if (!strcmp(tokens[0], "L"))
 		bag->j++;
 	if (!strcmp(tokens[0], "A"))

@@ -8,7 +8,7 @@ SRC 		= main.c src/window.c src/parser.c src/init.c src/ft_spacious.c \
 OBJ 		= $(SRC:.c=.o)
 CC 			= cc
 RM 			= rm -f
-CPPFLAGS 	= -Wall -Wextra -Werror -g3 #-fsanitize=address
+CFLAGS 		= -Wall -Wextra -Werror -g3 #-fsanitize=address
 LIBFT 		= libft.a
 LIBFTDIR	= libft
 
@@ -19,7 +19,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make bonus -C $(LIBFTDIR)
 	@cp $(LIBFTDIR)/$(LIBFT) .
-	$(CC) $(CPPFLAGS) $(OBJ) $(LIBFT) mlx/libmlx.a -lXext -lX11 -o $(NAME) -lm
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) mlx/libmlx.a -lXext -lX11 -o $(NAME) -lm
 
 $(MLX):
 
@@ -28,18 +28,14 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) $(LIBFT)
 
 re: fclean $(NAME)
 
-noleak: CPPFLAGS = $(NO_SAN_FLAGS)
+noleak: CFLAGS = $(NO_SAN_FLAGS)
 noleak: re
 
 memleak: noleak
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -s ./$(NAME) $(ARGS)
-
-test: $(OBJ)
-	@c++ ./tests/vec_tests_test.cpp -Iinclude -Igoogletest/googletest/include/ -std=c++14 -o vec_tests.o
-	@c++ ./tests/main.cpp -Iinclude -Igoogletest/googletest/include/ -std=c++14
-	@c++ ./main.o ./vec_tests.o $(NAMEA) $(TOBJS) -I./include ./googletest/build/lib/libgtest.a -o unit_test
 
 .PHONY: all clean fclean re

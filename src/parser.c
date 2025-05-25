@@ -72,15 +72,16 @@ void	do_lines(t_data *data, char ***lines)
 	current = *lines;
 	while (true)
 	{
+        ft_bzero(line, sizeof(line));
 		read_state = read_next_line(data->scenefd, line, &i);
-		if (read_state == 0)
-			break ;
-		else if (read_state == -1)
+		if (read_state == -1)
 			cleanup_and_exit(data, current, *lines, "Couldn't read scene");
 		if (i == 0)
 			continue ;
 		if (!process_line(line, &bag, &current))
 			cleanup_and_exit(data, current, *lines, "Invalid scene line");
+		if (read_state == 0)
+			break ;
 	}
 	if (!handle_identifiers(bag.i, bag.j, bag.k))
 		cleanup_and_exit(data, current, *lines, "Invalid scene line");

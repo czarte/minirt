@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:17:47 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/22 17:22:17 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/05/25 16:31:52 by voparkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_rgb	shader(t_rgb color, t_data *data, t_hit_record *rec)
 	sb.l_dir = normalize(vec_sub(data->scene->lght.cords, rec->point));
 	sb.factor = fmax(0.0, vec_dot(&rec->normal, &sb.l_dir));
 	sb.mix_color = calculate_ambient(data, rec->object);
-	if (is_in_shadow(data, rec->point, data->scene->lght.cords, rec->normal))
+	if (is_in_shadow(data, rec->point, data->scene->lght.cords, rec->normal)) // && (data->scene->ambi.ratio < 1.0)
 	{
 		sb.softness = 0.2f + 0.5f * fmax(0.0, vec_dot(&rec->normal, &sb.l_dir));
 		sb.visibility = 0.2f;
@@ -37,6 +37,7 @@ t_rgb	shader(t_rgb color, t_data *data, t_hit_record *rec)
 		sb.diffuse.r *= sb.softness;
 		sb.diffuse.g *= sb.softness;
 		sb.diffuse.b *= sb.softness;
+
 	}
 	else
 		sb.diffuse = calculate_diffuse(data, sb.l_dir, color, rec);

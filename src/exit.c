@@ -47,6 +47,10 @@ void	free_data(t_data *data)
 		ft_lstclear(&data->shapes, &free);
 	if (data->scene)
 		free(data->scene);
-	close(data->scenefd);
+	if (data->scenefd != -1)
+	{
+		close(data->scenefd);
+		data->scenefd = -1;
+	}
 	free(data);
 }

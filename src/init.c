@@ -54,6 +54,7 @@ int	init_program(t_data *data, int argc, char **argv)
 	if (argc != 2)
 	{
 		perror("You must provide a file name of scene");
+		free_data(data);
 		return (-1);
 	}
 	data->filename = argv[1];
@@ -62,7 +63,9 @@ int	init_program(t_data *data, int argc, char **argv)
 	check_file_empty(data);
 	init_scene(data);
 	data->scene_img[0] = malloc(sizeof(t_img));
+	check_scene_alloc(data, data->scene_img[0]);
 	data->scene_img[1] = malloc(sizeof(t_img));
+	check_scene_alloc(data, data->scene_img[1]);
 	init_objects(data);
 	printf("INIT data->frame: %d\n", data->frame);
 	return (0);

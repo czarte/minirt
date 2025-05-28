@@ -73,9 +73,9 @@ void	do_lines(t_data *data, char ***lines)
 	while (true)
 	{
 		read_state = read_next_line(data->scenefd, line, &i);
-		if (read_state == 0)
+		if (read_state <= 0 && i == 0)
 			break ;
-		else if (read_state == -1)
+		if (read_state == -1)
 			cleanup_and_exit(data, current, *lines, "Couldn't read scene");
 		if (i == 0)
 			continue ;

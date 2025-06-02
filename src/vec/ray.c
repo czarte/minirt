@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: voparkan <voparkan@student.42prague.cz>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/31 13:12:32 by voparkan          #+#    #+#             */
+/*   Updated: 2025/05/31 15:57:10 by voparkan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 11:29:07 by aevstign          #+#    #+#             */
@@ -75,9 +87,9 @@ bool	ray_inter_pl(t_ray ray, t_shapes *shp, float *t)
 
 void	calculate_cy_bag(t_cybag *b, t_shapes *shp, t_ray ray)
 {
-	b->radius = shp->diameter / 2;
+	b->radius = shp->diameter / 2.0f;
+	b->nor_cyl = normalize(shp->axis);
 	b->oc = vec_sub(ray.origin, shp->cords);
-	b->nor_cyl = normalize(shp->cords);
 	b->a = vec_sub(ray.dir, scale(b->nor_cyl, vec_dot(&ray.dir, &b->nor_cyl)));
 	b->b = vec_sub(b->oc, scale(b->nor_cyl, vec_dot(&b->oc, &b->nor_cyl)));
 	b->a_f = vec_dot(&b->a, &b->a);
@@ -86,7 +98,7 @@ void	calculate_cy_bag(t_cybag *b, t_shapes *shp, t_ray ray)
 	b->discriminant = b->b_f * b->b_f - 4 * b->a_f * b->c_f;
 }
 
-bool	ray_inter_cy(t_ray ray, t_shapes *shp, float *t)
+bool	ray_inter_cy(t_ray ray, t_shapes *shp, float *t, t_hit_record *rec)
 {
 	t_cybag	b;
 
@@ -102,9 +114,11 @@ bool	ray_inter_cy(t_ray ray, t_shapes *shp, float *t)
 	if (b.crb > 0)
 	{
 		*t = b.crb;
+		resolve_hit(rec, b.crb, ray, shp);
+		rec->normal = normalize(vec_sub(rec->point, shp->cords));
 		return (true);
 	}
-	b.crb = process_cy_cap(b, shp, ray);
+	b.crb = process_cy_cap(b, shp, ray, rec);
 	if (b.crb > 0)
 	{
 		*t = b.crb;

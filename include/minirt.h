@@ -171,6 +171,8 @@ typedef struct s_cybag
 	float		denom;
 	float		t_cap;
 	float		crb;
+	float		sign;
+	float		half_h;
 	t_vec		sub;
 	t_vec		oc;
 	t_vec		nor_cyl;
@@ -190,6 +192,7 @@ typedef struct s_hit_record
 	t_vec		normal;
 	t_shapes	*object;
 	bool		hit;
+	bool		is_cap;
 }	t_hit_record;
 
 void	do_j_bzero(t_obag *ob);
@@ -252,19 +255,20 @@ void	iter_pl(t_data *data, char *tmp, t_shapes *pl_shape);
 void	iter_sp(t_data *data, char *tmp, t_shapes *sp_shape);
 void	iter_cy(t_data *data, char *tmp, t_shapes *cy_shape);
 void	move_cp_buf(char *tmp, t_obag *ob);
-float	process_cy_cap(t_cybag b, t_shapes *shp, t_ray ray);
+float	process_cy_cap(t_cybag b, t_shapes *shp, t_ray ray, t_hit_record *rec);
 float	process_cy_body(t_cybag b, t_shapes *shp, t_ray ray);
 
 /*rays*/
 t_ray	shoot_ray(int x, int y, t_data *data);
 bool	ray_inter_sp(t_ray ray, t_shapes *shp, float *t);
 bool	ray_inter_pl(t_ray ray, t_shapes *shp, float *t);
-bool	ray_inter_cy(t_ray ray, t_shapes *shp, float *t);
+bool	ray_inter_cy(t_ray ray, t_shapes *shp, float *t, t_hit_record *rec);
 void	cast_rays(t_data *data);
 
 /*hit*/
 bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec);
 bool	is_in_shadow(t_data *data, t_vec point, t_vec light_pos, t_vec normal);
+void	resolve_hit(t_hit_record *rec, float t, t_ray ray, t_shapes *shp);
 
 /*colors*/
 int		make_color(t_rgb rgb);

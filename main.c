@@ -39,11 +39,11 @@ void	do_hit(t_ray ray, t_hit_record *rec, float *closest_t, t_shapes *shp)
 		rec->normal = normalize(shp->axis);
 	}
 	if ((ft_strncmp(shp->identifier, "cy", 2) == 0)
-		&& (ray_inter_cy(ray, shp, &t) && t < *closest_t))
+		&& (ray_inter_cy(ray, shp, &t, rec) && t < *closest_t))
 	{
 		*closest_t = t;
-		resolve_hit(rec, t, ray, shp);
-		rec->normal = normalize(vec_sub(rec->point, shp->cords));
+		//resolve_hit(rec, t, ray, shp);
+		//rec->normal = normalize(vec_sub(rec->point, shp->cords));
 	}
 }
 

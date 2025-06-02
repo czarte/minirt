@@ -34,12 +34,9 @@ t_rgb	shader(t_rgb color, t_data *data, t_hit_record *rec)
 		sb.visibility = 0.2f;
 		sb.factor *= sb.visibility;
 		sb.diffuse = calculate_diffuse(data, sb.l_dir, color, rec);
-		//sb.diffuse.r *= sb.softness;
-		//sb.diffuse.g *= sb.softness;
-		//sb.diffuse.b *= sb.softness;
-		sb.diffuse.r = 0;
-		sb.diffuse.g = 0;
-		sb.diffuse.b = 0;
+		sb.diffuse.r *= sb.softness;
+		sb.diffuse.g *= sb.softness;
+		sb.diffuse.b *= sb.softness;
 	}
 	else
 		sb.diffuse = calculate_diffuse(data, sb.l_dir, color, rec);

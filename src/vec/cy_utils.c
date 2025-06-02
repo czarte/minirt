@@ -36,9 +36,9 @@ float	process_cy_cap(t_cybag b, t_shapes *shp, t_ray ray, t_hit_record *hit)
 		b.lp = add(ray.origin, b.mul);
 		t_vec dist = vec_sub(b.lp, b.cap_center);
 		if (vec_dot(&dist, &dist) <= b.radius * b.radius) {
-			printf("Testing cap %d: t_cap=%.4f, lp=(%.2f,%.2f,%.2f), center=(%.2f,%.2f,%.2f), dist=%.4f\n",
+			/*printf("Testing cap %d: t_cap=%.4f, lp=(%.2f,%.2f,%.2f), center=(%.2f,%.2f,%.2f), dist=%.4f\n",
 				   b.i, b.t_cap, b.lp.x, b.lp.y, b.lp.z, b.cap_center.x, b.cap_center.y, b.cap_center.z,
-				   vec_length(vec_sub(b.lp, b.cap_center)));
+				   vec_length(vec_sub(b.lp, b.cap_center)));*/
 			hit->t = b.t_cap;
 			hit->point = b.lp;
 			//hit->normal = scale(b.nor_cyl, b.sign);

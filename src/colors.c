@@ -40,9 +40,9 @@ t_rgb	calculate_diffuse(t_data *data, t_vec l_dir, t_rgb color, t_hit_record \
 	diffuse.r = (int)(data->scene->lght.bright * (float) \
 		data->scene->lght.rgb.r * (float) color.r * (float) factor / 255.0f);
 	diffuse.g = (int)(data->scene->lght.bright * (float) \
-		data->scene->lght.rgb.g * (float) color.g * (float) factor / 255.0f);
+		data->scene->lght.rgb.g * (float) color.g * (float) factor / 255.0f); //
 	diffuse.b = (int)(data->scene->lght.bright * (float) \
-		data->scene->lght.rgb.b * (float) color.b * (float) factor / 255.0f);
+		data->scene->lght.rgb.b * (float) color.b * (float) factor / 255.0f); //
 	return (diffuse);
 }
 

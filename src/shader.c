@@ -30,13 +30,16 @@ t_rgb	shader(t_rgb color, t_data *data, t_hit_record *rec)
 	sb.mix_color = calculate_ambient(data, rec->object);
 	if (is_in_shadow(data, rec->point, data->scene->lght.cords, rec->normal))
 	{
-		sb.softness = 0.2f + 0.5f * fmax(0.0, vec_dot(&rec->normal, &sb.l_dir));
+		sb.softness = 0.2f;// + 0.5f * fmax(0.0, vec_dot(&rec->normal, &sb.l_dir));
 		sb.visibility = 0.2f;
 		sb.factor *= sb.visibility;
 		sb.diffuse = calculate_diffuse(data, sb.l_dir, color, rec);
-		sb.diffuse.r *= sb.softness;
-		sb.diffuse.g *= sb.softness;
-		sb.diffuse.b *= sb.softness;
+		//sb.diffuse.r *= sb.softness;
+		//sb.diffuse.g *= sb.softness;
+		//sb.diffuse.b *= sb.softness;
+		sb.diffuse.r = 0;
+		sb.diffuse.g = 0;
+		sb.diffuse.b = 0;
 	}
 	else
 		sb.diffuse = calculate_diffuse(data, sb.l_dir, color, rec);

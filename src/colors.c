@@ -73,14 +73,11 @@ t_rgb	calculate_diffuse(t_data *data, t_vec l_dir, t_rgb color, t_hit_record \
 		double dot_u = vec_dot(&radial, &u_ref);
 		t_vec v_ref = cross(nor, u_ref);
 		double dot_v = vec_dot(&radial, &v_ref);
-//		t_vec light_vec = vec_sub(data->scene->lght.cords, rec->point);
-//		light_vec = normalize(light_vec);
-		factor = atan2f(dot_v, dot_u);
+		if (nor.y)
+			factor = atan2f(dot_u, dot_v);
+		else
+			factor = atan2f(dot_v, dot_u);
 		factor = (factor + M_PI) / (2.0f * M_PI);
-		//float angle = atan2f(dot_u, dot_v);
-		//factor = atan2f(angle, vec_dot(&light_vec, &rec->point));
-//		factor = 0.5f * (cosf(angle) + 1.0f);
-		//factor = clamp(factor, 0.0f, 1.0f);
 	}
 	diffuse.r = (int)(data->scene->lght.bright * (float) \
 		data->scene->lght.rgb.r * (float) color.r * (float) factor / 255.0f);

@@ -59,6 +59,8 @@ t_rgb	calculate_diffuse(t_data *data, t_vec l_dir, t_rgb color, t_hit_record \
 		factor = fmax(0.0, vec_dot(&rec->normal, &l_dir));
 	else {
 		t_vec nor = normalize(rec->object->axis);
+//		t_vec light_dir = vec_sub(data->scene->lght.cords, rec->point);
+//		t_vec origin = add(rec->point, scale(rec->normal, 1e-3));
 		t_vec p_local = vec_sub(rec->point, rec->object->cords);  // vector from cylinder center to hit point
 		float axis_proj = vec_dot(&p_local, &nor);  // projection along axis
 		t_vec axis_offset = scale(nor, axis_proj); // the part aligned with axis
@@ -77,7 +79,7 @@ t_rgb	calculate_diffuse(t_data *data, t_vec l_dir, t_rgb color, t_hit_record \
 			factor = atan2f(dot_u, dot_v);
 		else
 			factor = atan2f(dot_v, dot_u);
-		factor = (factor + M_PI) / (2.0f * M_PI);
+		factor = 0.5f * (cosf(factor) + 1.0f); //(factor + M_PI) / (2.0f * M_PI);
 	}
 	diffuse.r = (int)(data->scene->lght.bright * (float) \
 		data->scene->lght.rgb.r * (float) color.r * (float) factor / 255.0f);

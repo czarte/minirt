@@ -26,23 +26,26 @@ t_rgb	shader(t_rgb color, t_data *data, t_hit_record *rec)
 	t_sbag	sb;
 
 	sb.l_dir = normalize(vec_sub(data->scene->lght.cords, rec->point));
-	sb.factor = fmax(0.0, vec_dot(&rec->normal, &sb.l_dir));
+	if (ft_strncmp(rec->object->identifier, "cy", 2))
+		sb.factor = fmin(0.5, vec_dot(&rec->normal, &sb.l_dir));
+	else
+		sb.factor = 1.0f;
 	sb.mix_color = calculate_ambient(data, rec->object);
 	if (is_in_shadow(data, rec->point, data->scene->lght.cords, rec->normal))
 	{
-		sb.softness = 0.2f;// + 0.5f * fmax(0.0, vec_dot(&rec->normal, &sb.l_dir));
-		sb.visibility = 0.2f;
-		sb.factor *= sb.visibility;
-		sb.diffuse = calculate_diffuse(data, sb.l_dir, color, rec);
-		sb.diffuse.r *= sb.softness;
-		sb.diffuse.g *= sb.softness;
-		sb.diffuse.b *= sb.softness;
+			sb.softness = 0.2f + 0.5f * fmin(0.2, vec_dot(&rec->normal, &sb.l_dir));
+			sb.visibility = 0.9f;
+			sb.factor *= sb.visibility;
+			sb.diffuse = calculate_diffuse(data, sb.l_dir, color, rec);
+			sb.diffuse.r *= sb.softness;
+			sb.diffuse.g *= sb.softness;
+			sb.diffuse.b *= sb.softness;
 	}
 	else
 		sb.diffuse = calculate_diffuse(data, sb.l_dir, color, rec);
-	sb.mix_color.r = min(sb.mix_color.r * 0.4f + sb.diffuse.r * sb.factor, 255);
-	sb.mix_color.g = min(sb.mix_color.g * 0.4f + sb.diffuse.g * sb.factor, 255);
-	sb.mix_color.b = min(sb.mix_color.b * 0.4f + sb.diffuse.b * sb.factor, 255);
+	sb.mix_color.r = min(sb.mix_color.r * data->scene->ambi.ratio + sb.diffuse.r * sb.factor, 255);
+	sb.mix_color.g = min(sb.mix_color.g * data->scene->ambi.ratio + sb.diffuse.g * sb.factor, 255);
+	sb.mix_color.b = min(sb.mix_color.b * data->scene->ambi.ratio + sb.diffuse.b * sb.factor, 255);
 	return (sb.mix_color);
 }
 
@@ -57,6 +60,22 @@ int	min(int a, int b)
 int	max(int a, int b)
 {
 	if (a > b)
+		return (a);
+	else
+		return (b);
+}
+
+float maxf(float a, double b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
+}
+
+float minf(float a, double b)
+{
+	if (a < b)
 		return (a);
 	else
 		return (b);

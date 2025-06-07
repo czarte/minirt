@@ -18,6 +18,7 @@ int	init_mlx_window(t_data *data)
 	if (!data->mlx_ptr)
 	{
 		perror("Error mlx_init()\n");
+		free_data(data);
 		return (-1);
 	}
 	data->win_ptr = mlx_new_window(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT,
@@ -25,6 +26,7 @@ int	init_mlx_window(t_data *data)
 	if (!data->win_ptr)
 	{
 		perror("Error mlx_new_window()\n");
+		free_data(data);
 		return (-1);
 	}
 	return (0);

@@ -37,14 +37,12 @@ void	do_hit(t_ray ray, t_hit_record *rec, float *closest_t, t_shapes *shp)
 		*closest_t = t;
 		resolve_hit(rec, t, ray, shp);
 		rec->normal = normalize(shp->axis);
+		if (vec_dot(&rec->normal, &ray.dir) > 0.0f)
+			rec->normal = scale(rec->normal, -1.0f);
 	}
 	if ((ft_strncmp(shp->identifier, "cy", 2) == 0)
 		&& (ray_inter_cy(ray, shp, &t, rec) && t < *closest_t))
-	{
 		*closest_t = t;
-		//resolve_hit(rec, t, ray, shp);
-		//rec->normal = normalize(vec_sub(rec->point, shp->cords));
-	}
 }
 
 bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec)

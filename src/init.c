@@ -58,7 +58,7 @@ int	init_program(t_data *data, int argc, char **argv)
 		return (-1);
 	}
 	data->filename = argv[1];
-	data->frame = 1;
+	data->frame = 0;
 	check_filename(data);
 	check_file_empty(data);
 	init_scene(data);

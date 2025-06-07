@@ -35,8 +35,10 @@ int	init_mlx_window(t_data *data)
 void	resolve_light_move(t_data *data, int key, bool *cast)
 {
 	if (key == L_KEY_A_L || key == L_KEY_D_R || key == L_KEY_S_B
-		|| key == L_KEY_W_U)
+		|| key == L_KEY_W_U) {
 		*cast = true;
+		data->frame++;
+	}
 	if (key == L_KEY_A_L)
 		data->scene->lght.cords.x -= 1;
 	if (key == L_KEY_D_R)

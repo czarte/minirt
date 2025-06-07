@@ -13,46 +13,57 @@
 #include "../../include/vec.h"
 #include "../../include/minirt.h"
 
-float	process_cy_cap(t_cybag b, t_shapes *shp, t_ray ray, t_hit_record *hit)
+float process_cy_cap(t_cybag b, t_shapes *shp, t_ray ray, t_hit_record *hit)
 {
-	b.half_h = shp->height / 2.0f;
-	b.i = 0;
-	while (b.i < 2)
+	t_vec cap_center, dist, lp, cap_normal, sub;
+	float t_cap, half_h, denom;
+	int i;
+	float r2 = (shp->diameter * 0.5f) * (shp->diameter * 0.5f);
+	const float bias = 0.0001f;  // Жёстко заданное смещение
+
+	half_h = shp->height * 0.5f;
+	b.nor_cyl = normalize(shp->axis);
+
+	hit->t = FLT_MAX;
+	hit->hit = false;
+
+	for (i = 0; i < 2; i++)
 	{
-		if (b.i == 0)
-			b.sign = -1.0f;
-		else
-			b.sign = 1.0f;
-		b.cap_center = add(shp->cords, scale(b.nor_cyl, b.sign * b.half_h));
-		b.denom = vec_dot(&ray.dir, &b.nor_cyl);
-		b.sub = vec_sub(b.cap_center, ray.origin);
-		b.t_cap = vec_dot(&b.sub, &b.nor_cyl) / b.denom;
-		if (b.t_cap < 0 || fabs(b.denom) < EPSILON)
+		float sign = (i == 0) ? -1.0f : 1.0f;
+		cap_center = add(shp->cords, scale(b.nor_cyl, sign * half_h));
+		denom = vec_dot(&ray.dir, &b.nor_cyl);
+
+		if (fabs(denom) < 0.00001f)
+			continue;
+
+		sub = vec_sub(cap_center, ray.origin);
+		t_cap = vec_dot(&sub, &b.nor_cyl) / denom;
+
+		if (t_cap < 0.0f)
+			continue;
+
+		lp = add(ray.origin, scale(ray.dir, t_cap));
+		dist = vec_sub(lp, cap_center);
+
+		if (vec_dot(&dist, &dist) <= r2 && t_cap < hit->t)
 		{
-			b.i++;
-			continue ;
-		}
-		b.mul = scale(ray.dir, b.t_cap);
-		b.lp = add(ray.origin, b.mul);
-		t_vec dist = vec_sub(b.lp, b.cap_center);
-		if (vec_dot(&dist, &dist) <= b.radius * b.radius) {
-			/*printf("Testing cap %d: t_cap=%.4f, lp=(%.2f,%.2f,%.2f), center=(%.2f,%.2f,%.2f), dist=%.4f\n",
-				   b.i, b.t_cap, b.lp.x, b.lp.y, b.lp.z, b.cap_center.x, b.cap_center.y, b.cap_center.z,
-				   vec_length(vec_sub(b.lp, b.cap_center)));*/
-			hit->t = b.t_cap;
-			hit->point = b.lp;
-			//hit->normal = scale(b.nor_cyl, b.sign);
-			t_vec cap_normal = scale(b.nor_cyl, b.sign);
-			if (vec_dot(&ray.dir, &cap_normal) > 0)
-				cap_normal = scale(cap_normal, -1);  // flip if needed
+			cap_normal = normalize(scale(b.nor_cyl, sign));
+
+			if (vec_dot(&ray.dir, &cap_normal) > 0.0f)
+				cap_normal = scale(cap_normal, -1.0f);
+
+			hit->t = t_cap;
 			hit->normal = cap_normal;
+			hit->point = add(lp, scale(cap_normal, bias));  // Смещение точки вдоль нормали
 			hit->is_cap = true;
-			return (b.t_cap);
+			hit->object = shp;
+			hit->hit = true;
 		}
-		b.i++;
 	}
-	return (-1.0f);
+
+	return (hit->hit ? hit->t : -1.0f);
 }
+
 
 float	process_cy_body(t_cybag b, t_shapes *shp, t_ray ray)
 {

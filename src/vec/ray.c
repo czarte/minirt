@@ -98,31 +98,47 @@ void	calculate_cy_bag(t_cybag *b, t_shapes *shp, t_ray ray)
 	b->discriminant = b->b_f * b->b_f - 4 * b->a_f * b->c_f;
 }
 
-bool	ray_inter_cy(t_ray ray, t_shapes *shp, float *t, t_hit_record *rec)
+bool ray_inter_cy(t_ray ray, t_shapes *shp, float *t, t_hit_record *rec)
 {
-	t_cybag	b;
+	t_cybag b;
+	t_hit_record rec_body, rec_cap;
+	float t_body = -1.0f, t_cap = -1.0f;
 
 	calculate_cy_bag(&b, shp, ray);
-	if (b.discriminant < 0)
-		return (false);
-	b.sqrt_disc = sqrtf(b.discriminant);
-	b.t1 = (-b.b_f - b.sqrt_disc) / (2 * b.a_f);
-	b.t2 = (-b.b_f + b.sqrt_disc) / (2 * b.a_f);
-	b.t_candidates[0] = b.t1;
-	b.t_candidates[1] = b.t2;
-	b.crb = process_cy_body(b, shp, ray);
-	if (b.crb > 0)
+
+	if (b.discriminant >= 0.0f)
 	{
-		*t = b.crb;
-		resolve_hit(rec, b.crb, ray, shp);
-		rec->normal = normalize(vec_sub(rec->point, shp->cords));
-		return (true);
+		b.sqrt_disc = sqrtf(b.discriminant);
+		b.t1 = (-b.b_f - b.sqrt_disc) / (2.0f * b.a_f);
+		b.t2 = (-b.b_f + b.sqrt_disc) / (2.0f * b.a_f);
+		b.t_candidates[0] = b.t1;
+		b.t_candidates[1] = b.t2;
+
+		t_body = process_cy_body(b, shp, ray);
+		if (t_body > 0.0f)
+		{
+			resolve_hit(&rec_body, t_body, ray, shp);
+
+			t_vec to_point = vec_sub(rec_body.point, shp->cords);
+			t_vec projection = scale(b.nor_cyl, vec_dot(&to_point, &b.nor_cyl));
+			rec_body.normal = normalize(vec_sub(to_point, projection));
+		}
 	}
-	b.crb = process_cy_cap(b, shp, ray, rec);
-	if (b.crb > 0)
+
+	t_cap = process_cy_cap(b, shp, ray, &rec_cap);
+
+	if (t_body > 0.0f && (t_cap < 0.0f || t_body < t_cap))
 	{
-		*t = b.crb;
-		return (true);
+		*rec = rec_body;
+		*t = t_body;
+		return true;
 	}
-	return (false);
+	else if (t_cap > 0.0f)
+	{
+		*rec = rec_cap;
+		*t = t_cap;
+		return true;
+	}
+	return false;
 }
+

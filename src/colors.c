@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: voparkan <voparkan@student.42prague.cz>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/07 12:28:10 by voparkan          #+#    #+#             */
+/*   Updated: 2025/06/07 14:33:25 by voparkan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   colors.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 15:17:47 by voparkan          #+#    #+#             */
@@ -54,6 +66,8 @@ bool	is_in_shadow(t_data *data, t_vec point, t_vec light_pos, t_vec normal)
 	t_hit_record	tmp;
 	double			hit_dist;
 
+	if (data->scene->ambi.ratio == 1)
+		return (false);
 	to_light = vec_sub(light_pos, point);
 	light_dist = vec_length(to_light);
 	shadow_ray.origin = add(point, scale(normal, 1e-3));

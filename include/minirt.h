@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/21 16:07:04 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/06/07 22:02:51 by voparkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,16 @@ typedef struct s_spbag
 	t_vec		oc;
 }	t_spbag;
 
+typedef struct s_hit_record
+{
+	float		t;
+	t_vec		point;
+	t_vec		normal;
+	t_shapes	*object;
+	bool		hit;
+	bool		is_cap;
+}	t_hit_record;
+
 typedef struct s_cybag
 {
 	int			i;
@@ -170,30 +180,40 @@ typedef struct s_cybag
 	float		ti;
 	float		denom;
 	float		t_cap;
-	float		crb;
-	float		sign;
-	float		half_h;
-	t_vec		sub;
-	t_vec		oc;
-	t_vec		nor_cyl;
-	t_vec		a;
-	t_vec		b;
-	t_vec		p;
-	t_vec		p_b;
-	t_vec		cap_center;
-	t_vec		mul;
-	t_vec		lp;
+	float			t_body;
+	float			crb;
+	float			sign;
+	float			half_h;
+	t_vec			sub;
+	t_vec			oc;
+	t_vec			nor_cyl;
+	t_vec			a;
+	t_vec			b;
+	t_vec			p;
+	t_vec			p_b;
+	t_vec			cap_center;
+	t_vec			mul;
+	t_vec			lp;
+	t_hit_record	rec_body;
+	t_hit_record	rec_cap;
+	t_vec 			to_point;
+	t_vec			projection;
 }	t_cybag;
 
-typedef struct s_hit_record
-{
-	float		t;
-	t_vec		point;
-	t_vec		normal;
-	t_shapes	*object;
-	bool		hit;
-	bool		is_cap;
-}	t_hit_record;
+typedef struct s_cap_bag {
+	t_vec	cap_center;
+	t_vec	dist;
+	t_vec 	lp;
+	t_vec 	cap_normal;
+	t_vec	sub;
+	float	t_cap;
+	float	half_h;
+	float	denom;
+	int		i;
+	float	r2;
+	float	bias;
+	float 	sign;
+}	t_cap_bag;
 
 void	do_j_bzero(t_obag *ob);
 void	init_tobag(t_obag *obag);
@@ -277,6 +297,8 @@ t_rgb	shader(t_rgb color, t_data *data, t_hit_record *rec);
 t_rgb	calculate_diffuse(t_data *data, t_vec dir, t_rgb color,
 			t_hit_record *rec);
 t_rgb	calculate_ambient(t_data *data, t_shapes *shp);
+t_sbag
+colors_in_shadow(t_rgb *color, t_data *data, t_hit_record *rec, t_sbag *sb);
 
 /*validator*/
 bool	check_line(char *line, t_obag *bag);

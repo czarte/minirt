@@ -75,6 +75,8 @@ bool	ray_inter_pl(t_ray ray, t_shapes *shp, float *t)
 
 void	calculate_cy_bag(t_cybag *b, t_shapes *shp, t_ray ray)
 {
+	b->t_body = -1.0f;
+	b->t_cap = -1.0f;
 	b->radius = shp->diameter / 2.0f;
 	b->nor_cyl = normalize(shp->axis);
 	b->oc = vec_sub(ray.origin, shp->cords);
@@ -86,14 +88,11 @@ void	calculate_cy_bag(t_cybag *b, t_shapes *shp, t_ray ray)
 	b->discriminant = b->b_f * b->b_f - 4 * b->a_f * b->c_f;
 }
 
-bool ray_inter_cy(t_ray ray, t_shapes *shp, float *t, t_hit_record *rec)
+bool	ray_inter_cy(t_ray ray, t_shapes *shp, float *t, t_hit_record *rec)
 {
-	t_cybag b;
-	t_hit_record rec_body, rec_cap;
-	float t_body = -1.0f, t_cap = -1.0f;
+	t_cybag			b;
 
 	calculate_cy_bag(&b, shp, ray);
-
 	if (b.discriminant >= 0.0f)
 	{
 		b.sqrt_disc = sqrtf(b.discriminant);
@@ -101,32 +100,27 @@ bool ray_inter_cy(t_ray ray, t_shapes *shp, float *t, t_hit_record *rec)
 		b.t2 = (-b.b_f + b.sqrt_disc) / (2.0f * b.a_f);
 		b.t_candidates[0] = b.t1;
 		b.t_candidates[1] = b.t2;
-
-		t_body = process_cy_body(b, shp, ray);
-		if (t_body > 0.0f)
+		b.t_body = process_cy_body(b, shp, ray);
+		if (b.t_body > 0.0f)
 		{
-			resolve_hit(&rec_body, t_body, ray, shp);
-
-			t_vec to_point = vec_sub(rec_body.point, shp->cords);
-			t_vec projection = scale(b.nor_cyl, vec_dot(&to_point, &b.nor_cyl));
-			rec_body.normal = normalize(vec_sub(to_point, projection));
+			resolve_hit(&b.rec_body, b.t_body, ray, shp);
+			b.to_point = vec_sub(b.rec_body.point, shp->cords);
+			b.projection = scale(b.nor_cyl, vec_dot(&b.to_point, &b.nor_cyl));
+			b.rec_body.normal = normalize(vec_sub(b.to_point, b.projection));
 		}
 	}
-
-	t_cap = process_cy_cap(b, shp, ray, &rec_cap);
-
-	if (t_body > 0.0f && (t_cap < 0.0f || t_body < t_cap))
+	b.t_cap = process_cy_cap(b, shp, ray, &b.rec_cap);
+	if (b.t_body > 0.0f && (b.t_cap < 0.0f || b.t_body < b.t_cap))
 	{
-		*rec = rec_body;
-		*t = t_body;
-		return true;
+		*rec = b.rec_body;
+		*t = b.t_body;
+		return (true);
 	}
-	else if (t_cap > 0.0f)
+	else if (b.t_cap > 0.0f)
 	{
-		*rec = rec_cap;
-		*t = t_cap;
-		return true;
+		*rec = b.rec_cap;
+		*t = b.t_cap;
+		return (true);
 	}
-	return false;
+	return (false);
 }
-

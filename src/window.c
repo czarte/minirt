@@ -50,6 +50,37 @@ void	resolve_light_move(t_data *data, int key, bool *cast)
 		data->scene->lght.cords.y += 1;
 }
 
+void    resolve_camera_move(t_data *data, int key, bool *cast)
+{
+	if (key == C_KEY_UP || key == C_KEY_DOWN || key == C_KEY_LEFT ||
+			key == C_KEY_RIGHT || key == C_ORI_W_U || key == C_ORI_S_B ||
+			key == C_ORI_A_L || key == C_ORI_D_R || key == 92 || key == 121)
+	{
+		*cast = true;
+		data->frame++;
+	}
+	if (key == C_ORI_W_U)
+		data->scene->cam.cords.z -= 0.1f;
+	if (key == C_ORI_S_B)
+		data->scene->cam.cords.z += 0.1f;
+	if (key == C_ORI_A_L)
+		data->scene->cam.cords.x += 0.1f;
+	if (key == C_ORI_D_R)
+		data->scene->cam.cords.x -= 0.1f;
+	if (key == C_KEY_UP)
+		data->scene->cam.orient.y += 0.1f;
+	if (key == C_KEY_DOWN)
+		data->scene->cam.orient.y -= 0.1f;
+	if (key == C_KEY_LEFT)
+		data->scene->cam.orient.x -= 0.1f;
+	if (key == C_KEY_RIGHT)
+		data->scene->cam.orient.x += 0.1f;
+	if (key == 92)
+		data->scene->cam.cords.z -= 0.1f;
+	if (key == 121)
+		data->scene->cam.cords.z += 0.1f;
+}
+
 int	key_mapping(int key, void *params)
 {
 	bool	cast;
@@ -62,6 +93,8 @@ int	key_mapping(int key, void *params)
 	if (key == KEY_ESC || key == 17 || key == 53)
 		mlx_loop_end(data->mlx_ptr);
 	resolve_light_move(data, key, &cast);
+	resolve_camera_move(data, key, &cast);
+	printf("key: %d\n", key);
 	if (cast)
 	{
 		cast_rays(data);

@@ -60,14 +60,7 @@ int	key_mapping(int key, void *params)
 	data = (t_data *) params;
 	frame_n = data->frame % 2;
 	if (key == KEY_ESC || key == 17 || key == 53)
-	{
-		mlx_destroy_image(data->mlx_ptr, data->scene_img[frame_n]->ptr);
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		mlx_destroy_display(data->mlx_ptr);
-		free(data->mlx_ptr);
-		free_data(data);
-		exit(0);
-	}
+		mlx_loop_end(data->mlx_ptr);
 	resolve_light_move(data, key, &cast);
 	if (cast)
 	{

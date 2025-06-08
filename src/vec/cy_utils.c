@@ -13,43 +13,55 @@
 #include "../../include/vec.h"
 #include "../../include/minirt.h"
 
+static void	check_cy_cap_hit(t_cap_hit_ctx ctx)
+{
+	ctx.cb->cap_center = add(ctx.shp->cords,
+			scale(ctx.b->nor_cyl, ctx.cb->sign * ctx.cb->half_h));
+	ctx.cb->denom = vec_dot(&ctx.ray.dir, &ctx.b->nor_cyl);
+	if (fabs(ctx.cb->denom) < 0.00001f)
+		return ;
+	ctx.cb->sub = vec_sub(ctx.cb->cap_center, ctx.ray.origin);
+	ctx.cb->t_cap = vec_dot(&ctx.cb->sub, &ctx.b->nor_cyl) / ctx.cb->denom;
+	if (ctx.cb->t_cap < 0.0f)
+		return ;
+	ctx.cb->lp = add(ctx.ray.origin, scale(ctx.ray.dir, ctx.cb->t_cap));
+	ctx.cb->dist = vec_sub(ctx.cb->lp, ctx.cb->cap_center);
+	if (vec_dot(&ctx.cb->dist, &ctx.cb->dist) > ctx.cb->r2
+		|| ctx.cb->t_cap >= ctx.hit->t)
+		return ;
+	ctx.cb->cap_normal = normalize(scale(ctx.b->nor_cyl, ctx.cb->sign));
+	if (vec_dot(&ctx.ray.dir, &ctx.cb->cap_normal) > 0.0f)
+		ctx.cb->cap_normal = scale(ctx.cb->cap_normal, -1.0f);
+	ctx.hit->t = ctx.cb->t_cap;
+	ctx.hit->normal = ctx.cb->cap_normal;
+	ctx.hit->point = add(ctx.cb->lp, scale(ctx.cb->cap_normal, ctx.cb->bias));
+	ctx.hit->is_cap = true;
+	ctx.hit->object = ctx.shp;
+	ctx.hit->hit = true;
+}
+
 float	process_cy_cap(t_cybag b, t_shapes *shp, t_ray ray, t_hit_record *hit)
 {
-	t_cap_bag	cb;
+	t_cap_bag		cb;
+	t_cap_hit_ctx	ctx;
+	int				i;
 
 	cb.r2 = (shp->diameter * 0.5f) * (shp->diameter * 0.5f);
 	cb.bias = 0.0001f;
-	b.half_h = shp->height * 0.5f;
+	cb.half_h = shp->height * 0.5f;
 	b.nor_cyl = normalize(shp->axis);
 	hit->t = FLT_MAX;
 	hit->hit = false;
-	for (int i = 0; i < 2; i++)
+	ctx = (t_cap_hit_ctx){&cb, &b, shp, ray, hit};
+	i = 0;
+	while (i < 2)
 	{
-		cb.sign = 1.0f;
 		if (i == 0)
 			cb.sign = -1.0f;
-		cb.cap_center = add(shp->cords, scale(b.nor_cyl, cb.sign * cb.half_h));
-		cb.denom = vec_dot(&ray.dir, &b.nor_cyl);
-		if (fabs(cb.denom) < 0.00001f)
-			continue ;
-		cb.sub = vec_sub(cb.cap_center, ray.origin);
-		cb.t_cap = vec_dot(&cb.sub, &b.nor_cyl) / cb.denom;
-		if (cb.t_cap < 0.0f)
-			continue ;
-		cb.lp = add(ray.origin, scale(ray.dir, cb.t_cap));
-		cb.dist = vec_sub(cb.lp, cb.cap_center);
-		if (vec_dot(&cb.dist, &cb.dist) <= cb.r2 && cb.t_cap < hit->t)
-		{
-			cb.cap_normal = normalize(scale(b.nor_cyl, cb.sign));
-			if (vec_dot(&ray.dir, &cb.cap_normal) > 0.0f)
-				cb.cap_normal = scale(cb.cap_normal, -1.0f);
-			hit->t = cb.t_cap;
-			hit->normal = cb.cap_normal;
-			hit->point = add(cb.lp, scale(cb.cap_normal, cb.bias));
-			hit->is_cap = true;
-			hit->object = shp;
-			hit->hit = true;
-		}
+		else
+			cb.sign = 1.0f;
+		check_cy_cap_hit(ctx);
+		i++;
 	}
 	if (hit->hit)
 		return (hit->t);

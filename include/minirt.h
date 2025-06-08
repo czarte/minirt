@@ -215,6 +215,16 @@ typedef struct s_cap_bag {
 	float 	sign;
 }	t_cap_bag;
 
+typedef struct s_cap_hit_ctx
+{
+	t_cap_bag		*cb;
+	t_cybag			*b;
+	t_shapes		*shp;
+	t_ray			ray;
+	t_hit_record	*hit;
+}	t_cap_hit_ctx;
+
+
 void	do_j_bzero(t_obag *ob);
 void	init_tobag(t_obag *obag);
 

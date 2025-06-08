@@ -88,3 +88,32 @@ float	process_cy_body(t_cybag b, t_shapes *shp, t_ray ray)
 	}
 	return (-1.0f);
 }
+
+void	calculate_cy_bag(t_cybag *b, t_shapes *shp, t_ray ray)
+{
+	b->t_body = -1.0f;
+	b->t_cap = -1.0f;
+	b->radius = shp->diameter / 2.0f;
+	b->nor_cyl = normalize(shp->axis);
+	b->oc = vec_sub(ray.origin, shp->cords);
+	b->a = vec_sub(ray.dir, scale(b->nor_cyl, vec_dot(&ray.dir, &b->nor_cyl)));
+	b->b = vec_sub(b->oc, scale(b->nor_cyl, vec_dot(&b->oc, &b->nor_cyl)));
+	b->a_f = vec_dot(&b->a, &b->a);
+	b->b_f = 2.0f * vec_dot(&b->a, &b->b);
+	b->c_f = vec_dot(&b->b, &b->b) - b->radius * b->radius;
+	b->discriminant = b->b_f * b->b_f - 4 * b->a_f * b->c_f;
+}
+
+void	handle_cy_body(t_cybag *b, t_shapes *shp, t_ray ray)
+{
+	t_vec	to_point;
+	t_vec	projection;
+
+	b->t_body = process_cy_body(*b, shp, ray);
+	if (b->t_body <= 0.0f)
+		return ;
+	resolve_hit(&b->rec_body, b->t_body, ray, shp);
+	to_point = vec_sub(b->rec_body.point, shp->cords);
+	projection = scale(b->nor_cyl, vec_dot(&to_point, &b->nor_cyl));
+	b->rec_body.normal = normalize(vec_sub(to_point, projection));
+}

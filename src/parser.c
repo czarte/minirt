@@ -75,7 +75,8 @@ void	do_lines(t_data *data, char **lines)
 			cleanup_and_exit(data, lines, "Couldn't read scene");
 		if (read_state == 0 && i == 0)
 			break ;
-		if (i == 0)
+		remove_comment(line);
+		if (line[0] == '\0')
 			continue ;
 		if (!process_line(line, &bag, lines, &line_idx))
 			cleanup_and_exit(data, lines, "Invalid scene line");

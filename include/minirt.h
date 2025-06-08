@@ -325,6 +325,8 @@ bool	validate_cylindr(char **tokens, const int count);
 bool	validate_rgb(const char *token);
 bool	validate_orientation(const char *tokens);
 
+void	remove_comment(char *line);
+
 /*cy_utils*/
 void	calculate_cy_bag(t_cybag *b, t_shapes *shp, t_ray ray);
 void	handle_cy_body(t_cybag *b, t_shapes *shp, t_ray ray);

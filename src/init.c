@@ -53,6 +53,7 @@ int	init_program(t_data *data, int argc, char **argv)
 {
 	if (argc != 2)
 	{
+		free_data(data);
 		perror("You must provide a file name of scene");
 		return (-1);
 	}

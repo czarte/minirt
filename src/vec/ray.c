@@ -104,7 +104,7 @@ bool	ray_inter_cy(t_ray ray, t_shapes *shp, float *t)
 		*t = b.crb;
 		return (true);
 	}
-	b.crb = process_cy_cap(b, shp, ray);
+    b.crb = process_cy_cap(b, shp, ray);
 	if (b.crb > 0)
 	{
 		*t = b.crb;

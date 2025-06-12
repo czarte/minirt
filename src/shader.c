@@ -28,7 +28,7 @@ t_rgb	shader(t_rgb color, t_data *data, t_hit_record *rec)
 	sb.l_dir = normalize(vec_sub(data->scene->lght.cords, rec->point));
 	sb.factor = fmax(0.0, vec_dot(&rec->normal, &sb.l_dir));
 	sb.mix_color = calculate_ambient(data, rec->object);
-	if (is_in_shadow(data, rec->point, data->scene->lght.cords, rec->normal)) // && (data->scene->ambi.ratio < 1.0)
+	if (is_in_shadow(data, rec->point, data->scene->lght.cords, rec->normal))
 	{
 		sb.softness = 0.2f + 0.5f * fmax(0.0, vec_dot(&rec->normal, &sb.l_dir));
 		sb.visibility = 0.2f;

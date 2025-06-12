@@ -68,10 +68,6 @@ static void	make_cam_move(t_data *data, int key)
 		data->scene->cam.orient.x -= 0.1f;
 	if (key == C_KEY_RIGHT)
 		data->scene->cam.orient.x += 0.1f;
-	if (key == 92)
-		data->scene->cam.cords.z -= 0.1f;
-	if (key == 121)
-		data->scene->cam.cords.z += 0.1f;
 }
 
 void	resolve_camera_move(t_data *data, int key, bool *cast)

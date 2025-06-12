@@ -17,6 +17,7 @@ NAME = miniRT
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	@cd mlx && make
 	@make bonus -C $(LIBFTDIR)
 	@cp $(LIBFTDIR)/$(LIBFT) .
 	$(CC) $(CPPFLAGS) $(OBJ) $(LIBFT) mlx/libmlx.a -lXext -lX11 -o $(NAME) -lm
@@ -28,6 +29,7 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
+	@cd mlx && make clean
 
 re: fclean $(NAME)
 

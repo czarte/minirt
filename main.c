@@ -105,8 +105,10 @@ int	main(int argc, char *argv[])
 	mlx_hook(data->win_ptr, 2, 1L << 0, &key_mapping, data);
 	mlx_hook(data->win_ptr, 33, 1L << 17, &mlx_loop_end, data->mlx_ptr);
 	mlx_loop(data->mlx_ptr);
+	mlx_destroy_image(data->mlx_ptr, data->scene_img[data->frame % 2]->ptr);
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	mlx_destroy_display(data->mlx_ptr);
+	free(data->mlx_ptr);
 	free_data(data);
 	return (0);
 }

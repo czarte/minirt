@@ -6,7 +6,7 @@
 /*   By: aevstign <aevstign@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 14:39:27 by voparkan          #+#    #+#             */
-/*   Updated: 2025/05/21 16:07:04 by aevstign         ###   ########.fr       */
+/*   Updated: 2025/06/07 22:02:51 by voparkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,35 +154,6 @@ typedef struct s_spbag
 	t_vec		oc;
 }	t_spbag;
 
-typedef struct s_cybag
-{
-	int			i;
-	float		t1;
-	float		t2;
-	float		radius;
-	float		a_f;
-	float		b_f;
-	float		c_f;
-	float		discriminant;
-	float		sqrt_disc;
-	float		t_candidates[2];
-	float		height;
-	float		ti;
-	float		denom;
-	float		t_cap;
-	float		crb;
-	t_vec		sub;
-	t_vec		oc;
-	t_vec		nor_cyl;
-	t_vec		a;
-	t_vec		b;
-	t_vec		p;
-	t_vec		p_b;
-	t_vec		cap_center;
-	t_vec		mul;
-	t_vec		lp;
-}	t_cybag;
-
 typedef struct s_hit_record
 {
 	float		t;
@@ -190,7 +161,69 @@ typedef struct s_hit_record
 	t_vec		normal;
 	t_shapes	*object;
 	bool		hit;
+	bool		is_cap;
 }	t_hit_record;
+
+typedef struct s_cybag
+{
+	int				i;
+	float			t1;
+	float			t2;
+	float			radius;
+	float			a_f;
+	float			b_f;
+	float			c_f;
+	float			discriminant;
+	float			sqrt_disc;
+	float			t_candidates[2];
+	float			height;
+	float			ti;
+	float			denom;
+	float			t_cap;
+	float			t_body;
+	float			crb;
+	float			sign;
+	float			half_h;
+	t_vec			sub;
+	t_vec			oc;
+	t_vec			nor_cyl;
+	t_vec			a;
+	t_vec			b;
+	t_vec			p;
+	t_vec			p_b;
+	t_vec			cap_center;
+	t_vec			mul;
+	t_vec			lp;
+	t_hit_record	rec_body;
+	t_hit_record	rec_cap;
+	t_vec			to_point;
+	t_vec			projection;
+}	t_cybag;
+
+typedef struct s_cap_bag
+{
+	t_vec	cap_center;
+	t_vec	dist;
+	t_vec	lp;
+	t_vec	cap_normal;
+	t_vec	sub;
+	float	t_cap;
+	float	half_h;
+	float	denom;
+	int		i;
+	float	r2;
+	float	bias;
+	float	sign;
+}	t_cap_bag;
+
+typedef struct s_cap_hit_ctx
+{
+	t_cap_bag		*cb;
+	t_cybag			*b;
+	t_shapes		*shp;
+	t_ray			ray;
+	t_hit_record	*hit;
+}	t_cap_hit_ctx;
 
 void	do_j_bzero(t_obag *ob);
 void	init_tobag(t_obag *obag);
@@ -252,19 +285,20 @@ void	iter_pl(t_data *data, char *tmp, t_shapes *pl_shape);
 void	iter_sp(t_data *data, char *tmp, t_shapes *sp_shape);
 void	iter_cy(t_data *data, char *tmp, t_shapes *cy_shape);
 void	move_cp_buf(char *tmp, t_obag *ob);
-float	process_cy_cap(t_cybag b, t_shapes *shp, t_ray ray);
+float	process_cy_cap(t_cybag b, t_shapes *shp, t_ray ray, t_hit_record *rec);
 float	process_cy_body(t_cybag b, t_shapes *shp, t_ray ray);
 
 /*rays*/
 t_ray	shoot_ray(int x, int y, t_data *data);
 bool	ray_inter_sp(t_ray ray, t_shapes *shp, float *t);
 bool	ray_inter_pl(t_ray ray, t_shapes *shp, float *t);
-bool	ray_inter_cy(t_ray ray, t_shapes *shp, float *t);
+bool	ray_inter_cy(t_ray ray, t_shapes *shp, float *t, t_hit_record *rec);
 void	cast_rays(t_data *data);
 
 /*hit*/
 bool	hit_objects(t_data *data, t_ray ray, t_hit_record *rec);
 bool	is_in_shadow(t_data *data, t_vec point, t_vec light_pos, t_vec normal);
+void	resolve_hit(t_hit_record *rec, float t, t_ray ray, t_shapes *shp);
 
 /*colors*/
 int		make_color(t_rgb rgb);
@@ -273,6 +307,8 @@ t_rgb	shader(t_rgb color, t_data *data, t_hit_record *rec);
 t_rgb	calculate_diffuse(t_data *data, t_vec dir, t_rgb color,
 			t_hit_record *rec);
 t_rgb	calculate_ambient(t_data *data, t_shapes *shp);
+t_sbag	colors_in_shadow(t_rgb *color, t_data *data, t_hit_record *rec,
+			t_sbag *sb);
 
 /*validator*/
 bool	check_line(char *line, t_obag *bag);
@@ -288,5 +324,11 @@ bool	validate_cylindr(char **tokens, const int count);
 
 bool	validate_rgb(const char *token);
 bool	validate_orientation(const char *tokens);
+
+void	remove_comment(char *line);
+
+/*cy_utils*/
+void	calculate_cy_bag(t_cybag *b, t_shapes *shp, t_ray ray);
+void	handle_cy_body(t_cybag *b, t_shapes *shp, t_ray ray);
 
 #endif

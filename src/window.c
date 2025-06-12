@@ -18,6 +18,7 @@ int	init_mlx_window(t_data *data)
 	if (!data->mlx_ptr)
 	{
 		perror("Error mlx_init()\n");
+		free_data(data);
 		return (-1);
 	}
 	data->win_ptr = mlx_new_window(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT,
@@ -25,6 +26,7 @@ int	init_mlx_window(t_data *data)
 	if (!data->win_ptr)
 	{
 		perror("Error mlx_new_window()\n");
+		free_data(data);
 		return (-1);
 	}
 	return (0);
@@ -34,7 +36,10 @@ void	resolve_light_move(t_data *data, int key, bool *cast)
 {
 	if (key == L_KEY_A_L || key == L_KEY_D_R || key == L_KEY_S_B
 		|| key == L_KEY_W_U)
+	{
 		*cast = true;
+		data->frame++;
+	}
 	if (key == L_KEY_A_L)
 		data->scene->lght.cords.x -= 1;
 	if (key == L_KEY_D_R)
@@ -43,6 +48,39 @@ void	resolve_light_move(t_data *data, int key, bool *cast)
 		data->scene->lght.cords.y -= 1;
 	if (key == L_KEY_W_U)
 		data->scene->lght.cords.y += 1;
+}
+
+static void	make_cam_move(t_data *data, int key)
+{
+	if (key == C_ORI_W_U)
+		data->scene->cam.cords.z -= 0.1f;
+	if (key == C_ORI_S_B)
+		data->scene->cam.cords.z += 0.1f;
+	if (key == C_ORI_A_L)
+		data->scene->cam.cords.x += 0.1f;
+	if (key == C_ORI_D_R)
+		data->scene->cam.cords.x -= 0.1f;
+	if (key == C_KEY_UP)
+		data->scene->cam.orient.y += 0.1f;
+	if (key == C_KEY_DOWN)
+		data->scene->cam.orient.y -= 0.1f;
+	if (key == C_KEY_LEFT)
+		data->scene->cam.orient.x -= 0.1f;
+	if (key == C_KEY_RIGHT)
+		data->scene->cam.orient.x += 0.1f;
+}
+
+void	resolve_camera_move(t_data *data, int key, bool *cast)
+{
+	if (key == C_KEY_UP || key == C_KEY_DOWN || key == C_KEY_LEFT
+		|| key == C_KEY_RIGHT || key == C_ORI_W_U || key == C_ORI_S_B
+		|| key == C_ORI_A_L || key == C_ORI_D_R || key == 92 || key == 121)
+	{
+		*cast = true;
+		data->frame++;
+	}
+	make_cam_move(data, key);
+	data->scene->cam.orient = normalize(data->scene->cam.orient);
 }
 
 int	key_mapping(int key, void *params)
@@ -55,15 +93,10 @@ int	key_mapping(int key, void *params)
 	data = (t_data *) params;
 	frame_n = data->frame % 2;
 	if (key == KEY_ESC || key == 17 || key == 53)
-	{
-		mlx_destroy_image(data->mlx_ptr, data->scene_img[frame_n]->ptr);
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		mlx_destroy_display(data->mlx_ptr);
-		free(data->mlx_ptr);
-		free_data(data);
-		exit(0);
-	}
+		mlx_loop_end(data->mlx_ptr);
 	resolve_light_move(data, key, &cast);
+	resolve_camera_move(data, key, &cast);
+	printf("key: %d\n", key);
 	if (cast)
 	{
 		cast_rays(data);

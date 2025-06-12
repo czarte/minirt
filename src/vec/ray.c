@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aevstign <aevsitgn@student.42prague.com    +#+  +:+       +#+        */
+/*   By: voparkan <voparkan@student.42prague.cz>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/11 11:29:07 by aevstign          #+#    #+#             */
-/*   Updated: 2025/05/14 19:13:33 by aevstign         ###   ########.fr       */
+/*   Created: 2025/05/31 13:12:32 by voparkan          #+#    #+#             */
+/*   Updated: 2025/05/31 15:57:10 by voparkan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,41 +73,36 @@ bool	ray_inter_pl(t_ray ray, t_shapes *shp, float *t)
 	return (*t > 0.001f);
 }
 
-void	calculate_cy_bag(t_cybag *b, t_shapes *shp, t_ray ray)
+void	prepare_cy_intersect(t_cybag *b, t_shapes *shp, t_ray ray)
 {
-	b->radius = shp->diameter / 2;
-	b->oc = vec_sub(ray.origin, shp->cords);
-	b->nor_cyl = normalize(shp->cords);
-	b->a = vec_sub(ray.dir, scale(b->nor_cyl, vec_dot(&ray.dir, &b->nor_cyl)));
-	b->b = vec_sub(b->oc, scale(b->nor_cyl, vec_dot(&b->oc, &b->nor_cyl)));
-	b->a_f = vec_dot(&b->a, &b->a);
-	b->b_f = 2.0f * vec_dot(&b->a, &b->b);
-	b->c_f = vec_dot(&b->b, &b->b) - b->radius * b->radius;
-	b->discriminant = b->b_f * b->b_f - 4 * b->a_f * b->c_f;
+	calculate_cy_bag(b, shp, ray);
+	if (b->discriminant < 0.0f)
+		return ;
+	b->sqrt_disc = sqrtf(b->discriminant);
+	b->t1 = (-b->b_f - b->sqrt_disc) / (2.0f * b->a_f);
+	b->t2 = (-b->b_f + b->sqrt_disc) / (2.0f * b->a_f);
+	b->t_candidates[0] = b->t1;
+	b->t_candidates[1] = b->t2;
 }
 
-bool	ray_inter_cy(t_ray ray, t_shapes *shp, float *t)
+bool	ray_inter_cy(t_ray ray, t_shapes *shp, float *t, t_hit_record *rec)
 {
 	t_cybag	b;
 
-	calculate_cy_bag(&b, shp, ray);
-	if (b.discriminant < 0)
-		return (false);
-	b.sqrt_disc = sqrtf(b.discriminant);
-	b.t1 = (-b.b_f - b.sqrt_disc) / (2 * b.a_f);
-	b.t2 = (-b.b_f + b.sqrt_disc) / (2 * b.a_f);
-	b.t_candidates[0] = b.t1;
-	b.t_candidates[1] = b.t2;
-	b.crb = process_cy_body(b, shp, ray);
-	if (b.crb > 0)
+	prepare_cy_intersect(&b, shp, ray);
+	if (b.discriminant >= 0.0f)
+		handle_cy_body(&b, shp, ray);
+	b.t_cap = process_cy_cap(b, shp, ray, &b.rec_cap);
+	if (b.t_body > 0.0f && (b.t_cap < 0.0f || b.t_body < b.t_cap))
 	{
-		*t = b.crb;
+		*rec = b.rec_body;
+		*t = b.t_body;
 		return (true);
 	}
-	b.crb = process_cy_cap(b, shp, ray);
-	if (b.crb > 0)
+	if (b.t_cap > 0.0f)
 	{
-		*t = b.crb;
+		*rec = b.rec_cap;
+		*t = b.t_cap;
 		return (true);
 	}
 	return (false);

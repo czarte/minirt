@@ -51,8 +51,7 @@ bool	handle_identifiers(int camera_count, int light_count, int ambient_count)
 bool	is_valid_identifier(const char *id)
 {
 	return (!strcmp(id, "A") || !strcmp(id, "C") || !strcmp(id, "L")
-		|| !strcmp(id, "sp") || !strcmp(id, "pl") || !strcmp(id, "cy")
-		|| !strcmp(id, "#"));
+		|| !strcmp(id, "sp") || !strcmp(id, "pl") || !strcmp(id, "cy"));
 }
 
 bool	validate_tokens(char **tokens)

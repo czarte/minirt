@@ -12,7 +12,7 @@
 
 #include "../include/minirt.h"
 
-bool	process_line(char *line, t_obag *bag, char ***lines)
+bool	process_line(char *line, t_obag *bag, char **lines, int *line_idx)
 {
 	char	*dup;
 
@@ -21,8 +21,8 @@ bool	process_line(char *line, t_obag *bag, char ***lines)
 	dup = ft_strdup(line);
 	if (!dup)
 		return (false);
-	**lines = dup;
-	(*lines)++;
+	lines[*line_idx] = dup;
+	(*line_idx)++;
 	return (true);
 }
 
@@ -49,64 +49,62 @@ int	read_next_line(int fd, char *line_buf, int *i)
 	return (bytes_read);
 }
 
-static void	cleanup_and_exit(t_data *data, char **current,
-		char **start, char *error_message)
+void	cleanup_and_exit(t_data *data, char **lines, char *msg)
 {
-	*current = NULL;
-	free_lines(start);
+	free_lines(lines);
 	free_data(data);
-	exit_error(error_message);
+	exit_error(msg);
 }
 
 // bag is used here to store camera, ambient and light counts
-void	do_lines(t_data *data, char ***lines)
+void	do_lines(t_data *data, char **lines)
 {
 	char	line[1024];
 	t_obag	bag;
 	int		i;
-	char	**current;
+	int		line_idx;
 	int		read_state;
 
 	i = 0;
 	bag = (t_obag){0};
-	current = *lines;
+	line_idx = 0;
 	while (true)
 	{
 		read_state = read_next_line(data->scenefd, line, &i);
-		if (read_state == 0)
+		if (read_state == -1)
+			cleanup_and_exit(data, lines, "Couldn't read scene");
+		if (read_state == 0 && i == 0)
 			break ;
-		else if (read_state == -1)
-			cleanup_and_exit(data, current, *lines, "Couldn't read scene");
-		if (i == 0)
+		remove_comment(line);
+		if (line[0] == '\0')
 			continue ;
-		if (!process_line(line, &bag, &current))
-			cleanup_and_exit(data, current, *lines, "Invalid scene line");
+		if (!process_line(line, &bag, lines, &line_idx))
+			cleanup_and_exit(data, lines, "Invalid scene line");
 	}
+	lines[line_idx] = NULL;
 	if (!handle_identifiers(bag.i, bag.j, bag.k))
-		cleanup_and_exit(data, current, *lines, "Invalid scene line");
-	*current = NULL;
+		cleanup_and_exit(data, lines, "Invalid scene line");
 }
 
 void	init_scene(t_data *data)
 {
 	char	**lines;
-	char	**tmp;
 	int		lc;
 
 	lc = line_count(data->filename);
-	lines = malloc((lc + 1) * sizeof(char *));
-	lines[lc] = NULL;
+	lines = malloc((lc + 2) * sizeof(char *));
+	check_scene_alloc(data, lines);
+	lines[0] = NULL;
 	data->scenefd = open(data->filename, O_RDONLY);
 	if (data->scenefd == -1)
 	{
-		free(data);
+		free(lines);
+		free_data(data);
 		exit_error("Error opening file");
 	}
-	check_scene_alloc(data, lines);
-	tmp = lines;
-	do_lines(data, &lines);
+	do_lines(data, lines);
 	close(data->scenefd);
-	data->lines = tmp;
-	print_lines(&tmp);
+	data->lines = lines;
+	print_lines(&lines);
 	construct_scene(data);
 }

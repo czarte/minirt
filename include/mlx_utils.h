@@ -19,10 +19,16 @@
 # define KEY_ESC 65307
 # define A_KEY_UP 237
 # define A_KEY_DWN 233
-# define L_KEY_A_L 97
-# define L_KEY_D_R 100
-# define L_KEY_S_B 115
-# define L_KEY_W_U 119
+
+# define C_ORI_A_L 97
+# define C_ORI_D_R 100
+# define C_ORI_S_B 115
+# define C_ORI_W_U 119
+
+# define L_KEY_A_L 106
+# define L_KEY_D_R 108
+# define L_KEY_S_B 107
+# define L_KEY_W_U 105
 # define L_KEY_X_F 120
 # define L_KEY_Y_B 121
 # define C_KEY_UP 65362

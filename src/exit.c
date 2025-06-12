@@ -12,15 +12,6 @@
 
 #include "../include/minirt.h"
 
-void	free_imgs(void *shp)
-{
-	t_shapes	*shape;
-
-	shape = (t_shapes *)shp;
-	if (shape->img.mlx_ptr != NULL)
-		free(shape->img.ptr);
-}
-
 void	free_lines(char **lines)
 {
 	int	i;
@@ -47,6 +38,26 @@ void	free_data(t_data *data)
 		ft_lstclear(&data->shapes, &free);
 	if (data->scene)
 		free(data->scene);
-	close(data->scenefd);
+	if (data->scenefd != -1)
+	{
+		close(data->scenefd);
+		data->scenefd = -1;
+	}
 	free(data);
+}
+
+int	min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	else
+		return (b);
+}
+
+int	max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
 }

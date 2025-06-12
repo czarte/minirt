@@ -91,3 +91,12 @@ bool	validate_ambient(char **tokens, const int count)
 	}
 	return (true);
 }
+
+void	remove_comment(char *line)
+{
+	char	*hash;
+
+	hash = strchr(line, '#');
+	if (hash)
+		*hash = '\0';
+}
